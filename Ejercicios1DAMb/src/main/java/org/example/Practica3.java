@@ -41,11 +41,35 @@ public class Practica3
                     //Una vez pasados los filtros para asegurar que la altura tiene un formato válido y un valor dentro de lo especificado, solicito que de valor a la variable peso.
                     System.out.println("Leyendo pero (kg)...");
                     peso = key.nextInt();
+                    peso_min = (altura * 2) / 8;
 
-                    //Compruebo que el peso introducido sea mayor al mínimo solicitado por la práctica. Además, este filtro me sirve para eliminar los valores negativos
-                    if(peso < (altura * 2) / 2)
+                    //Comprobar que no se exceda el peso máxima permitido, que en este caso es 120kg.
+                    if(peso > 120)
                     {
-                        System.out.println("");
+                        System.out.println("LO SIENTO. Sobrepasas por "+ (peso - 120) +"kg el límite de la atracción.");
+                    }
+                    else
+                    {
+                        //Comprobar que el peso no pueda ser negativo. Si se detecta saltará el mensaje de error.
+                        if(peso < 0)
+                        {
+                            System.out.println("ERROR DE LECTURA. BAJA DE LA BÁSCULA Y VUELVE A SUBIR...");
+                        }
+                        else
+                        {
+                            //Compruebo que el peso introducido sea mayor al mínimo solicitado por la práctica.
+                            if (peso < peso_min)
+                            {
+                                System.out.println("Pesas " + peso + "kg. Peso mínimo calculado: " + peso_min + "kg.");
+                                System.out.println("LO SIENTO. No alcanzas el peso mímino de la atracción.");
+                            }
+                            else
+                            {
+                                //Finalmente, si los datos que han sido introducidos superan todos los filtros, los datos son correctos y se muestra este mensaje anunciando que se puede acceder a la atracción.
+                                System.out.println("Pesas " + peso + "kg. Peso mínimo calculado: " + peso_min + "kg.");
+                                System.out.println("¡¡SUBE A LA ATRACCIÓN!!");
+                            }
+                        }
                     }
                 }
             }
