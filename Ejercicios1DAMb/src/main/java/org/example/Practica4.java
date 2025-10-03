@@ -37,12 +37,16 @@ public class Practica4
                 fallo = true;
             }
             key.nextLine();
-            //La única condición que se ha de respetar (obviando el texto, de eso se encarga el try_catch) es que ambos números sean de 3 cifras.
-            //Si cualquiera de ambos números son menores de 100 ó mayores de 999, se considererá un error y tendrá que volver a introducir los datos.
-            if(n1 < 100 || n1 > 999 || n2 < 100 || n2 > 999)
+            //Patricia me ha dicho que dejar el if fuera del try_catch es lo más correcto. Para evitar que se muestren los dos mensajes de error al ser introducido un formato inválido, tengo que crear otro if por encima que mire si ha habido un error antes.
+            if(!fallo)  //Si fallo != true, los datos pasarán por este filtro.
             {
-                System.out.println("ERROR\nAmbos números han de contar con 3 cifras.\n");
-                fallo = true;
+                //La única condición que se ha de respetar (obviando el texto, de eso se encarga el try_catch) es que ambos números sean de 3 cifras.
+                //Si cualquiera de ambos números son menores de 100 ó mayores de 999, se considererá un error y tendrá que volver a introducir los datos.
+                if(n1 < 100 || n1 > 999 || n2 < 100 || n2 > 999)
+                {
+                    System.out.println("ERROR\nAmbos números han de contar con 3 cifras.\n");
+                    fallo = true;
+                }
             }
         }while(fallo);
         //Una vez se hayan validado los datos introducidos se comienza con las operaciones.
@@ -69,6 +73,6 @@ public class Practica4
         System.out.println("\t+ ___________");
 
         //Ahora toca mostrar la suma final, que la realizaré multiplicando n1 por n2
-        System.out.println("\t\t"+ (n1*n2));    //En este caso no me molesto por intentar alinearlo. Para ello necesitaría usar un .lenght para conocer el tamaño de antemano y utilizar un for para escribir los espacios.
+        System.out.println("\t\t  "+ (n1*n2));    //En este caso no me molesto por intentar alinearlo. Para ello necesitaría usar un .lenght para conocer el tamaño de antemano y utilizar un for para escribir los espacios.
     }
 }
