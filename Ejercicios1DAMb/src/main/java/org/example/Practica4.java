@@ -16,20 +16,19 @@ public class Practica4
         String producto; //n2 convertido a tipo string
         String cifraS;  //Cifra String
         int cifraI;     //Cifra Int. Podría haberse declarado junto con los otros enteros, pero como se usa para separar las ciras, aquí queda más ordenado
-        //Creo booleano para controlar la condición del bucle.
-        boolean fallo;
+        //Creo booleano para controlar la condición del bucle, y otros dos para comprobar si se ha introducido algún número negativo
+        boolean fallo, n1Neg = false, n2Neg = false;
 
         //Antes de hacer ningún cálculo, voy a pedir ambos números al usuario y los pasaré por filtros para cercionarme de que cumple los requisitos.
-        //Creo un bucle do_while para obligar al usuario a introducir valores válidos, si no no podrá continuar con el programa.
+        //Creo un bucle do_while para obligar al usuario a introducir valores válidos, si no no podrá continuar con el programa. Será un bucle para cada variable.
         do
         {
             try
             {
+                n1Neg = false;
                 fallo = false;
                 System.out.print("Introduzca el multiplicando (3 cifras): ");
                 n1 = key.nextInt();
-                System.out.print("Introduzca el multiplicador (3 cifras): ");
-                n2 = key.nextInt();
             }
             catch(Exception e)
             {
@@ -40,37 +39,137 @@ public class Practica4
             //Patricia me ha dicho que dejar el if fuera del try_catch es lo más correcto. Para evitar que se muestren los dos mensajes de error al ser introducido un formato inválido, tengo que crear otro if por encima que mire si ha habido un error antes.
             if(!fallo)  //Si fallo != true, los datos pasarán por este filtro.
             {
-                //La única condición que se ha de respetar (obviando el texto, de eso se encarga el try_catch) es que ambos números sean de 3 cifras.
-                //Si cualquiera de ambos números son menores de 100 ó mayores de 999, se considererá un error y tendrá que volver a introducir los datos.
-                if(n1 < 100 || n1 > 999 || n2 < 100 || n2 > 999)
+                if(n1 < 0) n1Neg = true;    //Compruebo si n1 es negativo, si lo es cambio el valor de n1Neg
+                //If para segregar el filtro de número de cifras de los números negativos de los positivos, ya que las condiciones son diferentes
+                if(!n1Neg)
                 {
-                    System.out.println("ERROR\nAmbos números han de contar con 3 cifras.\n");
-                    fallo = true;
+                    //La única condición que se ha de respetar (obviando el texto, de eso se encarga el try_catch) es que ambos números sean de 3 cifras.
+                    //Si el número es menor de 100 ó mayor de 999, se considerará un error y tendrá que volver a introducir los datos.
+                    if (n1 < 100 || n1 > 999) {
+                        System.out.println("ERROR\nEl número ha de contar con 3 cifras.\n");
+                        fallo = true;
+                    }
+                }
+                else
+                {
+                    if (n1 > -100 || n1 < -999)
+                    {
+                        System.out.println("ERROR\nEl número ha de contar con 3 cifras.\n");
+                        fallo = true;
+                    }
+                }
+            }
+        }while(fallo);
+
+        //Ahora filtramos el multiplicador
+        do
+        {
+            try
+            {
+                n2Neg = false;
+                fallo = false;
+                System.out.print("Introduzca el multiplicador (3 cifras): ");
+                n2 = key.nextInt();
+            }
+            catch(Exception e)
+            {
+                System.out.println("ERROR\nEl formato introducido es inválido.\n");
+                fallo = true;
+            }
+            key.nextLine();
+            if(!fallo)
+            {
+
+                if(n2 < 0) n2Neg = true;
+                if(!n2Neg)
+                {
+                    if (n2 < 100 || n2 > 999) {
+                        System.out.println("ERROR\nEl número ha de contar con 3 cifras.\n");
+                        fallo = true;
+                    }
+                }
+                else
+                {
+                    if (n2 > -100 || n2 < -999)
+                    {
+                        System.out.println("ERROR\nEl número ha de contar con 3 cifras.\n");
+                        fallo = true;
+                    }
                 }
             }
         }while(fallo);
         //Una vez se hayan validado los datos introducidos se comienza con las operaciones.
 
-        //Primero debemos convertir el multiplicador en un string para poder separar las cifras y operar con ellas individualmente.
-        producto = Integer.toString(n2);
-        cifraS = producto.substring(2); //Esta función me separará la cifra en la 3ra posición
-        cifraI = Integer.parseInt(cifraS);  //Aquí convierto la cifra separada de nuevo en un tipo int para operar con él.
+        //Primero toca ver si n2 es positivo ó negativo. Los cálculos para realizar el programa de forma correcta cambian dependiendo de su signo.
+        if(!n2Neg)  //Si es positivo
+        {
+            //Primero debemos convertir el multiplicador en un string para poder separar las cifras y operar con ellas individualmente.
+            producto = Integer.toString(n2);
+            cifraS = producto.substring(2); //Esta función me separará la cifra en la 3ra posición
+            cifraI = Integer.parseInt(cifraS);  //Aquí convierto la cifra separada de nuevo en un tipo int para operar con él.
 
-        //Para evitar declarar variables innecesarias, cifraI va a estar cambiando constantemente de valor y se irá imprimiendo por pantalla el resultado.
-        System.out.println("\t\t\t"+ n1);    //Haciendo pruebas con el \t he descubierto que un tabulador equivale a 4 espacios. Lo usaré para estructurar la operación.
-        System.out.println("\t\t\t"+ n2);
-        System.out.println("\t\tx _______");
-        System.out.println("\t\t\t"+ (n1*cifraI));  //Primera multiplicación. n1 * la cifra en la posición 2.
+            //Para evitar declarar variables innecesarias, cifraI va a estar cambiando constantemente de valor y se irá imprimiendo por pantalla el resultado.
+            System.out.println("\t\t\t" + n1);    //Haciendo pruebas con el \t he descubierto que un tabulador equivale a 4 espacios. Lo usaré para estructurar la operación.
+            System.out.println("\t\t\t" + n2);
+            System.out.println("\t\tx _______");
+            System.out.println("\t\t\t" + (n1 * cifraI));  //Primera multiplicación. n1 * la cifra en la posición 2.
 
-        //Ahora repito 2 veces la asignación de valores en cifraS y cifraI. Tras cada cambio de valor imprimo el resultado del cálculo por pantalla.
-        cifraS = producto.substring(1, 2);
-        cifraI = Integer.parseInt(cifraS);
-        System.out.println("\t\t   "+ (n1*cifraI));    //Para que se establezca en su posición correcta he añadido 2 tabuladores y 2 espacios
+            //Ahora repito 2 veces la asignación de valores en cifraS y cifraI. Tras cada cambio de valor imprimo el resultado del cálculo por pantalla.
+            cifraS = producto.substring(1, 2);
+            cifraI = Integer.parseInt(cifraS);
+            System.out.println("\t\t   " + (n1 * cifraI));    //Para que se establezca en su posición correcta he añadido 2 tabuladores y 2 espacios
 
-        cifraS = producto.substring(0, 1);
-        cifraI = Integer.parseInt(cifraS);
-        System.out.println("\t\t  "+ (n1*cifraI));  //Para que se establezca en su posición correcta he eliminado uno de los espacios que se necesitaban en el System.out.println() anterior
-        System.out.println("\t+ ___________");
+            cifraS = producto.substring(0, 1);
+            cifraI = Integer.parseInt(cifraS);
+            System.out.println("\t\t  " + (n1 * cifraI));  //Para que se establezca en su posición correcta he eliminado uno de los espacios que se necesitaban en el System.out.println() anterior
+            System.out.println("\t+ ___________");
+        }
+        else    //Si n2 es negativo
+        {
+            if(!n1Neg)  //Como n1 es positivo no es necesario cambiar el signo de cifraI. El resultado de las multiplicaciones mostrado será correcto.
+            {
+                producto = Integer.toString(n2);
+                cifraS = producto.substring(3);
+                cifraI = Integer.parseInt(cifraS);
+
+                System.out.println("\t\t\t" + n1);
+                System.out.println("\t\t\t" + n2);
+                System.out.println("\t\tx _______");
+                System.out.println("\t\t\t" + (n1 * cifraI));
+
+                cifraS = producto.substring(2, 3);  //Como la posición 0 de un número negativo es el signo, me toca sumar 1 a cada posición.
+                cifraI = Integer.parseInt(cifraS);
+                System.out.println("\t\t   " + (n1 * cifraI));
+
+                cifraS = producto.substring(1, 2);
+                cifraI = Integer.parseInt(cifraS);
+                System.out.println("\t\t  " + (n1 * cifraI));
+                System.out.println("\t+ ___________");
+            }
+            else
+            {
+                producto = Integer.toString(n2);
+                cifraS = producto.substring(3);
+                cifraI = Integer.parseInt(cifraS);
+
+                System.out.println("\t\t\t" + n1);
+                System.out.println("\t\t\t" + n2);
+                System.out.println("\t\tx _______");
+                cifraI *= -1;
+                System.out.println("\t\t\t" + (n1 * cifraI));
+
+                cifraS = producto.substring(2, 3);
+                cifraI = Integer.parseInt(cifraS);
+                cifraI *= -1;
+                System.out.println("\t\t   " + (n1 * cifraI));
+
+                cifraS = producto.substring(1, 2);
+                cifraI = Integer.parseInt(cifraS);
+                cifraI *= -1;
+                System.out.println("\t\t  " + (n1 * cifraI));
+                System.out.println("\t+ ___________");
+            }
+        }
 
         //Ahora toca mostrar la suma final, que la realizaré multiplicando n1 por n2
         System.out.println("\t\t  "+ (n1*n2));    //En este caso no me molesto por intentar alinearlo. Para ello necesitaría usar un .lenght para conocer el tamaño de antemano y utilizar un for para escribir los espacios.
