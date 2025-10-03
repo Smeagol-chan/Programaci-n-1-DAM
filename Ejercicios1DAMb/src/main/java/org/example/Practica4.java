@@ -133,7 +133,7 @@ public class Practica4
                 cifraI = Integer.parseInt(cifraS);
 
                 System.out.println("\t\t\t" + n1);
-                System.out.println("\t\t\t" + n2);
+                System.out.println("\t\t   " + n2);
                 System.out.println("\t\tx _______");
                 System.out.println("\t\t\t" + (n1 * cifraI));
 
@@ -146,7 +146,7 @@ public class Practica4
                 System.out.println("\t\t  " + (n1 * cifraI));
                 System.out.println("\t+ ___________");
             }
-            else
+            else    //Si n1 es negativo, el resultado de los productos, al ser ambos negativos, no se refleja correctamente en los cálculos para enseñar el proceso. Tengo que hacer que el signo cambie.
             {
                 producto = Integer.toString(n2);
                 cifraS = producto.substring(3);
@@ -155,7 +155,7 @@ public class Practica4
                 System.out.println("\t\t\t" + n1);
                 System.out.println("\t\t\t" + n2);
                 System.out.println("\t\tx _______");
-                cifraI *= -1;
+                cifraI *= -1;   //Multiplicando cifraI por -1 antes de ser empleada la cambia de signo a negativo, mostrando correctamente el resultado.
                 System.out.println("\t\t\t" + (n1 * cifraI));
 
                 cifraS = producto.substring(2, 3);
