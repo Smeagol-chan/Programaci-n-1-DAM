@@ -40,7 +40,7 @@ public class Practica4
             if(!fallo)  //Si fallo != true, los datos pasarán por este filtro.
             {
                 //If para segregar el filtro de número de cifras de los números negativos de los positivos, ya que las condiciones son diferentes
-                if(n1 < 0) //Compruebo si n1 es negativo
+                if(n1 > 0) //Si n1 es positivo
                 {
                     //La única condición que se ha de respetar (obviando el texto, de eso se encarga el try_catch) es que ambos números sean de 3 cifras.
                     //Si el número es menor de 100 ó mayor de 999, se considerará un error y tendrá que volver a introducir los datos.
@@ -49,7 +49,7 @@ public class Practica4
                         fallo = true;
                     }
                 }
-                else
+                else    //Si n1 es negativo
                 {
                     if (n1 > -100 || n1 < -999)
                     {
