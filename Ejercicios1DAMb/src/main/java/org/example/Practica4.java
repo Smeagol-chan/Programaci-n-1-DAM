@@ -44,7 +44,8 @@ public class Practica4
                 {
                     //La única condición que se ha de respetar (obviando el texto, de eso se encarga el try_catch) es que ambos números sean de 3 cifras.
                     //Si el número es menor de 100 ó mayor de 999, se considerará un error y tendrá que volver a introducir los datos.
-                    if (n1 < 100 || n1 > 999) {
+                    if (n1 < 100 || n1 > 999)
+                    {
                         System.out.println("ERROR\nEl número ha de contar con 3 cifras.\n");
                         fallo = true;
                     }
