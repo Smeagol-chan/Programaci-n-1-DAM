@@ -49,7 +49,7 @@ public class Practica1
                 if(sepUsado == SEPARADOR)
                 {
                     //Lo mismo para el separador situado entre el mes y el año.
-                    sepUsado = fecha.charAt(BARRA_1);
+                    sepUsado = fecha.charAt(BARRA_2);
                     if(sepUsado == SEPARADOR)
                     {
                         //Comprobado que se cumple la cantidad de carácteres y la posición de los separadores, se divide la fecha en sendos substrings para dia, mes y año.
@@ -87,14 +87,30 @@ public class Practica1
                                         if(mesI == 1 || mesI == 3 || mesI == 5 || mesI == 7 || mesI == 8 || mesI == 10 || mesI == 12)
                                         {
                                             //Si el número no supera ningún límite establecido por es mes en el que se encuentra, el booleano diaCorrecto pasará a ser verdadero.
-                                            if(diaI <= DIA_MAX_ALTO) diaCorrecto = true;
+                                            if(diaI <= DIA_MAX_ALTO)
+                                            {
+                                                diaCorrecto = true;
+                                            }
+                                            else
+                                            {
+                                                System.out.println("ERROR\nDía inválido. No puede ser superior a "+ DIA_MAX_ALTO +" en enero, marzo, mayo, julio, agosto, octubre y diciembre.");
+                                                fallo = true;
+                                            }
                                         }
                                         else
                                         {
                                             //Comprobar si el número del dia es menor-igual a 30 en los meses de DIA_MAX_BAJO (abril == 4, junio == 6, septiempbre == 9 y noviembre == 11)
                                             if(mesI == 4 || mesI == 6 || mesI == 9 || mesI == 11)
                                             {
-                                                if(diaI <= DIA_MAX_BAJO) diaCorrecto = true;
+                                                if(diaI <= DIA_MAX_BAJO)
+                                                {
+                                                    diaCorrecto = true;
+                                                }
+                                                else
+                                                {
+                                                    System.out.println("ERROR\nDía inválido. No puede ser superior a "+ DIA_MAX_BAJO +" en abril, junio, septiembre y noviembre.");
+                                                    fallo = true;
+                                                }
                                             }
                                             else
                                             {
@@ -109,7 +125,7 @@ public class Practica1
                                                     }
                                                     else
                                                     {
-                                                        System.out.println("ERROR\nDía inválido. No puede ser superior a "+ DIA_MAX_ALTO +" en enero, marzo, mayo, julio, agosto, octubre y diciembre; a "+ DIA_MAX_BAJO +" en abril, junio, septiembre y noviembre, y a "+ (DIA_MAX_FEB + 1) +" en febrero, ya que es año bisiesto.");
+                                                        System.out.println("ERROR\nDía inválido. No puede ser superior a "+ (DIA_MAX_FEB + 1) +" en febrero, ya que es año bisiesto.");
                                                         fallo = true;
                                                     }
                                                 }
@@ -122,7 +138,7 @@ public class Practica1
                                                     }
                                                     else
                                                     {
-                                                        System.out.println("ERROR\nDía inválido. No puede ser superior a "+ DIA_MAX_ALTO +" en enero, marzo, mayo, julio, agosto, octubre y diciembre; a "+ DIA_MAX_BAJO +" en abril, junio, septiembre y noviembre, y a "+ DIA_MAX_FEB +" en febrero.");
+                                                        System.out.println("ERROR\nDía inválido. No puede ser superior a "+ DIA_MAX_FEB +" en febrero.");
                                                         fallo = true;
                                                     }
                                                 }
