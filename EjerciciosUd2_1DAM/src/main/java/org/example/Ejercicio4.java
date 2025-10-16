@@ -1,5 +1,6 @@
 package org.example;
 
+//Este lo hizo un compañero. Bastante fresco.
 public class Ejercicio4
 {
     static void main()
