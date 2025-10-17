@@ -7,8 +7,9 @@ public class Ejercicio5
     {
         Scanner key = new Scanner(System.in);
         String frase, palabra;
-        byte cont = 10, posicion = -1;
-        boolean acierto = false;
+        final byte MIN = 2;
+        byte cont = 10;
+        boolean acierto = false, fallo;
 
         System.out.print("TURNO DEL JUGADOR 1\nIntroduce tu frase secreta: ");
         frase = key.nextLine();
@@ -17,7 +18,26 @@ public class Ejercicio5
         do
         {
             System.out.print("Quedan "+ cont +" intentos.\nEscribe la palabra que creas que aparece en la frase: ");
-            palabra = key.nextLine();
+            do  //Intentar comprobar que solo sea una palabra. Ni una frase ni una letra.
+            {
+                fallo = false;
+                palabra = key.nextLine();
+                if(palabra.length() < 2)
+                {
+                    System.out.println("ERROR\nUna palabra contiene como mínimo "+ MIN +" letras.\n\nEscribe la palabra que creas que aparece en la frase: ");
+                    fallo = true;
+                }
+                else
+                {
+                    if(palabra.contains(" "))
+                    {
+                        System.out.println("ERROR\nNo se pueden introducir más de 1 palabra" +
+                                ".\n\nEscribe la palabra que creas que aparece en la frase: ");
+                        fallo = true;
+                    }
+                }
+            }while (fallo);
+
             palabra = palabra.toLowerCase();
             frase = frase.toLowerCase();
 
