@@ -108,19 +108,36 @@ public class ActividadExcepcionesSwitch
             }
             else
             {
-
+                if(modo <= 1964)
+                {
+                    System.out.println("Pertenece al Baby Boom.");
+                }
+                else
+                {
+                    if(modo <= 1981)
+                    {
+                        System.out.println("Pertenece a la generación X.");
+                    }
+                    else
+                    {
+                        if(modo <= 1994)
+                        {
+                            System.out.println("Pertenece a la generación Milennial.");
+                        }
+                        else
+                        {
+                            if(modo <= 2009)
+                            {
+                                System.out.println("Pertenece a la generación Z.");
+                            }
+                            else
+                            {
+                                System.out.println("Pertenece a la generación Alpha.");
+                            }
+                        }
+                    }
+                }
             }
         }
-
-        if(modo <= 1964)
-            System.out.println("Pertenece al Baby Boom.");
-        if(modo <= 1981)
-            System.out.println("Pertenece a la generación X.");
-        if(modo <= 1994)
-            System.out.println("Pertenece a la generación Milennial.");
-        if(modo <= 2009)
-            System.out.println("Pertenece a la generación Z.");
-        if(modo <= hoy.getYear())
-            System.out.println("Pertenece a la generación Alpha.");
     }
 }
