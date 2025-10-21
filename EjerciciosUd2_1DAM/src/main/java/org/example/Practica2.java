@@ -11,7 +11,7 @@ public class Practica2
         Scanner key = new Scanner(System.in);
         String opAux;   //convertir lo que el operador a tipo char con un .chatAt (no lo sé ahcer de ora manera. Lo he intendado.)
         char operador;    //Variable para que el usuario seleccione la operación.
-        double num1, num2;  //Variables para guardar los números con los que el usuario quiere operar.
+        double num1, num2, resultado;  //Variables para guardar los números con los que el usuario quiere operar.
         boolean fallo;  //Control del do_while
 
         System.out.println("**** BIENVENIDO A LA CALCULADORA RÁPIDA ****\n");
@@ -80,9 +80,81 @@ public class Practica2
             }
             else    //Compruebo si num1 es negativo. Este punto solo se accede si se ha escogido R ó una opción inválida.
             {
-                if(operador == 'r' && num1 < 0)
+                if(operador == 'r' && num1 < 0) //Si el operador es correcto pero el num1 < 0. No se pede calcular, por lo que fallo = true, reiniciará el programa y saltará el switch.
                 {
                     System.out.println("ERROR\nNo se puede calcular raices de números negativos.");
+                    fallo = true;
+                }
+            }
+
+            //Si no ha habido fallo durante la ejecución, se puede acceder al switch que contiene las operaciones.
+            if(!fallo)
+            {
+                switch (operador)   //Para suma, resta y producto tienen la misma estructura. División es igual pero con una condición añadida. La raíz sí que cuenta con una estructura única.
+                {
+                    case '+':
+                        try
+                        {
+                            resultado = num1 + num2;
+                            System.out.println(num1 +" + "+ num2 +" = "+ resultado);
+                        }
+                        catch(Exception e)
+                        {
+                            System.out.println("ERROR\nStackOverflow: "+ e.getMessage());
+                        }
+                        break;
+
+                    case '-':
+                        try
+                        {
+                            resultado = num1 - num2;
+                            System.out.println(num1 +" - "+ num2 +" = "+ resultado);
+                        }
+                        catch(Exception e)
+                        {
+                            System.out.println("ERROR\nStackOverflow: "+ e.getMessage());
+                        }
+                        break;
+
+                    case '*':
+                        try
+                        {
+                            resultado = num1 * num2;
+                            System.out.println(num1 +" * "+ num2 +" = "+ resultado);
+                        }
+                        catch(Exception e)
+                        {
+                            System.out.println("ERROR\nStackOverflow: "+ e.getMessage());
+                        }
+                        break;
+
+                    case '/':   //La división entre 0 no es posible. Si el usuario introdujo 0 en num2, voy a evitar que proceda el código con un if
+                        if(num2 == 0)
+                        {
+                            System.out.println("ERROR\nEl divisor no puede ser 0.\n");
+                            fallo = true;
+                        }
+                        else
+                        {
+                            try
+                            {
+                                resultado = num1 / num2;
+                                System.out.println(num1 +" / "+ num2 +" = "+ resultado);
+                            }
+                            catch(Exception e)
+                            {
+                                System.out.println("ERROR\nStackOverflow: "+ e.getMessage());
+                            }
+                        }
+                        break;
+
+                    case 'r':
+                        break;
+
+                    default:
+                        System.out.println("ERROR\nOpción inválida. Solo se puede ingresar +, -, *, / ó R.\n");
+                        fallo = true;
+                        break;
                 }
             }
         }while(fallo);
