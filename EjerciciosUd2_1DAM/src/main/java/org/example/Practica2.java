@@ -10,11 +10,11 @@ public class Practica2
     {
         Scanner key = new Scanner(System.in);
         String opAux;   //convertir lo que el operador a tipo char con un .chatAt (no lo sé ahcer de ora manera. Lo he intendado.)
-        char operador;    //Variable para que el usuario seleccione la operación.
+        char operador = 'e';    //Variable para que el usuario seleccione la operación. Se inicializa porque si salta un error en su apartado para darle valor, el programa continúa con la variables vacía.
         double num1, num2, resultado;  //Variables para guardar los números con los que el usuario quiere operar.
-        boolean fallo;  //Control del do_while
+        boolean fallo, vuelta;  //Control del do_while y el último do_while para reiniciar el programa si el usuario quiere.
 
-        System.out.println("**** BIENVENIDO A LA CALCULADORA RÁPIDA ****\n");
+        System.out.println("\n\t**** BIENVENIDO A LA CALCULADORA RÁPIDA ****\n");
         //Bucle que reinicia el programa. Sirve para poder introducir varias operaciones seguidas como para volver a solicitar num1 si es negativo y se quiere calcular su raíz cuadrada.
         do
         {
@@ -45,21 +45,23 @@ public class Practica2
             System.out.println(" [R] -> raíz cuadrada");
             System.out.println("------------------------------------");
 
-            //Solicito el símbolo que selecciona el cálculo. Si contiene más de 1 carácter, a la variable encargada de la selección la igualo a una opción errónea para que caiga en el default del switch.
-            //Si introduce un único carácter, pero incorrecto, también será filtrado por el switch.
+            //Solicito el símbolo que selecciona el cálculo. Si contiene más de 1 carácter muestro un mensaje de error y genero un fallo
             System.out.print("> Introduce operación: ");
             opAux = key.nextLine();
-            if(opAux.length() == 1)
+            if(opAux.length() == 1) //No compruebo si el operador guarda un dato que cumple con el tamaño exijido, pero un carácter que no se encuentra entre las opciones. De eso se encargará el default del switch.
             {
                 opAux = opAux.toLowerCase();
                 operador = opAux.charAt(0);
             }
             else
             {
-                operador = 'e';
+                System.out.println("ERROR\nNo más de 1 carácter. Solo se puede ingresar +, -, *, / ó R.\n");
+                fallo = true;
             }
 
             //Si se quiere realizar una raíz cuadrada, no hay que pedir un segundo número.
+            //Si el carácter cumple con el tamaño pero no con el símbolo, no evito que pueda introducir num2. La mejor forma sería con una función específica. La... DEBO CREAR UN SEGUNDO SWITCH QUE ME FILTRE LOS DATOS?????
+            //Evitar que se pueda introducir num2 es redundante. Si lo filtro, no necesitaría el switch, por lo que símplemente permitiendo el paso, el código funciona igual de bien y queda más limpio.
             if(operador != 'r')
             {
                 do
@@ -80,9 +82,9 @@ public class Practica2
             }
             else    //Compruebo si num1 es negativo. Este punto solo se accede si se ha escogido R ó una opción inválida.
             {
-                if(operador == 'r' && num1 < 0) //Si el operador es correcto pero el num1 < 0. No se pede calcular, por lo que fallo = true, reiniciará el programa y saltará el switch.
+                if(operador == 'r' && num1 < 0)
                 {
-                    System.out.println("ERROR\nNo se puede calcular raices de números negativos.");
+                    System.out.println("ERROR\nNo se puede calcular raices de números negativos.\n");
                     fallo = true;
                 }
             }
@@ -149,7 +151,13 @@ public class Practica2
                         break;
 
                     case 'r':
-
+                        //solo encuentro cómo hacerlo con sqrt.Math()
+                        /*
+                        La otra manera sería con recursividad y dos bucles while, uno dentro del otro. La idea sería ver cuál sería el último número natural que, multiplicado por si mismo, no sobrepasa el número dado.
+                        En el momento de que sea igual, se sale del bucle y se escriben los dígitos (o se guardan en un array en orden inverso, obviamente). Si lo supera, se envía, en una llamada recursiva, la resta
+                        de num1 - (contador - 1). Se multiplica por una potencia de 10 en función de la cantidad de fases recursivas que ha tenido y se vuelve a empezar. En mi cabeza tiene sentido, pero... joder, es
+                        más duro que cagar ladrillos en horizontal.
+                         */
                         break;
 
                     default:
@@ -158,6 +166,41 @@ public class Practica2
                         break;
                 }
             }
+
+            if(!fallo)  //Necesito evitar que se ejecute esta condición si ya se ha producido un fallo. Esta orden es únicamente para reiniciar el programa si el usuario desea realizar otro cálculo.
+            {
+                do  //Para este caso, vuelta se convierte en la variable que controla la salida del bucle y fallo cambiará a true si el usuario quiere reiniciar. opAux filtrará guardará la elección del usuario.
+                {
+                    vuelta = false;
+                    System.out.print("\n¿Desea reiniciar el programa? (si/no): ");
+                    opAux = key.nextLine();
+
+                    //antes de comprobar si ha escrito o si o no, voy a mirar si contiene 2 carácteres, más o menos de eso no está permitido.
+                    if(opAux.length() != 2)
+                    {
+                        System.out.println("ERROR\nFormato incorrecto. El texto ha de contar con 2 carácteres, usted ha introducido "+ opAux.length() +".");
+                        vuelta = true;
+                    }
+                    else
+                    {
+                        if (opAux.toLowerCase().contains("si"))
+                        {
+                            System.out.println();   //Salto de línea  para que no se junte el texto impreso en esta sección con la solicitud de un nnuevo operando.
+                            fallo = true;
+                        }
+                        else    //Si la respuesta es no, no hay que hacer nada.
+                        {
+                            if (!opAux.toLowerCase().contains("no")) //Y como no hay instrucciones exclusivas para opAux == "no", esta condición filtra todo lo que no sea o si o no.
+                            {
+                                System.out.println("ERROR\nEl texto introducido no está permitido. Introduzca ó si ó no.\n");
+                                vuelta = true;
+                            }
+                        }
+                    }
+                }while(vuelta);
+            }
         }while(fallo);
+
+        System.out.println("\n\t**** FIN DE EJECUCIÓN ****");
     }
 }
