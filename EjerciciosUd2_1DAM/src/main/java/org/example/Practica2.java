@@ -149,6 +149,7 @@ public class Practica2
                         break;
 
                     case 'r':
+
                         break;
 
                     default:
