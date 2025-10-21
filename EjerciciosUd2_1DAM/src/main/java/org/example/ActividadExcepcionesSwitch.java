@@ -8,93 +8,90 @@ public class ActividadExcepcionesSwitch
     {
         Scanner key = new Scanner(System.in);
         LocalDateTime hoy = LocalDateTime.now();
+        final int ANNO_MIN = 1900, ANNO_MAX = hoy.getYear();
         String annoNacimiento;
         int modo = 0;
-        boolean fallo;
+        boolean falloCase, falloGeneral;
 
         System.out.println("¡Descubre cuál es su generación!");
         do
         {
             System.out.print("Seleccione una opción:\n\t1. Introduciendo el año de nacimiento\n\t2. Introduciendo la edad\n\nOpción: ");
-            fallo = false;
-            if(key.hasNextInt())
+            falloGeneral = false;
+            if(!key.hasNextInt())
             {
-                modo = key.nextInt();
-                if(modo < 1 || modo > 2)
-                {
-                    System.out.println("ERROR\nValor fuera del rango (1,2).\n");
-                    fallo = true;
-                }
+                System.out.println("ERROR\nCarácter inválido.\n");
+                falloGeneral = true;
             }
             else
             {
-                System.out.println("ERROR\nCarácter inválido.\n");
-                fallo = true;
+                modo = key.nextInt();
+                key.nextLine();
+
+                switch (modo)
+                {
+                    case 1:
+                        do
+                        {
+                            falloCase = false;
+                            System.out.print("Introduzca su año de nacimiento: ");
+                            annoNacimiento = key.next();
+                            try
+                            {
+                                modo = Integer.parseInt(annoNacimiento);
+                            }
+                            catch (Exception e)
+                            {
+                                System.out.println("ERROR\nExcepción producida por introducir un carácter: " + e.getMessage() + "\n");
+                                falloCase = true;
+                            }
+                            key.nextLine();
+                            if (!falloCase)
+                            {
+                                if (modo < ANNO_MIN || modo > ANNO_MAX)
+                                {
+                                    System.out.println("ERROR\nAño de nacimiento fuera del rango (" + ANNO_MIN + ", " + ANNO_MAX + ")\n");
+                                    falloCase = true;
+                                }
+                            }
+                        } while (falloCase);
+                        break;
+
+                    case 2:
+                        do
+                        {
+                            falloCase = false;
+                            System.out.print("Introduzca su edad: ");
+                            if (key.hasNextInt())
+                            {
+                                modo = key.nextInt();
+                            }
+                            else
+                            {
+                                System.out.println("ERROR\nCarácter inválido.\n");
+                                falloCase = true;
+                            }
+                            key.nextLine();
+
+                            if (!falloCase)
+                            {
+                                modo = ANNO_MAX - modo;
+                                if (modo < ANNO_MIN || modo > ANNO_MAX)
+                                {
+                                    System.out.println("ERROR\nAño de nacimiento fuera del rango (0, " + (ANNO_MAX - ANNO_MIN) + ")\n");
+                                    falloCase = true;
+                                }
+                            }
+                        } while (falloCase);
+                        break;
+
+                    default:
+                        System.out.println("ERROR\nValor fuera del rango (1,2).\n");
+                        falloGeneral = true;
+                        break;
+                }
             }
-            key.nextLine();
-        }while(fallo);
-
-        switch (modo)
-        {
-            case 1:
-                do
-                {
-                    fallo = false;
-                    System.out.print("Introduzca su año de nacimiento: ");
-                    annoNacimiento = key.next();
-                    try
-                    {
-                        modo = Integer.parseInt(annoNacimiento);
-                    }
-                    catch(Exception e)
-                    {
-                        System.out.println("ERROR\nExcepción producida por introducir un carácter: "+ e.getMessage() +"\n");
-                        fallo = true;
-                    }
-                    key.nextLine();
-                    if(!fallo)
-                    {
-                        if(modo < 1900 || modo > hoy.getYear())
-                        {
-                            System.out.println("ERROR\nAño de nacimiento fuera del rango (1900, "+ hoy.getYear() +")\n");
-                            fallo = true;
-                        }
-                    }
-                }while(fallo);
-                break;
-
-            case 2:
-                do
-                {
-                    fallo = false;
-                    System.out.print("Introduzca su edad: ");
-                    if(key.hasNextInt())
-                    {
-                        modo = key.nextInt();
-                    }
-                    else
-                    {
-                        System.out.println("ERROR\nCarácter inválido.\n");
-                        fallo = true;
-                    }
-                    key.nextLine();
-
-                    if(!fallo)
-                    {
-                        modo = hoy.getYear() - modo;
-                        if(modo < 1900 || modo > hoy.getYear())
-                        {
-                            System.out.println("ERROR\nAño de nacimiento fuera del rango (1900, "+ hoy.getYear() +")\n");
-                            fallo = true;
-                        }
-                    }
-                }while(fallo);
-                break;
-
-            default:
-                System.out.println("ESTÁS EN EL DEFAULT");
-                break;
-        }
+        }while(falloGeneral);
 
         if(modo <= 1927)
         {
