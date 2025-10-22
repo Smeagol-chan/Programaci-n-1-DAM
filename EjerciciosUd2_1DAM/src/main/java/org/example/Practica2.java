@@ -60,8 +60,7 @@ public class Practica2
             }
 
             //Si se quiere realizar una raíz cuadrada, no hay que pedir un segundo número.
-            //Si el carácter cumple con el tamaño pero no con el símbolo, no evito que pueda introducir num2. La mejor forma sería con una función específica. La... DEBO CREAR UN SEGUNDO SWITCH QUE ME FILTRE LOS DATOS?????
-            //Evitar que se pueda introducir num2 es redundante. Si lo filtro, no necesitaría el switch, por lo que símplemente permitiendo el paso, el código funciona igual de bien y queda más limpio.
+            //Si el carácter cumple con el tamaño pero no con el símbolo, no evito que pueda introducir num2. Evitar que se pueda introducir num2 es redundante. Si lo filtro, no necesitaría el switch, por lo que símplemente permitiendo el paso, el código funciona igual de bien y queda más limpio.
             if(operador != 'r')
             {
                 do
@@ -150,14 +149,9 @@ public class Practica2
                         }
                         break;
 
-                    case 'r':
-                        //solo encuentro cómo hacerlo con sqrt.Math()
-                        /*
-                        La otra manera sería con recursividad y dos bucles while, uno dentro del otro. La idea sería ver cuál sería el último número natural que, multiplicado por si mismo, no sobrepasa el número dado.
-                        En el momento de que sea igual, se sale del bucle y se escriben los dígitos (o se guardan en un array en orden inverso, obviamente). Si lo supera, se envía, en una llamada recursiva, la resta
-                        de num1 - (contador - 1). Se multiplica por una potencia de 10 en función de la cantidad de fases recursivas que ha tenido y se vuelve a empezar. En mi cabeza tiene sentido, pero... joder, es
-                        más duro que cagar ladrillos en horizontal.
-                         */
+                    case 'r':   //Para calcular la raíz cuadrada hay que usar el método Math.sqrt().
+                        resultado = Math.sqrt(num1);
+                        System.out.println("La raíz cuadrada de "+ num1 +" es "+ resultado +".");
                         break;
 
                     default:
