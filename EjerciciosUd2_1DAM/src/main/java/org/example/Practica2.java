@@ -10,7 +10,7 @@ public class Practica2
     {
         Scanner key = new Scanner(System.in);
         String opAux;   //convertir lo que el operador a tipo char con un .chatAt (no lo sé ahcer de ora manera. Lo he intendado.)
-        char operador = 'e';    //Variable para que el usuario seleccione la operación. Se inicializa porque si salta un error en su apartado para darle valor, el programa continúa con la variables vacía.
+        char operador;    //Variable para que el usuario seleccione la operación. Se inicializa al inicio del bucle porque si salta un error en su apartado para darle valor, el programa continúa con la variables vacía.
         double num1, num2, resultado;  //Variables para guardar los números con los que el usuario quiere operar.
         boolean fallo, vuelta;  //Control del do_while y el último do_while para reiniciar el programa si el usuario quiere.
 
@@ -19,8 +19,10 @@ public class Practica2
         do
         {
             //Los inicializo para evitar errores.
+            //La inicialización de operador la he añadido mientras escribía la memória, por eso puede que a partir de la segunda captura del código el númeor de líneas no cuadre.
             num1 = 0;
             num2 = 0;
+            operador = 'e';
             do  //bucle filtro de num1
             {
                 fallo = false;
@@ -55,13 +57,13 @@ public class Practica2
             }
             else
             {
-                System.out.println("ERROR\nNo más de 1 carácter. Solo se puede ingresar +, -, *, / ó R.\n");
+                System.out.println("ERROR\nNo más de 1 carácter. Solo se puede ingresar +, -, x, / ó R.\n");
                 fallo = true;
             }
 
             //Si se quiere realizar una raíz cuadrada, no hay que pedir un segundo número.
             //Si el carácter cumple con el tamaño pero no con el símbolo, no evito que pueda introducir num2. Evitar que se pueda introducir num2 es redundante. Si lo filtro, no necesitaría el switch, por lo que símplemente permitiendo el paso, el código funciona igual de bien y queda más limpio.
-            if(operador != 'r')
+            if(operador != 'r' && !fallo)   //!fallo se ha añadido durante la memoria. Si no está se ejecuta este partado incluso con un signo de operación erróneo.
             {
                 do
                 {
@@ -106,22 +108,15 @@ public class Practica2
                         break;
 
                     case '-':
-                        try
-                        {
-                            resultado = num1 - num2;
-                            System.out.println(num1 +" - "+ num2 +" = "+ resultado);
-                        }
-                        catch(Exception e)
-                        {
-                            System.out.println("ERROR\nStackOverflow: "+ e.getMessage());
-                        }
+                        resultado = num1 - num2;
+                        System.out.println(num1 +" - "+ num2 +" = "+ resultado);
                         break;
 
-                    case '*':
+                    case 'x':   //Soy bobo y hasta que no he llegado a la tabla de errores de la memória no me había fijado que no había usado la x, sino el *. La costumbre -_-
                         try
                         {
                             resultado = num1 * num2;
-                            System.out.println(num1 +" * "+ num2 +" = "+ resultado);
+                            System.out.println(num1 +" x "+ num2 +" = "+ resultado);
                         }
                         catch(Exception e)
                         {
@@ -137,15 +132,8 @@ public class Practica2
                         }
                         else
                         {
-                            try
-                            {
-                                resultado = num1 / num2;
-                                System.out.println(num1 +" / "+ num2 +" = "+ resultado);
-                            }
-                            catch(Exception e)
-                            {
-                                System.out.println("ERROR\nStackOverflow: "+ e.getMessage());
-                            }
+                            resultado = num1 / num2;
+                            System.out.println(num1 +" / "+ num2 +" = "+ resultado);
                         }
                         break;
 
