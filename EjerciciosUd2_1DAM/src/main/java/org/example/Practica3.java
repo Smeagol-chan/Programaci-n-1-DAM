@@ -15,14 +15,14 @@ public class Practica3
         boolean fallo, vuelta = false;  //Controlar los bucles y reiniciar el programa.
 
         //do_while para poder reiniciar el programa si se desea
+        System.out.println("\n\t**** VALIDADOR Y REPARADOR DE CÓDIGOS ISBN ****");
         do
         {
-            System.out.println("\n\t**** VALIDADOR Y REPARADOR DE CÓDIGOS ISBN ****\n");
             //Pedir al usuario seleccionar una de las dos opciones que tiene el programa, solicitándolo de nuevo si no es válido.
             do
             {
                 fallo = false;
-                System.out.print("---------------------------\nSeleccione una opción:\n1. Validar\n2. Reparar\n\n> ");
+                System.out.print("\n---------------------------\nSeleccione una opción:\n1. Validar\n2. Reparar\n\n> ");
                 if(key.hasNextInt())
                 {
                     num = key.nextInt();
@@ -105,14 +105,14 @@ public class Practica3
                         //un bucle for que multiplica las cifras por sus posiciones a la inversa +1. Si hay X se cambia por 10. Si el resultado es múltiplo de 11, se considera un ISBN válido.
                         for(int i = DIGITOS; i > 0; i--)
                         {
-                            aux = i == 1 ? isbn.contains("X") ? 10 : Integer.parseInt(String.valueOf(isbn.charAt(i-1))) : Integer.parseInt(String.valueOf(isbn.charAt(i-1)));
+                            aux = i == 1 && isbn.contains("X") ? 10 : Integer.parseInt(String.valueOf(isbn.charAt(DIGITOS-i)));
                             num += i * aux;
                         }
-                        System.out.println("El ISBN es "+ (num%11 == 0 ? "válido.\n": "inválido.\n"));
+                        System.out.println("\nEl ISBN es "+ (num%11 == 0 ? "válido.": "inválido."));
                     }
                     break;
 
-                case 2: //Primero hay que comprobar que tenga como mínimo un ?.
+                case 2: //Primero hay que comprobar que tenga un ?.
                     if(contadorInterrogante != 1)
                     {
                         System.out.println("ERROR\nDebe haber 1 número perdido para poder repararlo.\n");
@@ -125,58 +125,76 @@ public class Practica3
                         contadorInterrogante = isbn.indexOf("?");
                         for(int i = DIGITOS; i > 0; i--)
                         {
-                            if(isbn.charAt(contadorInterrogante) != '?')
+                            if(isbn.charAt(DIGITOS-i) != '?')   //Se compueba que no haya ? en la posición que se está calculando. Si es así, se salta y el bucle continúa.
                             {
-                                aux = i == 1 ? isbn.contains("X") ? 10 : Integer.parseInt(String.valueOf(isbn.charAt(i-1))) : Integer.parseInt(String.valueOf(isbn.charAt(i-1)));
+                                aux = i == 1 && isbn.contains("X") ? 10 : Integer.parseInt(String.valueOf(isbn.charAt(DIGITOS-i)));
                                 num += i * aux;
                             }
                         }
                         //Una vez teniendo todo calculado menos la cifra que no tenemos, nos metemos en un bucle while hasta encontrar el número que falta. While porque, si resulta que el que falta es 0, no hace falta entrar el bucle.
                         aux = 0;
-                        while(((aux * (10 - contadorInterrogante)) + num)%11 != 0) aux++;   //10 - índice es importante, la posición es unversa al número por el que se multiplica. Luego multiplica a aux, suma y comprueba el resto en ese órden.
-
-                        System.out.println("El dígito que falta es "+ (contadorInterrogante == 9 ? aux == 10 ? "X" : aux : aux) +"\n");
+                        if(contadorInterrogante == 9)   //Importante este if, porque la posición 9 puede tener de valor 10, pero el máximo que puede valer cualquiero otra posición es 9.
+                        {
+                            while(((((DIGITOS-contadorInterrogante)*aux)+num)%11) != 0 && !fallo)
+                            {
+                                aux++;
+                                if(aux > 10) fallo = true;
+                            }
+                        }
+                        else
+                        {
+                            while(((((DIGITOS-contadorInterrogante)*aux)+num)%11) != 0 && !fallo)
+                            {
+                                aux++;
+                                if(aux > 9) fallo = true;
+                            }
+                        }
+                        if(!fallo)
+                        {
+                            System.out.println("\nEl dígito que falta es "+ (aux == 10 ? "X" : aux) +".\n");    //No hace falta especificar que X esté en la última posición, yq lo hemos comprobado en la solicitud del isbn ý en el if anterior.
+                        }
+                        else    //Por da el caso de que no se encuentra ningún número que dé como resultado un múltiplo de 11, salta esta condición.
+                        {
+                            System.out.println("\nNo se ha hayado ningún número que pueda validar este código.\n");
+                        }
                     }
                     break;
 
                 default:
+                    //No ponga nada en el default excepto un printf para avisarme si he caido dentro. Si estoy aquí es que algo ha ido mal en el switch.
                     System.out.println("\n\t¡¡¡¡¡¡¡¡ESTÁS EN EL DEFAULT!!!!!!!!!!\n");
                     break;
             }
-
-            //bucle de regreso
-            if(!fallo)
+            //bucle de regreso. Es el mismo que en la práctica anterior. A no ser que se especifique lo contrario, todos mis programas lo vana  tener. Más cómodo buscar errores.
+            do
             {
-                do
+                fallo = false;
+                System.out.print("\n¿Desea reiniciar el programa? (si/no): ");
+                isbn = key.nextLine();
+                if(isbn.length() != 2)
                 {
-                    fallo = false;
-                    System.out.print("\n¿Desea reiniciar el programa? (si/no): ");
-                    isbn = key.nextLine();
-                    if(isbn.length() != 2)
-                    {
-                        System.out.println("ERROR\nFormato incorrecto. El texto ha de contar con 2 carácteres, usted ha introducido "+ isbn.length() +".");
-                        fallo = true;
-                    }
-                    else if (isbn.toLowerCase().contains("si"))
-                    {
-                            System.out.println();
-                            vuelta = true;
-                    }
-                    else if (!isbn.toLowerCase().contains("no"))
-                    {
-                        System.out.println("ERROR\nEl texto introducido no está permitido. Introduzca ó si ó no.\n");
-                        fallo = true;
-                    }
-                    else vuelta = false;
+                    System.out.println("ERROR\nFormato incorrecto. El texto ha de contar con 2 carácteres, usted ha introducido "+ isbn.length() +".");
+                    fallo = true;
+                }
+                else if (isbn.toLowerCase().contains("si"))
+                {
+                    System.out.println();
+                    vuelta = true;
+                }
+                else if (!isbn.toLowerCase().contains("no"))
+                {
+                    System.out.println("ERROR\nEl texto introducido no está permitido. Introduzca ó si ó no.\n");
+                    fallo = true;
+                }
+                else vuelta = false;
 
-                }while(fallo);
-            }
+            }while(fallo);
         }while(vuelta);
         System.out.println("\n\t**** FIN DE EJECUCIÓN ****");
     }
 }
 
-/*
+/*1234587890
                             contadorX = contadorInterrogante = 0;
                             (...)
                             contadorInterrogante += i != 9 ? isbn.substring(i, i+1).contains(String.valueOf(j)) ? 0 : isbn.substring(i, i+1).contains("?") ? 1 : -100 : //Si i!=9 == true
