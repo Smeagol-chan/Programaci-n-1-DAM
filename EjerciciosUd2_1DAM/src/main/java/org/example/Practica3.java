@@ -66,7 +66,7 @@ public class Practica3
                         catch (NumberFormatException e)
                         {
                             //Si no es un ? ó se trata de una X fuera de la última posición, fuerzo a contadorInterrogantes a ser negativa.
-                            contadorInterrogante += isbn.charAt(i) == '?' ? 1 : isbn.charAt(i) == 'X' ? i == 9 ? 0 : -100 : -100;
+                            contadorInterrogante += isbn.charAt(i) == '?' ? 1 : isbn.charAt(i) == 'X' ? i == (DIGITOS-1) ? 0 : -100 : -100;
                         }
                     }
                 }
@@ -96,7 +96,6 @@ public class Practica3
                     if(contadorInterrogante != 0)
                     {
                         System.out.println("ERROR\nNo se puede validar un código incompleto.\n");
-                        fallo = true;
                     }
                     else
                     {
@@ -116,7 +115,6 @@ public class Practica3
                     if(contadorInterrogante != 1)
                     {
                         System.out.println("ERROR\nDebe haber 1 número perdido para poder repararlo.\n");
-                        fallo = true;
                     }
                     else
                     {
@@ -133,7 +131,7 @@ public class Practica3
                         }
                         //Una vez teniendo todo calculado menos la cifra que no tenemos, nos metemos en un bucle while hasta encontrar el número que falta. While porque, si resulta que el que falta es 0, no hace falta entrar el bucle.
                         aux = 0;
-                        if(contadorInterrogante == 9)   //Importante este if, porque la posición 9 puede tener de valor 10, pero el máximo que puede valer cualquiero otra posición es 9.
+                        if(contadorInterrogante == (DIGITOS-1))   //Importante este if, porque la posición 9 puede tener de valor 10, pero el máximo que puede valer cualquiero otra posición es 9.
                         {
                             while(((((DIGITOS-contadorInterrogante)*aux)+num)%11) != 0 && !fallo)
                             {
