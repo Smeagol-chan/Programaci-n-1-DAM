@@ -7,7 +7,8 @@ public class Ejercicio7
     static void main()
     {
         Scanner key = new Scanner(System.in);
-        int cantidad = 0, num1 = 0, num2 = 1, aux;
+        long num1 = 0, num2 = 1, aux;
+        int cantidad = 0;
         boolean fallo;
 
         System.out.println("\n\t**** FIBONACCI ****\n");
