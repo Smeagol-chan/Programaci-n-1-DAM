@@ -10,7 +10,7 @@ public class Ejercicio8
         Scanner key = new Scanner(System.in);
         Random random = new Random();
         final int MIN = 5, MAX = 10;
-        int vector[] = new int[random.nextInt(MAX - MIN + 1) + MIN], tam = vector.length - 1, pos = 0, num = 0;
+        int vector[] = new int[random.nextInt(MAX - MIN + 1) + MIN], tam = vector.length - 1, pos = 0, num = 0, aux;
         boolean fallo;
 
         System.out.print("Array original: ");
@@ -23,7 +23,7 @@ public class Ejercicio8
         do
         {
             fallo = false;
-            System.out.print("Ingresa índice donde desea agregar un valor (0, "+ (tam-1) +"): ");
+            System.out.print("Ingresa índice donde desea agregar un valor (0, "+ tam +"): ");
             try
             {
                 pos = key.nextInt();
@@ -41,9 +41,9 @@ public class Ejercicio8
                     System.out.println("ERROR\nNo hay posición negativa.\n");
                     fallo = true;
                 }
-                else if (pos > MAX)
+                else if (pos > tam)
                 {
-                    System.out.println("ERROR\nNo se puede superar "+ (tam-1) +".\n");
+                    System.out.println("ERROR\nNo se puede superar "+ tam +".\n");
                     fallo = true;
                 }
             }
@@ -78,8 +78,14 @@ public class Ejercicio8
             }
         }while(fallo);
 
-        for(int i = pos; i < tam - 1; i++) vector[i] = vector[i + 1];
         tam++;
+        for(int i = pos + 1; i < tam; i++)
+        {
+            aux = vector[pos];
+            vector[pos] = vector[i];
+            vector[i] = aux;
+        }
+        vector[pos] = num;
 
         System.out.print("Array resultante: ");
         for(int i = 0; i < tam; i++)

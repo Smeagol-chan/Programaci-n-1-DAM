@@ -8,7 +8,7 @@ public class Ejercicio1
     {
         Random random = new Random();
         final int MAX = 500;
-        int vector[] = new int[7], suma = 0;
+        int vector[] = new int[8], suma = 0;
 
         for(int i = 0; i < vector.length; i++)
         {

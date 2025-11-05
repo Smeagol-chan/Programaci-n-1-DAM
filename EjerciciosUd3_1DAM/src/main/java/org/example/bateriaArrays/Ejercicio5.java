@@ -24,7 +24,7 @@ public class Ejercicio5
             vector[0] = aux;
         }
 
-        System.out.print("Array original: ");
+        System.out.print("Array rotado: ");
         for(int i = 0; i < vector.length; i++) System.out.print(vector[i] + (i == vector.length - 1 ? "\n" : ", "));
     }
 }
