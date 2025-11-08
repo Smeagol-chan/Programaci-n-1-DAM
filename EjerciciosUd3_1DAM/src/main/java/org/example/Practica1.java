@@ -13,10 +13,10 @@ public class Practica1
         Scanner key = new Scanner(System.in);
         Random random = new Random();
         final String SEPARADOR = " ";
-        final int POTENCIA_TOTAL = 30, POTENCIA_MIN = 1, CANTIDAD_SAMURAIS = 7, INICIO_BATALLA = random.nextInt(CANTIDAD_SAMURAIS);
+        final int POTENCIA_TOTAL = 30, POTENCIA_MIN = 1, CANTIDAD_SAMURAIS = 7, INICIO_BATALLA = random.nextInt(CANTIDAD_SAMURAIS), BAJAS_MAX = 4;
         String potencia;
         String[] potenciasDivididasJ2, potenciasDivididasJ1 = null;
-        int cont = 0, auxComprobante = 0, auxPotenciaJugador;
+        int cont = 0, auxComprobante = 0, auxPotenciaJugador, bajasJ1 = 0, bajasJ2 = 0, i = INICIO_BATALLA;
         boolean fallo, jugador2 = false;    //jugador2 es para poder saber si el primer jugador ya a introducido la potencia. Cuando es true, es el turno del jugador 2 de imtroducir sus valores.
 
         System.out.println("\t**** BATALLA SAMURAI ****\n");
@@ -90,10 +90,65 @@ public class Practica1
             }
         }while(fallo || jugador2);
 
-        //Si esto no funciona moveré todo INICIO_BATALLA posiciones cada array
-        for(int i = INICIO_BATALLA; i < CANTIDAD_SAMURAIS + INICIO_BATALLA; i++)
+        System.out.println("> La batalla la inicia el samurai Nº "+ (INICIO_BATALLA + 1) +".");
+        //Desde la posici'on de inicio aleatorio se dan 7 vueltas. Cuandoo i >= 7, toca mirar las posiciones iniciales.
+        while(i < (CANTIDAD_SAMURAIS + INICIO_BATALLA) && bajasJ1 < BAJAS_MAX && bajasJ2 < BAJAS_MAX)
         {
-            if(potenciasDivididasJ1[])
+            cont = i < CANTIDAD_SAMURAIS ? i : i - CANTIDAD_SAMURAIS;
+            System.out.print("> Samurai "+ (cont + 1) +". ");
+            auxComprobante = Integer.parseInt(potenciasDivididasJ1[cont]);
+            auxPotenciaJugador = Integer.parseInt(potenciasDivididasJ2[cont]);
+            if(auxComprobante < auxPotenciaJugador)
+            {
+                System.out.print("Gana equipo 2. ");
+                potenciasDivididasJ1[cont] = "0";
+                bajasJ1++;
+            }
+            else if(auxComprobante > auxPotenciaJugador)
+            {
+                System.out.print("Gana equipo 1. ");
+                potenciasDivididasJ2[cont] = "0";
+                bajasJ2++;
+            }
+            else
+            {
+                System.out.print("Empate. ");
+                potenciasDivididasJ2[cont] = "0";
+                potenciasDivididasJ1[cont] = "0";
+                bajasJ1++;
+                bajasJ2++;
+            }
+            System.out.print(auxComprobante +" vs. "+ auxPotenciaJugador +"\n");
+            i++;
+        }
+        if(bajasJ1 < bajasJ2)
+        {
+            System.out.println("> ¡Ejército 1 GANA! Equipo 2 ha tenido "+ bajasJ2 +" bajas.");
+        }
+        else if(bajasJ1 > bajasJ2)
+        {
+            System.out.println("> ¡Ejército 2 GANA! Equipo 1 ha tenido "+ bajasJ1 +" bajas.");
+        }
+        else
+        {
+            auxComprobante = 0;
+            auxPotenciaJugador = 0;
+            for(int j = 0; j < CANTIDAD_SAMURAIS; j++)
+            {
+                auxComprobante += Integer.parseInt(potenciasDivididasJ1[i]);
+                auxPotenciaJugador += Integer.parseInt(potenciasDivididasJ2[i]);
+            }
+            if(auxComprobante != auxPotenciaJugador)
+            {
+                System.out.println("> ¡Ejército "+ (auxPotenciaJugador > auxComprobante ? "2" : "1") +" GANA! " +
+                        "Ambos equipos han tenido "+ bajasJ2 +" bajas, pero el ejército "+ (auxPotenciaJugador > auxComprobante ? "2" : "1") +" tiene" +
+                        " "+  (auxPotenciaJugador > auxComprobante ? auxPotenciaJugador : auxComprobante) +" de potencia restante. " +
+                        "Una ventaja de "+ (auxPotenciaJugador > auxComprobante ? auxPotenciaJugador-auxComprobante : auxComprobante-auxPotenciaJugador) +".");
+            }
+            else
+            {
+                System.out.println("> ¡NINGÚN ejército ha ganado! Ambos han perdido "+ bajasJ2 +" y tienen "+ auxComprobante +" de potencia restante.");
+            }
         }
     }
 }
