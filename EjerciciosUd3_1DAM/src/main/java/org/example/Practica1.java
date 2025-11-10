@@ -16,7 +16,7 @@ public class Practica1
         final int POTENCIA_TOTAL = 30, POTENCIA_MIN = 1, CANTIDAD_SAMURAIS = 7, INICIO_BATALLA = random.nextInt(CANTIDAD_SAMURAIS), BAJAS_MAX = 4;
         String potencia;
         String[] potenciasDivididasJ2, potenciasDivididasJ1 = null;
-        int cont = 0, auxComprobante = 0, auxPotenciaJugador, bajasJ1 = 0, bajasJ2 = 0, i = INICIO_BATALLA;
+        int cont, auxComprobante = 0, auxPotenciaJugador, bajasJ1 = 0, bajasJ2 = 0, i = INICIO_BATALLA;
         boolean fallo, jugador2 = false;    //jugador2 es para poder saber si el primer jugador ya a introducido la potencia. Cuando es true, es el turno del jugador 2 de imtroducir sus valores.
 
         System.out.println("\t**** BATALLA SAMURAI ****\n");
@@ -139,8 +139,8 @@ public class Practica1
             auxPotenciaJugador = 0;
             for(int j = 0; j < CANTIDAD_SAMURAIS; j++)
             {
-                auxComprobante += Integer.parseInt(potenciasDivididasJ1[i]);
-                auxPotenciaJugador += Integer.parseInt(potenciasDivididasJ2[i]);
+                auxComprobante += Integer.parseInt(potenciasDivididasJ1[j]);
+                auxPotenciaJugador += Integer.parseInt(potenciasDivididasJ2[j]);
             }
             if(auxComprobante != auxPotenciaJugador)    //Si la potencia restante es diferente, se declara al ganador
             {
