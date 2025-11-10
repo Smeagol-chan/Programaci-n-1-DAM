@@ -3,9 +3,9 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Random;
 
-//Juego de dos jugadores donde, con sendas 7 fichas, los jugadores asignan un total de 30 puntos repartido entre sus fichas. Cada ficha representa a un samurai.
-//Tras la asignación, los samurais combaten en orden iniciado desde una posición aleatoria. El mayor número siempre gana a uno menor. El jugador cuyo ejército pierda más de la mitad de batallas resulta perdedor.
-//Si un samurai pierde, su potencia se iguala a 0. En caso de empate ambos mueren.
+//Juego de dos jugadores donde, con sendas 7 fichas, los jugadores asignan un total de 30 puntos repartido entre sus fichas. Cada ficha representa a un samurái.
+//Tras la asignación, los samuráis combaten en orden iniciado desde una posición aleatoria. El mayor número siempre gana a uno menor. El jugador cuyo ejército pierda más de la mitad de batallas resulta perdedor.
+//Si un samurái pierde, su potencia se iguala a 0. En caso de empate ambos mueren.
 public class Practica1
 {
     static void main()
@@ -27,11 +27,11 @@ public class Practica1
             auxPotenciaJugador = 0;
             fallo = false;
             System.out.println("> Ejército "+ (jugador2 ? "2" : "1"));
-            System.out.print("> Introduce la potencia de los samurais: ");
+            System.out.print("> Introduce la potencia de los samuráis: ");
             potencia = key.nextLine();
             potenciasDivididasJ2 = potencia.split(SEPARADOR);
 
-            //Comprobar si la cantidad de samurais es 7
+            //Comprobar si la cantidad de samuráis es 7
             if(potenciasDivididasJ2.length == CANTIDAD_SAMURAIS)
             {
                 //Comprobar que solo haya introducido números
@@ -48,10 +48,10 @@ public class Practica1
                     }
                     if(!fallo)
                     {
-                        //Comprobar que ningún samurai tenga menos de 1 de potencia
+                        //Comprobar que ningún samurái tenga menos de 1 de potencia
                         if(auxComprobante < POTENCIA_MIN)
                         {
-                            System.out.println("ERROR\nLa potencia mínima por samurai es "+ POTENCIA_MIN +".");
+                            System.out.println("ERROR\nLa potencia mínima por samurái es "+ POTENCIA_MIN +".");
                             fallo = true;
                         }
                         else
@@ -64,7 +64,7 @@ public class Practica1
             }
             else
             {
-                System.out.println("ERROR\nDebes introducir valor a "+ CANTIDAD_SAMURAIS +" samurais.");
+                System.out.println("ERROR\nDebes introducir valor a "+ CANTIDAD_SAMURAIS +" samuráis.");
                 fallo = true;
             }
             if(!fallo)
@@ -90,24 +90,24 @@ public class Practica1
             }
         }while(fallo || jugador2);
 
-        System.out.println("> La batalla la inicia el samurai Nº "+ (INICIO_BATALLA + 1) +".");
+        System.out.println("> La batalla la inicia el samurái Nº "+ (INICIO_BATALLA + 1) +".");
         //Se mira desde la posición aleatoria y se hacen 7 comprobaciones. En el momento en el que se detecten 4 muertes en cualquiera de los equipos, el bucle termina, porque ya se ha decidido al ganador.
         //Por eso mismo todo está metido dentro de un bucle while. No podemos saber la cantidad exacta de vueltas que va a dar.
         while(i < (CANTIDAD_SAMURAIS + INICIO_BATALLA) && bajasJ1 < BAJAS_MAX && bajasJ2 < BAJAS_MAX)
         {
             cont = i < CANTIDAD_SAMURAIS ? i : i - CANTIDAD_SAMURAIS;
-            System.out.print("> Samurai "+ (cont + 1) +". ");
+            System.out.print("> Samurái "+ (cont + 1) +". ");
             auxComprobante = Integer.parseInt(potenciasDivididasJ1[cont]);
             auxPotenciaJugador = Integer.parseInt(potenciasDivididasJ2[cont]);
 
-            //Si el samurai del equipo 2 es mayor
+            //Si el samurái del equipo 2 es mayor
             if(auxComprobante < auxPotenciaJugador)
             {
                 System.out.print("Gana equipo 2. ");
                 potenciasDivididasJ1[cont] = "0";
                 bajasJ1++;
             }
-            //Si el samurai del equipo 1 es mayor
+            //Si el samurái del equipo 1 es mayor
             else if(auxComprobante > auxPotenciaJugador)
             {
                 System.out.print("Gana equipo 1. ");
