@@ -81,9 +81,9 @@ public class Practica1
                     System.out.println("ERROR\nHas introducido "+ (auxPotenciaJugador-POTENCIA_TOTAL) +" puntos de más.");
                     fallo = true;
                 }
-                else
-                {
-                    if(!jugador2) potenciasDivididasJ1 = potenciasDivididasJ2.clone();
+                else    //Si pasa todos los filtros, el booleano jugador2 se invierte. Se inicializa con false. En la primera vuelta se convierte en true, lo que reiniciando el bucle y, tras esta vuelta, vuelve a
+                {       //volverse false. Si jugador2 es false, no se cumple la condición del do_while y sale del bucle.
+                    if(!jugador2) potenciasDivididasJ1 = potenciasDivididasJ2.clone();  //Solo pasa si se trata de la primera vuelta del bucle. Así puedo reusar el código que guarda los datos del usuario.
                     System.out.println("> Ejército asignado.");
                     jugador2 = !jugador2;
                 }
@@ -91,26 +91,30 @@ public class Practica1
         }while(fallo || jugador2);
 
         System.out.println("> La batalla la inicia el samurai Nº "+ (INICIO_BATALLA + 1) +".");
-        //Desde la posici'on de inicio aleatorio se dan 7 vueltas. Cuandoo i >= 7, toca mirar las posiciones iniciales.
+        //Se mira desde la posición aleatoria y se hacen 7 comprobaciones. En el momento en el que se detecten 4 muertes en cualquiera de los equipos, el bucle termina, porque ya se ha decidido al ganador.
+        //Por eso mismo todo está metido dentro de un bucle while. No podemos saber la cantidad exacta de vueltas que va a dar.
         while(i < (CANTIDAD_SAMURAIS + INICIO_BATALLA) && bajasJ1 < BAJAS_MAX && bajasJ2 < BAJAS_MAX)
         {
             cont = i < CANTIDAD_SAMURAIS ? i : i - CANTIDAD_SAMURAIS;
             System.out.print("> Samurai "+ (cont + 1) +". ");
             auxComprobante = Integer.parseInt(potenciasDivididasJ1[cont]);
             auxPotenciaJugador = Integer.parseInt(potenciasDivididasJ2[cont]);
+
+            //Si el samurai del equipo 2 es mayor
             if(auxComprobante < auxPotenciaJugador)
             {
                 System.out.print("Gana equipo 2. ");
                 potenciasDivididasJ1[cont] = "0";
                 bajasJ1++;
             }
+            //Si el samurai del equipo 1 es mayor
             else if(auxComprobante > auxPotenciaJugador)
             {
                 System.out.print("Gana equipo 1. ");
                 potenciasDivididasJ2[cont] = "0";
                 bajasJ2++;
             }
-            else
+            else    //En caso de empate
             {
                 System.out.print("Empate. ");
                 potenciasDivididasJ2[cont] = "0";
@@ -121,15 +125,15 @@ public class Practica1
             System.out.print(auxComprobante +" vs. "+ auxPotenciaJugador +"\n");
             i++;
         }
-        if(bajasJ1 < bajasJ2)
+        if(bajasJ1 < bajasJ2)   //Comprobar si el equipo 1 tiene menos bajas
         {
             System.out.println("> ¡Ejército 1 GANA! Equipo 2 ha tenido "+ bajasJ2 +" bajas.");
         }
-        else if(bajasJ1 > bajasJ2)
+        else if(bajasJ1 > bajasJ2)  //Comprobar si el equipo 2 tiene menos bajas
         {
             System.out.println("> ¡Ejército 2 GANA! Equipo 1 ha tenido "+ bajasJ1 +" bajas.");
         }
-        else
+        else    //En caso de contar con la misma cantidad de bajas, se suma la potencia restante de cada equipo para decidir cuál es el ganador
         {
             auxComprobante = 0;
             auxPotenciaJugador = 0;
@@ -138,14 +142,14 @@ public class Practica1
                 auxComprobante += Integer.parseInt(potenciasDivididasJ1[i]);
                 auxPotenciaJugador += Integer.parseInt(potenciasDivididasJ2[i]);
             }
-            if(auxComprobante != auxPotenciaJugador)
+            if(auxComprobante != auxPotenciaJugador)    //Si la potencia restante es diferente, se declara al ganador
             {
                 System.out.println("> ¡Ejército "+ (auxPotenciaJugador > auxComprobante ? "2" : "1") +" GANA! " +
                         "Ambos equipos han tenido "+ bajasJ2 +" bajas, pero el ejército "+ (auxPotenciaJugador > auxComprobante ? "2" : "1") +" tiene" +
                         " "+  (auxPotenciaJugador > auxComprobante ? auxPotenciaJugador : auxComprobante) +" de potencia restante. " +
                         "Una ventaja de "+ (auxPotenciaJugador > auxComprobante ? auxPotenciaJugador-auxComprobante : auxComprobante-auxPotenciaJugador) +".");
             }
-            else
+            else    //Si también coincice, se anuncia un empate.
             {
                 System.out.println("> ¡NINGÚN ejército ha ganado! Ambos han perdido "+ bajasJ2 +" y tienen "+ auxComprobante +" de potencia restante.");
             }

@@ -1,6 +1,8 @@
 package org.example;
 import java.util.Scanner;
 
+//Un programa para calcular la cantidad de interacciones en un canal de twitch de los últimos 5 meses.
+//El programa funciona exactamente igual que el ejercicio anterior, el de los samurais.
 public class Practica1_ampliacion
 {
     static void main()
@@ -45,7 +47,7 @@ public class Practica1_ampliacion
                             System.out.println("ERROR\nNo es posible tener "+ (!segundoDato ? "viewers" : "comentarios") +" negativos.\n");
                             fallo = true;
                         }
-                        else if(!segundoDato)
+                        else if(!segundoDato)   //Se guardan los máximos y mínimos de los espectadores
                         {
                             if(cont == 0) min = aux;
                             if(max < aux) max = aux;
@@ -53,11 +55,11 @@ public class Practica1_ampliacion
                         }
                         else
                         {
-                            racha = Float.parseFloat(numEspectadores[cont]);
+                            racha = Float.parseFloat(numEspectadores[cont]);    //Se calcula el ratio de comentarios en cada mes introducido. En el momento en el que se halla un ratio mayor, se guarda la posición y el ratio.
                             if(ratio < (aux / racha))
                             {
                                 ratio = aux / racha;
-                                hype = cont + 1;
+                                hype = cont + 1 ;
                             }
                         }
                         cont++;
@@ -76,7 +78,7 @@ public class Practica1_ampliacion
             }
         }while(fallo || segundoDato);
 
-        racha = ((max - min) * 100) / max;
+        racha = ((max - min) * 100) / max;  //Por último, se calcula la racha y se imprimen los resultados en pantalla.
 
         System.out.println("------------------------------------------------------------------");
         System.out.println(nick);
