@@ -92,14 +92,20 @@ public class EliminarDuplicados
                 break;
 
             case 3: //Este sí que lo tengo bien, pero tiene que reiniciar el for haasta que no hayan repetidos
-                for(int i = 1; i < vector1.length; i++)
+                do
                 {
-                    while(vector1[i].equals(vector1[i-1]))
+                    repetidos = 0;
+                    for(int i = 1; i < vector1.length; i++)
                     {
-                        vector1[i] = random.nextInt(RAN_MAX);
+                        while(vector1[i].equals(vector1[i-1]))
+                        {
+                            vector1[i] = random.nextInt(RAN_MAX);
+                            repetidos++;
+                        }
                     }
-                }
-                Arrays.sort(vector1);
+                    if(repetidos != 0) Arrays.sort(vector1);
+                }while(repetidos != 0);
+
                 System.out.println(Arrays.toString(vector1));
                 break;
 
