@@ -35,7 +35,7 @@ public class EliminarDuplicados
         }
         Arrays.sort(vector1);
 
-        System.out.println("\t*** MENÚ ***\n1. Eliminar con un auxiliar\n2. Eliminar sin auxiliar\n3. Recalcular duplicados");
+        System.out.println("\t*** MENÚ ***\n1. Eliminar con un auxiliar\n2. Eliminar sin auxiliar\n3. Recalcular duplicados\n4. Usando .distinct()");
         System.out.print("> ");
         modo = key.nextInt();
         System.out.println(Arrays.toString(vector1));
@@ -107,6 +107,13 @@ public class EliminarDuplicados
                 }while(repetidos != 0);
 
                 System.out.println(Arrays.toString(vector1));
+                break;
+
+            case 4:
+                int vector1Int[] = new int[vector1.length];
+                for(int i = 0; i < vector1Int.length; i++) vector1Int[i] = vector1[i];
+                int vectorFinal4[] = Arrays.stream(vector1Int).distinct().toArray();
+                System.out.println(Arrays.toString(vectorFinal4));
                 break;
 
             default:
