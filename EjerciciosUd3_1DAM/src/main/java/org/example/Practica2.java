@@ -140,6 +140,7 @@ public class Practica2
         {
             if(Arrays.asList(resultadoSorteo).contains(numerosBoleto[i])) contador++;
         }
+        System.out.println("\nSORTEO:\n"+ (Arrays.toString(resultadoSorteo)) +"\nComplementario: "+ resultadoComplementario +"\nReintegro: "+ RESULTADO_REINTEGRO +"\n");
         System.out.println("RESULTADOS\nAciertos: "+ contador);
         //Por medio de un switch, se imprimirá por pantalla el resultado de la primitiva.
         switch(contador)
