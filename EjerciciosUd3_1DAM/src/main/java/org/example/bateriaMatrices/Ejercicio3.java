@@ -7,7 +7,8 @@ public class Ejercicio3
     static void main()
     {
         Scanner key = new Scanner(System.in);
-        int numEstudiantes, numAsignaturas, suma;
+        int numEstudiantes, numAsignaturas;
+        double suma;
 
         System.out.println("¿Cuántos estudiantes tienes?");
         numEstudiantes = key.nextInt();
@@ -45,14 +46,16 @@ public class Ejercicio3
         {
             suma = 0;
             for (int j = 1; j <= numAsignaturas; j++) suma += Integer.parseInt(tabla[i][j]);
+            suma /= numAsignaturas;
             System.out.println("Nota media del alumno "+ tabla[i][0] +": "+ suma);
         }
 
         System.out.println();
-        for(int j = 1; j < numAsignaturas; j++)
+        for(int j = 1; j <= numAsignaturas; j++)
         {
             suma = 0;
-            for(int i = 1; i < numEstudiantes; i++) suma += Integer.parseInt(tabla[i][j]);
+            for(int i = 1; i <= numEstudiantes; i++) suma += Integer.parseInt(tabla[i][j]);
+            suma /= numEstudiantes;
             System.out.println("Nota media en la asignatura "+ tabla[0][j] +": "+ suma);
         }
     }
