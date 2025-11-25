@@ -1,14 +1,19 @@
 package org.example;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
+/*
+Es enta práctica hay que validar si una matrices de letras -representando cada una uno de los colores posibles para la Spectrum- si es compatible con la ZX Spectrum.
+La matriz ha de tener una altura y anchura mínima y máxima de 8 y 48 respectivamente. Además, los valores han de ser múltiplos de 8.
+Las letras deben estar en un rango de A a O, ambos incluidos.
+Para validar si la matriz es compatible o no, se ha de comprobar si hay como máximo 2 letras diferentes en grupos de 8x8. En estas agrupaciones puede haber un máximo de 2 letras diferentes.
+ */
 public class Practica3
 {
     static void main()
     {
         Scanner key = new Scanner(System.in);
-        final int RESOLUCION_MAX = 48, RESULUCION_MIN = 8;
-        String fila, pixel1ro, pixel2do;
+        final int RESOLUCION_MAX = 48, RESULUCION_MIN = 8;  //Rango de la resolución
+        String fila, pixel1ro, pixel2do;    //fila
         int alto = 0, ancho = 0, byteColumn = 0, byteRow, column, row;
         boolean fallo, segundoDato = false;
 
