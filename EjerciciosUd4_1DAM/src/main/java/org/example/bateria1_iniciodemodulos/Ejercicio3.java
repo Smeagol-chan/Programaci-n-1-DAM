@@ -20,6 +20,7 @@ public class Ejercicio3
     {
         final String vocales = "AEIOU";
         int numVoc = 0;
+        cadena = convertirMayus(cadena);
 
         exterior:
         for(int i = 0; i < cadena.length(); i++)
