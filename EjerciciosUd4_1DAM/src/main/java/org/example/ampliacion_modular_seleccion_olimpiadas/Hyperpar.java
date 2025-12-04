@@ -6,20 +6,23 @@ import java.util.Scanner;
 
 public class Hyperpar
 {
-    public static int[] filtro(int[] vuelta)
+    static int tam = 0;
+
+    public static int[] filtro()
     {
         Scanner key = new Scanner(System.in);
 
-        vuelta[0]++;
+        tam++;
 
-        int[] n = new int[vuelta[0]];
+        int[] total = new int[tam];
+        int n = 0, p = tam-1;
         boolean fallo;
         do
         {
             fallo = false;
             try
             {
-                n[vuelta[0]-1] = key.nextInt();
+                n = key.nextInt();
             }
             catch(InputMismatchException e)
             {
@@ -29,9 +32,9 @@ public class Hyperpar
             }
             if(!fallo)
             {
-                if(n[vuelta[0]-1] < 0)
+                if(n < 0)
                 {
-                    if(n[vuelta[0]-1] != -1)
+                    if(n != -1)
                     {
                         System.out.println("ERROR\nNo se pueden introducir números negativos.");
                         fallo = true;
@@ -39,19 +42,41 @@ public class Hyperpar
                 }
                 else
                 {
-                   n = filtro(vuelta).clone();
+                   total = filtro().clone();
                 }
             }
         }while(fallo);
-        return n;
+
+        total[p] = n;
+        return total;
+    }
+
+    public static void comprobarHyperpares(int[] num)
+    {
+        String auxS;
+        int auxI;
+        fuera:
+        for(int i = 0; i < num.length-1; i++)
+        {
+            auxS = String.valueOf(num[i]);
+            for(int j = 0; j < auxS.length(); j++)
+            {
+                auxI = Integer.parseInt(String.valueOf(auxS.charAt(j)));
+                if(auxI%2 != 0)
+                {
+                    System.out.println("NO");
+                    continue fuera;
+                }
+            }
+            System.out.println("SÍ");
+        }
     }
 
     static void main()
     {
-        int[] tam = {0};
+        int[] numeros = filtro().clone();
 
-
-        System.out.println(Arrays.toString(filtro(tam)));
-        System.out.println(tam[0]);
+        System.out.println();
+        comprobarHyperpares(numeros.clone());
     }
 }
