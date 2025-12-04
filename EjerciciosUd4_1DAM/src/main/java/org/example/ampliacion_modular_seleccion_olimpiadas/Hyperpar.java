@@ -1,6 +1,4 @@
 package org.example.ampliacion_modular_seleccion_olimpiadas;
-
-import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -12,11 +10,10 @@ public class Hyperpar
     {
         Scanner key = new Scanner(System.in);
 
-        tam++;
-
+        int n = 0, p = tam++;
         int[] total = new int[tam];
-        int n = 0, p = tam-1;
         boolean fallo;
+
         do
         {
             fallo = false;
@@ -51,25 +48,52 @@ public class Hyperpar
         return total;
     }
 
-    public static void comprobarHyperpares(int[] num)
+//    public static void comprobarHyperparesNR(int[] num)
+//    {
+//        String auxS;
+//        int auxI;
+//        fuera:
+//        for(int i = 0; i < num.length-1; i++)
+//        {
+//            auxS = String.valueOf(num[i]);
+//            for(int j = 0; j < auxS.length(); j++)
+//            {
+//                auxI = Integer.parseInt(String.valueOf(auxS.charAt(j)));
+//                if(auxI%2 != 0)
+//                {
+//                    System.out.println("NO");
+//                    continue fuera;
+//                }
+//            }
+//            System.out.println("SÍ");
+//        }
+//    }
+
+    public static boolean comprobarHyperpares(int n)
     {
-        String auxS;
-        int auxI;
-        fuera:
-        for(int i = 0; i < num.length-1; i++)
+        boolean par;
+
+        if(n%2 == 0)
         {
-            auxS = String.valueOf(num[i]);
-            for(int j = 0; j < auxS.length(); j++)
+            if(n > 9)
             {
-                auxI = Integer.parseInt(String.valueOf(auxS.charAt(j)));
-                if(auxI%2 != 0)
-                {
-                    System.out.println("NO");
-                    continue fuera;
-                }
+                par = comprobarHyperpares(n/10);
             }
-            System.out.println("SÍ");
+            else
+            {
+                par = true;
+            }
         }
+        else
+        {
+            par = false;
+        }
+        return par;
+    }
+
+    public static void imprimirResultados(int[] nums)
+    {
+        for(int i = 0; i < nums.length-1; i++) System.out.println(comprobarHyperpares(nums[i]) ? "SÍ" : "NO");
     }
 
     static void main()
@@ -77,6 +101,6 @@ public class Hyperpar
         int[] numeros = filtro().clone();
 
         System.out.println();
-        comprobarHyperpares(numeros.clone());
+        imprimirResultados(numeros.clone());
     }
 }
