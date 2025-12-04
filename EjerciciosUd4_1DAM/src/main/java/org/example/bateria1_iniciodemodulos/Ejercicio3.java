@@ -41,7 +41,7 @@ public class Ejercicio3
     {
         String cad = solicitud();
 
-        System.out.println("\nCadena introducida:\n> "+ cad
+        System.out.println("\nCadena introduc" + "ida:\n> "+ cad
                 +"\nCadena convertida en mayúsculas:\n> "+ convertirMayus(cad)
                 +"\nCantidad de vocales presentes:\n> "+ contarVocales(cad));
 
