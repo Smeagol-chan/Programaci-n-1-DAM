@@ -7,12 +7,10 @@ public class Saltos_Mario
     private static final int L_INF = 1, L_SUP = 10;
     private static final String SEPARADOR = " ";
 
-    private static int subidas, bajadas;
+    private static int subidas = 0, bajadas = 0;
 
     private static void saltos(int[] hM)
     {
-        subidas = 0;
-        bajadas = 0;
         for(int i = 0; i < hM.length-1; i++)
         {
             if(hM[i] > hM[i+1]) bajadas++;
