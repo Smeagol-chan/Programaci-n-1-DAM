@@ -11,17 +11,8 @@ import java.util.Scanner;
 450,38
 */
 
-/**
- * @author - Eric
- * @version - 1.0
- */
 public class Ejercicio4
 {
-    /**
-     * Método para pedir el dinero generado cada sía
-     * @param dia - El día de la semana que se analiza
-     * @return - El dinero del día
-     */
     private static float filtro(int dia)
     {
         Scanner key = new Scanner(System.in);
@@ -61,11 +52,6 @@ public class Ejercicio4
         return dinero;
     }
 
-    /**
-     * Método para comprobar que el dinero de cada día es válido
-     * @param dinero - El dinero conseguido del día
-     * @param dias - el total de días de la semana
-     */
     private static void ventasSemanales(float[] dinero, byte dias)
     {
         float aux;
@@ -80,11 +66,6 @@ public class Ejercicio4
         }
     }
 
-    /**
-     * Método para imprimir el día de mayor y menor ganancias
-     * @param dinero - Vector con todas las ganancias de cada día
-     * @param totalDias - Total de días a analizar
-     */
     private static void resumenSemanal(float[] dinero, byte totalDias)
     {
         byte aux;
@@ -129,11 +110,6 @@ public class Ejercicio4
         }while(segundoDato);
     }
 
-    /**
-     * Método para imprimir s
-     * @param dinero
-     * @param totalDias
-     */
     private static void datosDomingo(float[] dinero, byte totalDias)
     {
         for(int i = 1; i < totalDias; i++)
@@ -143,7 +119,7 @@ public class Ejercicio4
         dinero[0] /= totalDias;
         System.out.println((dinero[0] == dinero[5] ? "EMPATE" : dinero[0] < dinero[5] ? "SÍ" : "NO") +"\n");
     }
-    
+
     static  void main()
     {
         final byte DIAS_ABIERTO = 6;
