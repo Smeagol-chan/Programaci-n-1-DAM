@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"l":"org.example"},{"l":"org.example.ampliacion_modular_seleccion_olimpiadas"},{"l":"org.example.bateria1_iniciodemodulos"},{"l":"org.example.inicio_modular"}];updateSearchResults();
