@@ -42,7 +42,6 @@ public class FuncionesComunes
 
         do
         {
-            System.out.print("> ");
             fallo = false;
             try
             {
@@ -98,5 +97,13 @@ public class FuncionesComunes
         return vI;
     }
 
-
+    public static String[][] solicitudMatrizStr(String[][] m, String sep)
+    {
+        //Incompleta
+        for(String[] fila: m)
+        {
+            fila = key.nextLine().split(sep);
+        }
+        return m;
+    }
 }
