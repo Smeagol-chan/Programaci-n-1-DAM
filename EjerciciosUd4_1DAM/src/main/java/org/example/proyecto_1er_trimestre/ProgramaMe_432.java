@@ -3,7 +3,7 @@ import org.example.FuncionesComunes;
 
 public class ProgramaMe_432
 {
-    private static boolean filtroMapa(String f, boolean[] haySF)
+    private static boolean filtroMapa(String f, boolean[] haySF, int[][] cSF, int h, int w)
     {
         switch(f)
         {
@@ -20,6 +20,8 @@ public class ProgramaMe_432
                 else
                 {
                     haySF[0] = true;
+                    cSF[0][0] = h;
+                    cSF[0][1] = w;
                 }
                 break;
 
@@ -32,6 +34,8 @@ public class ProgramaMe_432
                 else
                 {
                     haySF[1] = true;
+                    cSF[1][0] = h;
+                    cSF[1][1] = w;
                 }
                 break;
 
@@ -42,7 +46,7 @@ public class ProgramaMe_432
         return false;
     }
 
-    private static String[][] solicitudMapa(String[][] m, int height, int width)
+    private static String[][] solicitudMapa(String[][] m, int height, int width, int[][] coorSF)
     {
         boolean[] haySF = {false, false};
         String[] fila;
@@ -54,7 +58,7 @@ public class ProgramaMe_432
 
             for(int j = 0; j < width; j++)
             {
-                if(filtroMapa(fila[j], haySF))
+                if(filtroMapa(fila[j], haySF, coorSF, i, j))
                 {
                     i--;
                     continue fuera;
@@ -76,9 +80,18 @@ public class ProgramaMe_432
         return m;
     }
 
+    private static boolean recorridoViable(String[][] m, int[][] coorSF, int h, int w)
+    {
+        if(coorSF[0][1]+1 < w)
+        {
+
+        }
+    }
+
     static void main()
     {
         final int TAM_MIN = 1, TAM_MAX = 20;
+        int[][] coordenadasSF = new int[2][2];
         int altura, anchura;
 
         System.out.println("\t>>> CARGANDO MAPA DE ASTEROIDES <<<\nIntroduzca el alto y el ancho del mapa:");
@@ -89,12 +102,8 @@ public class ProgramaMe_432
         String[][] mapa = new String[altura][anchura];
 
         System.out.println("\nRellena el contenido del mapa:");
-        mapa = solicitudMapa(mapa.clone(), altura, anchura).clone();
+        mapa = solicitudMapa(mapa.clone(), altura, anchura, coordenadasSF).clone();
 
-        for(String[] fila: mapa)
-        {
-            for(String dato: fila) System.out.print(" "+ dato);
-            System.out.println();
-        }
+        System.out.println("Ruta viable: "+ (recorridoViable(mapa.clone(), coordenadasSF.clone(), altura, anchura) ? "SÍ" : "NO") +"\n");
     }
 }
