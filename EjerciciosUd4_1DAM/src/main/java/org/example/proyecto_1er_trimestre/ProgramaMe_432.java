@@ -3,50 +3,50 @@ import org.example.FuncionesComunes;
 
 public class ProgramaMe_432
 {
-    private static boolean filtroMapa(String f, boolean[] haySF, int[][] cSF, int h, int w)
+    private static final String ENTRADA = "S", SALIDA = "F", ASTEROIDE = "*", CAMINO = ".";
+
+    private static boolean filtroMapa(String f, boolean[] haySF, int[] cS, int h, int w)
     {
         switch(f)
         {
-            case ".":
-            case "*":
+            case CAMINO:
+            case ASTEROIDE:
                 break;
 
-            case "S":
+            case ENTRADA:
                 if(haySF[0])
                 {
-                    System.out.println("ERROR\nNo pueden haber más de una S.\n");
+                    System.out.println("ERROR\nNo pueden haber más de una "+ ENTRADA +".\n");
                     return true;
                 }
                 else
                 {
                     haySF[0] = true;
-                    cSF[0][0] = h;
-                    cSF[0][1] = w;
+                    cS[0] = h;
+                    cS[1] = w;
                 }
                 break;
 
-            case "F":
+            case SALIDA:
                 if(haySF[1])
                 {
-                    System.out.println("ERROR\nNo pueden haber más de una F.\n");
+                    System.out.println("ERROR\nNo pueden haber más de una "+ SALIDA +".\n");
                     return true;
                 }
                 else
                 {
                     haySF[1] = true;
-                    cSF[1][0] = h;
-                    cSF[1][1] = w;
                 }
                 break;
 
             default:
-                System.out.println("ERROR\nSolo se puede introducir: . * S F\n");
+                System.out.println("ERROR\nSolo se puede introducir: "+ CAMINO +" "+ ASTEROIDE +" "+ ENTRADA +" "+ SALIDA +"\n");
                 return true;
         }
         return false;
     }
 
-    private static String[][] solicitudMapa(String[][] m, int height, int width, int[][] coorSF)
+    private static String[][] solicitudMapa(String[][] m, int height, int width, int[] coorS)
     {
         boolean[] haySF = {false, false};
         String[] fila;
@@ -58,7 +58,7 @@ public class ProgramaMe_432
 
             for(int j = 0; j < width; j++)
             {
-                if(filtroMapa(fila[j], haySF, coorSF, i, j))
+                if(filtroMapa(fila[j], haySF, coorS, i, j))
                 {
                     i--;
                     continue fuera;
@@ -72,7 +72,7 @@ public class ProgramaMe_432
             {
                 if(!haySF[0] || !haySF[1])
                 {
-                    System.out.println("ERROR\nEl mapa debe contener una entrada (S) y una salida (F).\n");
+                    System.out.println("ERROR\nEl mapa debe contener una entrada ("+ ENTRADA +") y una salida ("+ SALIDA +").\n");
                     i--;
                 }
             }
@@ -80,18 +80,70 @@ public class ProgramaMe_432
         return m;
     }
 
-    private static boolean recorridoViable(String[][] m, int[][] coorSF, int h, int w)
+    private static boolean recorridoViable(String[][] m, int[] coorAct, int h, int w)
     {
-        if(coorSF[0][1]+1 < w)
-        {
+        boolean salida = false;
+        m[coorAct[0]][coorAct[1]] = ASTEROIDE;
 
+        if(coorAct[1]+1 < w)
+        {
+            if(m[coorAct[0]][coorAct[1]+1].contains(SALIDA)) salida = true;
+            else
+            {
+                if(m[coorAct[0]][coorAct[1]+1].contains(CAMINO))
+                {
+                    coorAct[1] += 1;
+                    salida = recorridoViable(m.clone(), coorAct.clone(), h, w);
+                    coorAct[1] -= 1;
+                }
+            }
         }
+        if(!salida && coorAct[0]+1 < h)
+        {
+            if(m[coorAct[coorAct[0]+1]][0].contains(SALIDA)) salida = true;
+            else
+            {
+                if(m[coorAct[coorAct[0]+1]][0].contains(CAMINO))
+                {
+                    coorAct[0] += 1;
+                    salida = recorridoViable(m.clone(), coorAct.clone(), h, w);
+                    coorAct[0] -= 1;
+                }
+            }
+        }
+        if(!salida && !FuncionesComunes.negativoInt(coorAct[1]-1))
+        {
+            if(m[coorAct[0]][coorAct[1]-1].contains(SALIDA)) salida = true;
+            else
+            {
+                if(m[coorAct[0]][coorAct[1]-1].contains(CAMINO))
+                {
+                    coorAct[1] -= 1;
+                    salida = recorridoViable(m.clone(), coorAct.clone(), h, w);
+                    coorAct[1] += 1;
+                }
+            }
+        }
+        if(!salida && !FuncionesComunes.negativoInt(coorAct[0]-1))
+        {
+            if(m[coorAct[coorAct[0]-1]][0].contains(SALIDA)) salida = true;
+            else
+            {
+                if(m[coorAct[coorAct[0]-1]][0].contains(CAMINO))
+                {
+                    coorAct[0] -= 1;
+                    salida = recorridoViable(m.clone(), coorAct.clone(), h, w);
+                    coorAct[0] += 1;
+                }
+            }
+        }
+        return salida;
     }
 
     static void main()
     {
         final int TAM_MIN = 1, TAM_MAX = 20;
-        int[][] coordenadasSF = new int[2][2];
+        int[] coordenadasS = new int[2];
         int altura, anchura;
 
         System.out.println("\t>>> CARGANDO MAPA DE ASTEROIDES <<<\nIntroduzca el alto y el ancho del mapa:");
@@ -102,8 +154,8 @@ public class ProgramaMe_432
         String[][] mapa = new String[altura][anchura];
 
         System.out.println("\nRellena el contenido del mapa:");
-        mapa = solicitudMapa(mapa.clone(), altura, anchura, coordenadasSF).clone();
+        mapa = solicitudMapa(mapa.clone(), altura, anchura, coordenadasS).clone();
 
-        System.out.println("Ruta viable: "+ (recorridoViable(mapa.clone(), coordenadasSF.clone(), altura, anchura) ? "SÍ" : "NO") +"\n");
+        System.out.println("Ruta viable: "+ (recorridoViable(mapa.clone(), coordenadasS.clone(), altura, anchura) ? "SÍ" : "NO") +"\n");
     }
 }
