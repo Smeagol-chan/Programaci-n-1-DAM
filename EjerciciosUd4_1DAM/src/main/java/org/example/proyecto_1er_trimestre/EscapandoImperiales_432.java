@@ -1,7 +1,7 @@
 package org.example.proyecto_1er_trimestre;
 import org.example.FuncionesComunes;
 
-public class ProgramaMe_432
+public class EscapandoImperiales_432
 {
     private static final String ENTRADA = "S", SALIDA = "F", ASTEROIDE = "*", CAMINO = ".";
 
