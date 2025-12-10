@@ -4,7 +4,7 @@ public class solution_432
 {
     static Scanner key = new Scanner(System.in);
 
-    private static boolean recorridoViable(String[][] m, int[] coorAct, int h, int w)
+    public static boolean recorridoViable(String[][] m, int[] coorAct, int h, int w)
     {
         boolean salida = false;
         m[coorAct[0]][coorAct[1]] = "*";
