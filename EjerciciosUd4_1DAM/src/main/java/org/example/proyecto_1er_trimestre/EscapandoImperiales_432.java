@@ -91,13 +91,12 @@ public class EscapandoImperiales_432
 
     public static boolean recorridoViable(String[][] m, int[] coorAct, int altura, int anchura)
     {
-        boolean salida, vuelta;
+        boolean salida = false, vuelta;
         boolean[] eswn = new boolean[4];
         int cruces;
 
         do
         {
-            salida = false;
             m[coorAct[0]][coorAct[1]] = ASTEROIDE;
             for (int i = 0; i < 4; i++) eswn[i] = false;
             cruces = 0;
@@ -116,10 +115,10 @@ public class EscapandoImperiales_432
             }
             if(!salida && coorAct[0]+1 < altura)
             {
-                if(m[coorAct[coorAct[0]+1]][0].contains(SALIDA)) salida = true;
+                if(m[coorAct[0]+1][coorAct[1]].contains(SALIDA)) salida = true;
                 else
                 {
-                    if(m[coorAct[coorAct[0]+1]][0].contains(CAMINO))
+                    if(m[coorAct[0]+1][coorAct[1]].contains(CAMINO))
                     {
                         cruces++;
                         eswn[1] = true;
@@ -140,10 +139,10 @@ public class EscapandoImperiales_432
             }
             if(!salida && !FuncionesComunes.negativoInt(coorAct[0]-1))
             {
-                if(m[coorAct[coorAct[0]-1]][0].contains(SALIDA)) salida = true;
+                if(m[coorAct[0]-1][coorAct[1]].contains(SALIDA)) salida = true;
                 else
                 {
-                    if(m[coorAct[coorAct[0]-1]][0].contains(CAMINO))
+                    if(m[coorAct[0]-1][coorAct[1]].contains(CAMINO))
                     {
                         cruces++;
                         eswn[3] = true;
@@ -185,19 +184,19 @@ public class EscapandoImperiales_432
                         salida = recorridoViable(m.clone(), coorAct.clone(), altura, anchura);
                         coorAct[1] -= 1;
                     }
-                    if(eswn[1])
+                    if(!salida && eswn[1])
                     {
                         coorAct[0] += 1;
                         salida = recorridoViable(m.clone(), coorAct.clone(), altura, anchura);
                         coorAct[0] -= 1;
                     }
-                    if(eswn[2])
+                    if(!salida && eswn[2])
                     {
                         coorAct[1] -= 1;
                         salida = recorridoViable(m.clone(), coorAct.clone(), altura, anchura);
                         coorAct[1] += 1;
                     }
-                    if(eswn[3])
+                    if(!salida && eswn[3])
                     {
                         coorAct[0] -= 1;
                         salida = recorridoViable(m.clone(), coorAct.clone(), altura, anchura);
@@ -210,31 +209,23 @@ public class EscapandoImperiales_432
         return salida;
     }
 
-    public static boolean nuevoMapa(int a, int b)
-    {
-        return a == b;
-    }
-
     static void main()
     {
         final int TAM_MIN = 0, TAM_MAX = 20;
         int[] coordenadasS = new int[2];
         int altura, anchura;
-        boolean vuelta;
 
         System.out.println("\t>>> CARGANDO MAPA DE ASTEROIDES <<<");
 
-        do
+        while(true)
         {
-            vuelta = true;
-
             System.out.print("Introduzca el alto y el ancho del mapa: ");
             altura = FuncionesComunes.filtroLimitesInt(TAM_MIN, TAM_MAX);
             anchura = FuncionesComunes.filtroLimitesInt(TAM_MIN, TAM_MAX);
             FuncionesComunes.key.nextLine();
 
-            if(nuevoMapa(TAM_MIN, altura) || nuevoMapa(TAM_MIN, anchura)) vuelta = false;
-            if(vuelta)
+            if(altura == 0 || anchura == 0) break;
+            else
             {
                 String[][] mapa = new String[altura][anchura];
 
@@ -243,6 +234,6 @@ public class EscapandoImperiales_432
 
                 System.out.println("Ruta viable: "+ (recorridoViable(mapa.clone(), coordenadasS.clone(), altura, anchura) ? "SÍ" : "NO") +"\n");
             }
-        }while(vuelta);
+        }
     }
 }
