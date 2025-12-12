@@ -1,147 +1,149 @@
+package org.example.proyecto_1er_trimestre;
 import java.util.Scanner;
 
 public class solution_432
 {
     static Scanner key = new Scanner(System.in);
 
-    public static boolean recorridoViable(String[][] m, int[] coorAct, int altura, int anchura)
+    public static boolean recorridoViable(String[][] mapa, int[] coordenadasActuales, int altura, int anchura)
     {
-        boolean salida = false, vuelta;
-        boolean[] eswn = new boolean[4];
-        int cruces;
+        boolean haySalida = false, avanzarUnaPosicion;
+        boolean[] derecha_abajo_izquierda_arriba = new boolean[4];
+        int cantidadRutas;
 
         do
         {
-            m[coorAct[0]][coorAct[1]] = "*";
-            for (int i = 0; i < 4; i++) eswn[i] = false;
-            cruces = 0;
-            vuelta = false;
-            if(coorAct[1]+1 < anchura)
-            {
-                if(m[coorAct[0]][coorAct[1]+1].contains("F")) salida = true;
-                else
-                {
-                    if(m[coorAct[0]][coorAct[1]+1].contains("."))
-                    {
-                        cruces++;
-                        eswn[0] = true;
-                    }
-                }
-            }
-            if(!salida && coorAct[0]+1 < altura)
-            {
-                if(m[coorAct[0]+1][coorAct[1]].contains("F")) salida = true;
-                else
-                {
-                    if(m[coorAct[0]+1][coorAct[1]].contains("."))
-                    {
-                        cruces++;
-                        eswn[1] = true;
-                    }
-                }
-            }
-            if(!salida && coorAct[1]-1 >= 0)
-            {
-                if(m[coorAct[0]][coorAct[1]-1].contains("F")) salida = true;
-                else
-                {
-                    if(m[coorAct[0]][coorAct[1]-1].contains("."))
-                    {
-                        cruces++;
-                        eswn[2] = true;
-                    }
-                }
-            }
-            if(!salida && coorAct[0]-1 >= 0)
-            {
-                if(m[coorAct[0]-1][coorAct[1]].contains("F")) salida = true;
-                else
-                {
-                    if(m[coorAct[0]-1][coorAct[1]].contains("."))
-                    {
-                        cruces++;
-                        eswn[3] = true;
-                    }
-                }
-            }
-            if(!salida)
-            {
-                if(cruces == 1)
-                {
-                    cruces = 0;
-                    while(!eswn[cruces]) cruces++;
+            cantidadRutas = 0;
+            avanzarUnaPosicion = false;
 
-                    switch(cruces)
+            mapa[coordenadasActuales[0]][coordenadasActuales[1]] = "*";
+            for (int i = 0; i < 4; i++) derecha_abajo_izquierda_arriba[i] = false;
+            if(coordenadasActuales[1]+1 < anchura)
+            {
+                if(mapa[coordenadasActuales[0]][coordenadasActuales[1]+1].contains("F")) haySalida = true;
+                else
+                {
+                    if(mapa[coordenadasActuales[0]][coordenadasActuales[1]+1].contains("."))
+                    {
+                        cantidadRutas++;
+                        derecha_abajo_izquierda_arriba[0] = true;
+                    }
+                }
+            }
+            if(!haySalida && coordenadasActuales[0]+1 < altura)
+            {
+                if(mapa[coordenadasActuales[0]+1][coordenadasActuales[1]].contains("F")) haySalida = true;
+                else
+                {
+                    if(mapa[coordenadasActuales[0]+1][coordenadasActuales[1]].contains("."))
+                    {
+                        cantidadRutas++;
+                        derecha_abajo_izquierda_arriba[1] = true;
+                    }
+                }
+            }
+            if(!haySalida && coordenadasActuales[1]-1 >= 0)
+            {
+                if(mapa[coordenadasActuales[0]][coordenadasActuales[1]-1].contains("F")) haySalida = true;
+                else
+                {
+                    if(mapa[coordenadasActuales[0]][coordenadasActuales[1]-1].contains("."))
+                    {
+                        cantidadRutas++;
+                        derecha_abajo_izquierda_arriba[2] = true;
+                    }
+                }
+            }
+            if(!haySalida && coordenadasActuales[0]-1 >= 0)
+            {
+                if(mapa[coordenadasActuales[0]-1][coordenadasActuales[1]].contains("F")) haySalida = true;
+                else
+                {
+                    if(mapa[coordenadasActuales[0]-1][coordenadasActuales[1]].contains("."))
+                    {
+                        cantidadRutas++;
+                        derecha_abajo_izquierda_arriba[3] = true;
+                    }
+                }
+            }
+            if(!haySalida)
+            {
+                if(cantidadRutas == 1)
+                {
+                    cantidadRutas = 0;
+                    while(!derecha_abajo_izquierda_arriba[cantidadRutas]) cantidadRutas++;
+
+                    switch(cantidadRutas)
                     {
                         case 0:
-                            coorAct[1] += 1;
+                            coordenadasActuales[1] += 1;
                             break;
 
                         case 1:
-                            coorAct[0] += 1;
+                            coordenadasActuales[0] += 1;
                             break;
 
                         case 2:
-                            coorAct[1] -= 1;
+                            coordenadasActuales[1] -= 1;
                             break;
 
                         case 3:
-                            coorAct[0] -= 1;
+                            coordenadasActuales[0] -= 1;
                             break;
                     }
-                    vuelta = true;
+                    avanzarUnaPosicion = true;
                 }
-                else if(cruces > 1)
+                else if(cantidadRutas > 1)
                 {
-                    if(eswn[0])
+                    if(derecha_abajo_izquierda_arriba[0])
                     {
-                        coorAct[1] += 1;
-                        salida = recorridoViable(m.clone(), coorAct.clone(), altura, anchura);
-                        coorAct[1] -= 1;
+                        coordenadasActuales[1] += 1;
+                        haySalida = recorridoViable(mapa.clone(), coordenadasActuales.clone(), altura, anchura);
+                        coordenadasActuales[1] -= 1;
                     }
-                    if(!salida && eswn[1])
+                    if(!haySalida && derecha_abajo_izquierda_arriba[1])
                     {
-                        coorAct[0] += 1;
-                        salida = recorridoViable(m.clone(), coorAct.clone(), altura, anchura);
-                        coorAct[0] -= 1;
+                        coordenadasActuales[0] += 1;
+                        haySalida = recorridoViable(mapa.clone(), coordenadasActuales.clone(), altura, anchura);
+                        coordenadasActuales[0] -= 1;
                     }
-                    if(!salida && eswn[2])
+                    if(!haySalida && derecha_abajo_izquierda_arriba[2])
                     {
-                        coorAct[1] -= 1;
-                        salida = recorridoViable(m.clone(), coorAct.clone(), altura, anchura);
-                        coorAct[1] += 1;
+                        coordenadasActuales[1] -= 1;
+                        haySalida = recorridoViable(mapa.clone(), coordenadasActuales.clone(), altura, anchura);
+                        coordenadasActuales[1] += 1;
                     }
-                    if(!salida && eswn[3])
+                    if(!haySalida && derecha_abajo_izquierda_arriba[3])
                     {
-                        coorAct[0] -= 1;
-                        salida = recorridoViable(m.clone(), coorAct.clone(), altura, anchura);
-                        coorAct[0] += 1;
+                        coordenadasActuales[0] -= 1;
+                        haySalida = recorridoViable(mapa.clone(), coordenadasActuales.clone(), altura, anchura);
+                        coordenadasActuales[0] += 1;
                     }
                 }
             }
-        }while(vuelta);
+        }while(avanzarUnaPosicion);
 
-        return salida;
+        return haySalida;
     }
 
-    public static String[][] solicitudMapa(String[][] m, int height, int width, int[] coorS)
+    public static String[][] solicitudMapa(String[][] mapa, int altura, int anchura, int[] coordenadasS)
     {
         String[] fila;
 
-        for(int i = 0; i < height; i++)
+        for(int i = 0; i < altura; i++)
         {
             fila = key.nextLine().split("");
-            for(int j = 0; j < width; j++)
+            for(int j = 0; j < anchura; j++)
             {
-                m[i][j] = fila[j];
+                mapa[i][j] = fila[j];
                 if(fila[j].contains("S"))
                 {
-                    coorS[0] = i;
-                    coorS[1] = j;
+                    coordenadasS[0] = i;
+                    coordenadasS[1] = j;
                 }
             }
         }
-        return m;
+        return mapa;
     }
 
     public static boolean casoDePrueba()
@@ -149,15 +151,15 @@ public class solution_432
         if (!key.hasNext()) return false;
         else
         {
-            int h = key.nextInt();
-            int w = key.nextInt();
-            int[] coorS = new int[2];
-            String[][] m = new String[h][w];
+            int altura = key.nextInt();
+            int anchura = key.nextInt();
+            int[] coordenadasS = new int[2];
+            String[][] mapa = new String[altura][anchura];
             key.nextLine();
 
-            m = solicitudMapa(m.clone(), h, w, coorS).clone();
+            mapa = solicitudMapa(mapa.clone(), altura, anchura, coordenadasS).clone();
 
-            System.out.println(recorridoViable(m.clone(), coorS.clone(), h, w) ? "SÍ" : "NO");
+            System.out.println(recorridoViable(mapa.clone(), coordenadasS.clone(), altura, anchura) ? "SI" : "NO");
             return true;
         }
     }

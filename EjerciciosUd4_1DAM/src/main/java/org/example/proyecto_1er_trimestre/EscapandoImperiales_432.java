@@ -50,7 +50,7 @@ public class EscapandoImperiales_432
 
     public static String[][] solicitudMapa(String[][] m, int height, int width, int[] coorS)
     {
-        boolean[] haySF = {false, false};
+        boolean[] haySF = new boolean[2];
         boolean[] limpiarHaySF = {false, false};
         String[] fila;
 
@@ -61,6 +61,8 @@ public class EscapandoImperiales_432
 
             if(fila.length == width)
             {
+                limpiarHaySF[0] = false;
+                limpiarHaySF[1] = false;
                 for(int j = 0; j < width; j++)
                 {
                     if(filtroMapa(fila[j], haySF, limpiarHaySF, coorS, i, j))
@@ -68,12 +70,11 @@ public class EscapandoImperiales_432
                         i--;
                         if(limpiarHaySF[0])
                         {
-                            haySF[0]
-                            limpiarHaySF[0] = false;
+                            haySF[0] = false;
                         }
-                        if(limpiarHaySF[0])
+                        if(limpiarHaySF[1])
                         {
-
+                            haySF[1] = false;
                         }
                         continue fuera;
                     }
