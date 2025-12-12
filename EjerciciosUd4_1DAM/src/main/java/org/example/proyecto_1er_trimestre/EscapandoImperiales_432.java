@@ -5,7 +5,7 @@ public class EscapandoImperiales_432
 {
     private static final String ENTRADA = "S", SALIDA = "F", ASTEROIDE = "*", CAMINO = ".";
 
-    public static boolean filtroMapa(String f, boolean[] haySF, int[] cS, int h, int w)
+    public static boolean filtroMapa(String f, boolean[] haySF, boolean[] lhSF, int[] cS, int h, int w)
     {
         switch(f)
         {
@@ -24,6 +24,7 @@ public class EscapandoImperiales_432
                     haySF[0] = true;
                     cS[0] = h;
                     cS[1] = w;
+                    lhSF[0] = true;
                 }
                 break;
 
@@ -36,6 +37,7 @@ public class EscapandoImperiales_432
                 else
                 {
                     haySF[1] = true;
+                    lhSF[1] = true;
                 }
                 break;
 
@@ -49,6 +51,7 @@ public class EscapandoImperiales_432
     public static String[][] solicitudMapa(String[][] m, int height, int width, int[] coorS)
     {
         boolean[] haySF = {false, false};
+        boolean[] limpiarHaySF = {false, false};
         String[] fila;
 
         fuera:
@@ -60,9 +63,18 @@ public class EscapandoImperiales_432
             {
                 for(int j = 0; j < width; j++)
                 {
-                    if(filtroMapa(fila[j], haySF, coorS, i, j))
+                    if(filtroMapa(fila[j], haySF, limpiarHaySF, coorS, i, j))
                     {
                         i--;
+                        if(limpiarHaySF[0])
+                        {
+                            haySF[0]
+                            limpiarHaySF[0] = false;
+                        }
+                        if(limpiarHaySF[0])
+                        {
+
+                        }
                         continue fuera;
                     }
                     else
@@ -70,20 +82,19 @@ public class EscapandoImperiales_432
                         m[i][j] = fila[j];
                     }
                 }
+                if(i == height-1)
+                {
+                    if(!haySF[0] || !haySF[1])
+                    {
+                        System.out.println("ERROR\nEl mapa debe contener una entrada ("+ ENTRADA +") y una salida ("+ SALIDA +").\n");
+                        i--;
+                    }
+                }
             }
             else
             {
                 System.out.println("ERROR\nCada fila del mapa ha de contener "+ width +" carácteres.\n");
                 i--;
-            }
-
-            if(i == height-1)
-            {
-                if(!haySF[0] || !haySF[1])
-                {
-                    System.out.println("ERROR\nEl mapa debe contener una entrada ("+ ENTRADA +") y una salida ("+ SALIDA +").\n");
-                    i--;
-                }
             }
         }
         return m;

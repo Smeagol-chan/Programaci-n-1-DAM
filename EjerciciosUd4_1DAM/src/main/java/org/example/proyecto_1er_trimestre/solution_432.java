@@ -1,5 +1,3 @@
-import org.example.FuncionesComunes;
-
 import java.util.Scanner;
 
 public class solution_432
