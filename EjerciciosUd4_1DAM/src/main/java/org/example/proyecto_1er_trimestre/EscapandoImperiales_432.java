@@ -5,7 +5,7 @@ public class EscapandoImperiales_432
 {
     private static final String ENTRADA = "S", SALIDA = "F", ASTEROIDE = "*", CAMINO = ".";
 
-    public static boolean filtroMapa(String f, boolean[] haySF, boolean[] lhSF, int[] cS, int h, int w)
+    public static boolean filtroMapa(String f, boolean[] haySF, int[] coorS, int y, int x)
     {
         switch(f)
         {
@@ -22,9 +22,9 @@ public class EscapandoImperiales_432
                 else
                 {
                     haySF[0] = true;
-                    cS[0] = h;
-                    cS[1] = w;
-                    lhSF[0] = true;
+                    haySF[2] = true;
+                    coorS[0] = y;
+                    coorS[1] = x;
                 }
                 break;
 
@@ -37,7 +37,7 @@ public class EscapandoImperiales_432
                 else
                 {
                     haySF[1] = true;
-                    lhSF[1] = true;
+                    haySF[3] = true;
                 }
                 break;
 
@@ -48,31 +48,30 @@ public class EscapandoImperiales_432
         return false;
     }
 
-    public static String[][] solicitudMapa(String[][] m, int height, int width, int[] coorS)
+    public static String[][] solicitudMapa(String[][] mapa, int altura, int anchura, int[] coordenadasS)
     {
-        boolean[] haySF = new boolean[2];
-        boolean[] limpiarHaySF = {false, false};
+        boolean[] haySF = new boolean[4];
         String[] fila;
 
         fuera:
-        for(int i = 0; i < height; i++)
+        for(int i = 0; i < altura; i++)
         {
             fila = FuncionesComunes.key.nextLine().split("");
 
-            if(fila.length == width)
+            if(fila.length == anchura)
             {
-                limpiarHaySF[0] = false;
-                limpiarHaySF[1] = false;
-                for(int j = 0; j < width; j++)
+                haySF[2] = false;
+                haySF[3] = false;
+                for(int j = 0; j < anchura; j++)
                 {
-                    if(filtroMapa(fila[j], haySF, limpiarHaySF, coorS, i, j))
+                    if(filtroMapa(fila[j], haySF, coordenadasS, i, j))
                     {
                         i--;
-                        if(limpiarHaySF[0])
+                        if(haySF[2])
                         {
                             haySF[0] = false;
                         }
-                        if(limpiarHaySF[1])
+                        if(haySF[3])
                         {
                             haySF[1] = false;
                         }
@@ -80,150 +79,146 @@ public class EscapandoImperiales_432
                     }
                     else
                     {
-                        m[i][j] = fila[j];
-                    }
-                }
-                if(i == height-1)
-                {
-                    if(!haySF[0] || !haySF[1])
-                    {
-                        System.out.println("ERROR\nEl mapa debe contener una entrada ("+ ENTRADA +") y una salida ("+ SALIDA +").\n");
-                        i--;
+                        mapa[i][j] = fila[j];
                     }
                 }
             }
             else
             {
-                System.out.println("ERROR\nCada fila del mapa ha de contener "+ width +" carácteres.\n");
+                System.out.println("ERROR\nCada fila del mapa ha de contener "+ anchura +" carácteres.\n");
                 i--;
             }
         }
-        return m;
+        return mapa;
     }
 
-    public static boolean recorridoViable(String[][] m, int[] coorAct, int altura, int anchura)
+    public static boolean recorridoViable(String[][] mapa, int[] coordenadasActuales, int altura, int anchura)
     {
-        boolean salida = false, vuelta;
-        boolean[] eswn = new boolean[4];
-        int cruces;
+        boolean haySalida = false, avanzarUnaPosicion;
+        boolean[] derecha_abajo_izquierda_arriba = new boolean[4];
+        int cantidadRutas;
 
+        if(coordenadasActuales[0] == -1) return false;
         do
         {
-            m[coorAct[0]][coorAct[1]] = ASTEROIDE;
-            for (int i = 0; i < 4; i++) eswn[i] = false;
-            cruces = 0;
-            vuelta = false;
-            if(coorAct[1]+1 < anchura)
+            mapa[coordenadasActuales[0]][coordenadasActuales[1]] = ASTEROIDE;
+            for (int i = 0; i < 4; i++) derecha_abajo_izquierda_arriba[i] = false;
+            cantidadRutas = 0;
+            avanzarUnaPosicion = false;
+            if(coordenadasActuales[1]+1 < anchura)
             {
-                if(m[coorAct[0]][coorAct[1]+1].contains(SALIDA)) salida = true;
+                if(mapa[coordenadasActuales[0]][coordenadasActuales[1]+1].contains(SALIDA)) return true;
                 else
                 {
-                    if(m[coorAct[0]][coorAct[1]+1].contains(CAMINO))
+                    if(mapa[coordenadasActuales[0]][coordenadasActuales[1]+1].contains(CAMINO))
                     {
-                        cruces++;
-                        eswn[0] = true;
+                        cantidadRutas++;
+                        derecha_abajo_izquierda_arriba[0] = true;
                     }
                 }
             }
-            if(!salida && coorAct[0]+1 < altura)
+            if(coordenadasActuales[0]+1 < altura)
             {
-                if(m[coorAct[0]+1][coorAct[1]].contains(SALIDA)) salida = true;
+                if(mapa[coordenadasActuales[0]+1][coordenadasActuales[1]].contains(SALIDA)) return true;
                 else
                 {
-                    if(m[coorAct[0]+1][coorAct[1]].contains(CAMINO))
+                    if(mapa[coordenadasActuales[0]+1][coordenadasActuales[1]].contains(CAMINO))
                     {
-                        cruces++;
-                        eswn[1] = true;
+                        cantidadRutas++;
+                        derecha_abajo_izquierda_arriba[1] = true;
                     }
                 }
             }
-            if(!salida && !FuncionesComunes.negativoInt(coorAct[1]-1))
+            if(!FuncionesComunes.negativoInt(coordenadasActuales[1]-1))
             {
-                if(m[coorAct[0]][coorAct[1]-1].contains(SALIDA)) salida = true;
+                if(mapa[coordenadasActuales[0]][coordenadasActuales[1]-1].contains(SALIDA)) return true;
                 else
                 {
-                    if(m[coorAct[0]][coorAct[1]-1].contains(CAMINO))
+                    if(mapa[coordenadasActuales[0]][coordenadasActuales[1]-1].contains(CAMINO))
                     {
-                        cruces++;
-                        eswn[2] = true;
+                        cantidadRutas++;
+                        derecha_abajo_izquierda_arriba[2] = true;
                     }
                 }
             }
-            if(!salida && !FuncionesComunes.negativoInt(coorAct[0]-1))
+            if(!FuncionesComunes.negativoInt(coordenadasActuales[0]-1))
             {
-                if(m[coorAct[0]-1][coorAct[1]].contains(SALIDA)) salida = true;
+                if(mapa[coordenadasActuales[0]-1][coordenadasActuales[1]].contains(SALIDA)) return true;
                 else
                 {
-                    if(m[coorAct[0]-1][coorAct[1]].contains(CAMINO))
+                    if(mapa[coordenadasActuales[0]-1][coordenadasActuales[1]].contains(CAMINO))
                     {
-                        cruces++;
-                        eswn[3] = true;
+                        cantidadRutas++;
+                        derecha_abajo_izquierda_arriba[3] = true;
                     }
                 }
             }
-            if(!salida)
+            if(cantidadRutas == 1)
             {
-                if(cruces == 1)
+                cantidadRutas = 0;
+                while(!derecha_abajo_izquierda_arriba[cantidadRutas]) cantidadRutas++;
+
+                switch(cantidadRutas)
                 {
-                    cruces = 0;
-                    while(!eswn[cruces]) cruces++;
+                    case 0:
+                        coordenadasActuales[1] += 1;
+                        break;
 
-                    switch(cruces)
-                    {
-                        case 0:
-                            coorAct[1] += 1;
-                            break;
+                    case 1:
+                        coordenadasActuales[0] += 1;
+                        break;
 
-                        case 1:
-                            coorAct[0] += 1;
-                            break;
+                    case 2:
+                        coordenadasActuales[1] -= 1;
+                        break;
 
-                        case 2:
-                            coorAct[1] -= 1;
-                            break;
-
-                        case 3:
-                            coorAct[0] -= 1;
-                            break;
-                    }
-                    vuelta = true;
+                    case 3:
+                        coordenadasActuales[0] -= 1;
+                        break;
                 }
-                else if(cruces > 1)
+                avanzarUnaPosicion = true;
+            }
+            else if(cantidadRutas > 1)
+            {
+                if(derecha_abajo_izquierda_arriba[0])
                 {
-                    if(eswn[0])
-                    {
-                        coorAct[1] += 1;
-                        salida = recorridoViable(m.clone(), coorAct.clone(), altura, anchura);
-                        coorAct[1] -= 1;
-                    }
-                    if(!salida && eswn[1])
-                    {
-                        coorAct[0] += 1;
-                        salida = recorridoViable(m.clone(), coorAct.clone(), altura, anchura);
-                        coorAct[0] -= 1;
-                    }
-                    if(!salida && eswn[2])
-                    {
-                        coorAct[1] -= 1;
-                        salida = recorridoViable(m.clone(), coorAct.clone(), altura, anchura);
-                        coorAct[1] += 1;
-                    }
-                    if(!salida && eswn[3])
-                    {
-                        coorAct[0] -= 1;
-                        salida = recorridoViable(m.clone(), coorAct.clone(), altura, anchura);
-                        coorAct[0] += 1;
-                    }
+                    coordenadasActuales[1] += 1;
+                    haySalida = recorridoViable(mapa.clone(), coordenadasActuales.clone(), altura, anchura);
+                    coordenadasActuales[1] -= 1;
+                }
+                if(!haySalida && derecha_abajo_izquierda_arriba[1])
+                {
+                    coordenadasActuales[0] += 1;
+                    haySalida = recorridoViable(mapa.clone(), coordenadasActuales.clone(), altura, anchura);
+                    coordenadasActuales[0] -= 1;
+                }
+                if(!haySalida && derecha_abajo_izquierda_arriba[2])
+                {
+                    coordenadasActuales[1] -= 1;
+                    haySalida = recorridoViable(mapa.clone(), coordenadasActuales.clone(), altura, anchura);
+                    coordenadasActuales[1] += 1;
+                }
+                if(!haySalida && derecha_abajo_izquierda_arriba[3])
+                {
+                    coordenadasActuales[0] -= 1;
+                    haySalida = recorridoViable(mapa.clone(), coordenadasActuales.clone(), altura, anchura);
+                    coordenadasActuales[0] += 1;
                 }
             }
-        }while(vuelta);
+        }while(avanzarUnaPosicion);
 
-        return salida;
+        return haySalida;
+    }
+
+    public static boolean finalizarPrograma(int[] coorS)
+    {
+        coorS[0] = -1;
+        return FuncionesComunes.key.hasNext();
     }
 
     static void main()
     {
-        final int TAM_MIN = 0, TAM_MAX = 20;
+        final int TAM_MIN = 1, TAM_MAX = 20;
         int[] coordenadasS = new int[2];
         int altura, anchura;
 
@@ -232,20 +227,18 @@ public class EscapandoImperiales_432
         while(true)
         {
             System.out.print("Introduzca el alto y el ancho del mapa: ");
+            if(!finalizarPrograma(coordenadasS)) break;
+
             altura = FuncionesComunes.filtroLimitesInt(TAM_MIN, TAM_MAX);
             anchura = FuncionesComunes.filtroLimitesInt(TAM_MIN, TAM_MAX);
             FuncionesComunes.key.nextLine();
 
-            if(altura == 0 || anchura == 0) break;
-            else
-            {
-                String[][] mapa = new String[altura][anchura];
+            String[][] mapa = new String[altura][anchura];
 
-                System.out.println("\nRellena el contenido del mapa:");
-                mapa = solicitudMapa(mapa.clone(), altura, anchura, coordenadasS).clone();
+            System.out.println("\nRellena el contenido del mapa:");
+            mapa = solicitudMapa(mapa.clone(), altura, anchura, coordenadasS).clone();
 
-                System.out.println("Ruta viable: "+ (recorridoViable(mapa.clone(), coordenadasS.clone(), altura, anchura) ? "SÍ" : "NO") +"\n");
-            }
+            System.out.println("Ruta viable: "+ (recorridoViable(mapa.clone(), coordenadasS.clone(), altura, anchura) ? "SÍ" : "NO") +"\n");
         }
     }
 }

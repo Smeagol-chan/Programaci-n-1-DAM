@@ -10,7 +10,7 @@ public class solution_432
         boolean haySalida = false, avanzarUnaPosicion;
         boolean[] derecha_abajo_izquierda_arriba = new boolean[4];
         int cantidadRutas;
-
+        if(coordenadasActuales[0] == -1) return false;
         do
         {
             cantidadRutas = 0;
@@ -129,7 +129,7 @@ public class solution_432
     public static String[][] solicitudMapa(String[][] mapa, int altura, int anchura, int[] coordenadasS)
     {
         String[] fila;
-
+        coordenadasS[0] = -1;
         for(int i = 0; i < altura; i++)
         {
             fila = key.nextLine().split("");
