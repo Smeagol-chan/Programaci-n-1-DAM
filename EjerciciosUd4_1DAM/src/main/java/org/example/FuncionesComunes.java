@@ -97,6 +97,19 @@ public class FuncionesComunes
         return vI;
     }
 
+    public static int solicitudIntpositivos()
+    {
+        int n;
+        boolean fallo;
+        do
+        {
+            n = solicitudInt();
+            fallo = negativoInt(n);
+            if(fallo) System.out.println("ERROR\nSolo se permiten números positivos.");
+        }while(fallo);
+        return n;
+    }
+
     public static String[][] solicitudMatrizStr(String[][] m, String sep)
     {
         //Incompleta
@@ -105,5 +118,58 @@ public class FuncionesComunes
             fila = key.nextLine().split(sep);
         }
         return m;
+    }
+
+    public static char solicitudChar()
+    {
+        boolean fallo;
+        char c = 'c';
+        String s;
+
+        do
+        {
+            fallo = false;
+            s = key.nextLine();
+            if(s.length() != 1)
+            {
+                System.out.println("ERROR\nSe debe introducir 1 carácter.");
+                fallo = true;
+            }
+            else
+            {
+                c = s.charAt(0);
+            }
+        }while(fallo);
+        return c;
+    }
+
+    public static char filtroChar(char[] permitidos)
+    {
+        key.nextLine();
+        char letra;
+        boolean fallo;
+
+        do
+        {
+            fallo = false;
+            letra = solicitudChar();
+
+            for (int i = 0; i < permitidos.length; i++)
+            {
+                if(letra != permitidos[i])
+                {
+                    if(i == permitidos.length-1)
+                    {
+                        System.out.println("ERROR\nCarácter introducido inválido.");
+                        fallo = true;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }while(fallo);
+        return letra;
     }
 }

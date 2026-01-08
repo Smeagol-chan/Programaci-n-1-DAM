@@ -6,7 +6,7 @@ public class Ej2_ejemplo
 {
     private static int pedirNum()
     {
-        int n = 0;
+        int n;
         do
         {
             n = FuncionesComunes.solicitudInt();
@@ -23,8 +23,33 @@ public class Ej2_ejemplo
         }
     }
 
+    private static void imprimirBucle(int num)
+    {
+        for(int i = 1; i <= num; i++)
+        {
+            System.out.println(i);
+        }
+    }
+
+    private static void menu()
+    {
+        System.out.println("1. Recursivo\n2. Bucles");
+        switch (FuncionesComunes.filtroLimitesInt(1, 2))
+        {
+            case 1:
+                imprimir(pedirNum());
+                break;
+            case 2:
+                imprimirBucle(pedirNum());
+                break;
+            default:
+                System.out.println("ERROR");
+                break;
+        }
+    }
+
     static void main()
     {
-        imprimir(pedirNum());
+        menu();
     }
 }
