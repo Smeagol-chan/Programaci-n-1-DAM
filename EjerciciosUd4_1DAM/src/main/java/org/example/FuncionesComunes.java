@@ -129,7 +129,7 @@ public class FuncionesComunes
         do
         {
             fallo = false;
-            s = key.nextLine();
+            s = solicitarString();
             if(s.length() != 1)
             {
                 System.out.println("ERROR\nSe debe introducir 1 carácter.");
@@ -145,7 +145,6 @@ public class FuncionesComunes
 
     public static char filtroChar(char[] permitidos)
     {
-        key.nextLine();
         char letra;
         boolean fallo;
 
@@ -171,5 +170,28 @@ public class FuncionesComunes
             }
         }while(fallo);
         return letra;
+    }
+
+    public static String solicitarString()
+    {
+        boolean fallo;
+        String s;
+        do
+        {
+            fallo = false;
+            s = key.nextLine();
+            if(s.length() == 0)
+            {
+                System.out.println("ERROR\nLa frase debe contener un carácter como mínimo.");
+                fallo = true;
+            }
+        }while(fallo);
+        return s;
+    }
+
+    public static char[] separarLetrasString()
+    {
+        char[] frase = solicitarString().toCharArray();
+        return frase.clone();
     }
 }
