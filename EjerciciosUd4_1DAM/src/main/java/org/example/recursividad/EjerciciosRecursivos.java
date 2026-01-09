@@ -71,4 +71,22 @@ public class EjerciciosRecursivos
             return true;
         }
     }
+
+    private static String procesoSuma(int num)
+    {
+        String suma = String.valueOf(num);
+        if(num > 1) suma = procesoSuma(num-1) + "+" + suma;
+        return suma;
+    }
+
+    private static int resultadoSuma(int num)
+    {
+        if(num > 1) num += resultadoSuma(num-1);
+        return num;
+    }
+
+    public static String calculoSuma(int num)
+    {
+        return procesoSuma(num) + " = " + resultadoSuma(num);
+    }
 }

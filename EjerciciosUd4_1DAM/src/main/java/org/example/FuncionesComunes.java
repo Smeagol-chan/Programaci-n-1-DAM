@@ -1,4 +1,5 @@
 package org.example;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -97,7 +98,7 @@ public class FuncionesComunes
         return vI;
     }
 
-    public static int solicitudIntpositivos()
+    public static int solicitudPositivosInt()
     {
         int n;
         boolean fallo;
@@ -108,16 +109,6 @@ public class FuncionesComunes
             if(fallo) System.out.println("ERROR\nSolo se permiten números positivos.");
         }while(fallo);
         return n;
-    }
-
-    public static String[][] solicitudMatrizStr(String[][] m, String sep)
-    {
-        //Incompleta
-        for(String[] fila: m)
-        {
-            fila = key.nextLine().split(sep);
-        }
-        return m;
     }
 
     public static char solicitudChar()
@@ -194,4 +185,10 @@ public class FuncionesComunes
         char[] frase = solicitarString().toCharArray();
         return frase.clone();
     }
+
+    public static void limpiarConsola() throws IOException, InterruptedException
+    {
+        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+    }
+
 }

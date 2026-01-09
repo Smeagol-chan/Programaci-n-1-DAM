@@ -1,6 +1,8 @@
 package org.example.recursividad;
 import org.example.FuncionesComunes;
 
+import java.io.IOException;
+
 public class MenuRecursivo
 {
     private static void mostrarMenu()
@@ -22,7 +24,7 @@ public class MenuRecursivo
         {
             case 1:
                 System.out.println("Introduzca un número:");
-                int num = FuncionesComunes.solicitudIntpositivos();
+                int num = FuncionesComunes.solicitudPositivosInt();
                 System.out.println(num +" tiene "+ EjerciciosRecursivos.digitos(num) +" dígitos.");
                 break;
 
@@ -30,7 +32,7 @@ public class MenuRecursivo
                 System.out.println("Introduzca la base:");
                 int base = FuncionesComunes.solicitudInt();
                 System.out.println("Introduzca el exponente:");
-                int exp = FuncionesComunes.solicitudIntpositivos();
+                int exp = FuncionesComunes.solicitudPositivosInt();
                 System.out.println(base +"^"+ exp +" = "+ EjerciciosRecursivos.potencias(base, exp));
                 break;
 
@@ -47,13 +49,13 @@ public class MenuRecursivo
 
             case 4:
                 System.out.println("Introduzca un número:");
-                System.out.println((EjerciciosRecursivos.comprobarBinario(FuncionesComunes.solicitudIntpositivos()) ? "Sí" : "No") +" es binario.");
+                System.out.println((EjerciciosRecursivos.comprobarBinario(FuncionesComunes.solicitudPositivosInt()) ? "Sí" : "No") +" es binario.");
                 FuncionesComunes.key.nextLine();
                 break;
 
             case 5:
                 System.out.println("Introduzca un número:");
-                String binario = EjerciciosRecursivos.convertirBinario(FuncionesComunes.solicitudIntpositivos());
+                String binario = EjerciciosRecursivos.convertirBinario(FuncionesComunes.solicitudPositivosInt());
                 System.out.println(binario);
                 FuncionesComunes.key.nextLine();
                 break;
@@ -67,6 +69,10 @@ public class MenuRecursivo
                 break;
 
             case 7:
+                System.out.println("Introduzca un número:");
+                String suma = EjerciciosRecursivos.calculoSuma(FuncionesComunes.solicitudPositivosInt());
+                System.out.println(suma);
+                FuncionesComunes.key.nextLine();
                 break;
 
             default:
@@ -82,11 +88,11 @@ public class MenuRecursivo
         System.out.println("\t[X] - Salir");
     }
 
-    static void main()
-    {
+    static void main() throws IOException, InterruptedException {
         final char[] LETRAS_REINICIO = {'X', 'M'};
         do
         {
+            FuncionesComunes.limpiarConsola();
             mostrarMenu();
             eleccionMenu();
             mostrarVuelta();
