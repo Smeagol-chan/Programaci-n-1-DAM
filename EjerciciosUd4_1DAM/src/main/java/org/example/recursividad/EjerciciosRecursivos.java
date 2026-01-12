@@ -5,7 +5,7 @@ public class EjerciciosRecursivos
     public static int digitos(int n)
     {
         int cont = 0;
-        if(n > 9) cont = digitos(n%10);
+        if(n > 9) cont = digitos(n/10);
         cont++;
         return cont;
     }

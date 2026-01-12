@@ -26,6 +26,7 @@ public class MenuRecursivo
                 System.out.println("Introduzca un número:");
                 int num = FuncionesComunes.solicitudPositivosInt();
                 System.out.println(num +" tiene "+ EjerciciosRecursivos.digitos(num) +" dígitos.");
+                FuncionesComunes.key.nextLine();
                 break;
 
             case 2:
@@ -34,6 +35,7 @@ public class MenuRecursivo
                 System.out.println("Introduzca el exponente:");
                 int exp = FuncionesComunes.solicitudPositivosInt();
                 System.out.println(base +"^"+ exp +" = "+ EjerciciosRecursivos.potencias(base, exp));
+                FuncionesComunes.key.nextLine();
                 break;
 
             case 3:
