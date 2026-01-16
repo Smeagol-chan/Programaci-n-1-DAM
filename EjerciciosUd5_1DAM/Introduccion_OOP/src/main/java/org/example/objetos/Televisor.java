@@ -2,18 +2,22 @@ package org.example.objetos;
 
 public class Televisor
 {
+    private static final int DEF_CANAL = 1; //Default Canal
+    private static final int DEF_VOLUMEN = 5;
+
     private int canal;
     private int volumen;
 
     public Televisor()
     {
-        canal = 1;
-        volumen = 5;
+        canal = DEF_CANAL;
+        volumen = DEF_VOLUMEN;
     }
 
     public Televisor(int valorCanal)
     {
         canal = valorCanal;
+        volumen = DEF_VOLUMEN;
     }
 
     public int getCanal() {
