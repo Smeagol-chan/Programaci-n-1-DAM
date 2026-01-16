@@ -14,7 +14,7 @@ public class Paciente
     private String dni;
     private char sexo;
     private double peso;
-    private int altura;
+    private double altura;
 
     public Paciente()
     {
@@ -76,11 +76,11 @@ public class Paciente
         this.peso = peso;
     }
 
-    public int getAltura() {
+    public double getAltura() {
         return altura;
     }
 
-    public void setAltura(int altura) {
+    public void setAltura(double altura) {
         this.altura = altura;
     }
 
@@ -111,8 +111,8 @@ public class Paciente
     //No está funcionando
     public int calcularMC()
     {
-        if(peso/Math.pow(altura/100, 2) < 20) return PESO_BAJO;
-        else if(peso / Math.pow(altura/100, 2) > 25) return PESO_ALTO;
+        if(peso/Math.pow(altura, 2) < 20) return PESO_BAJO;
+        else if(peso / Math.pow(altura, 2) > 25) return PESO_ALTO;
         else return PESO_IDEAL;
     }
 }
