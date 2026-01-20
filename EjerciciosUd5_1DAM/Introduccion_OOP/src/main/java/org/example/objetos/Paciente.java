@@ -7,6 +7,7 @@ public class Paciente
     private static int PESO_BAJO = -1;
     private static int PESO_IDEAL = 0;
     private static int PESO_ALTO = 1;
+    private static int MAYORIA_EDAD = 18;
     public static Random random = new Random();
 
     private String nombre;
@@ -14,7 +15,7 @@ public class Paciente
     private String dni;
     private char sexo;
     private double peso;
-    private double altura;
+    private int altura;
 
     public Paciente()
     {
@@ -27,7 +28,7 @@ public class Paciente
         this.nombre = nombre;
         this.edad = edad;
         this();
-        this.sexo = sexo;
+        this.sexo = validadSexo(sexo);
         this.peso = peso;
         this.altura = altura;
     }
@@ -37,7 +38,13 @@ public class Paciente
         this();
         this.nombre = nombre;
         this.edad = edad;
-        this.sexo = sexo;
+        this.sexo = validadSexo(sexo);
+    }
+
+    private char validadSexo (char sexo)
+    {
+        if(sexo == 'H' || sexo == 'M') return sexo;
+        else return DEF_SEXO;
     }
 
     public String getNombre() {
@@ -65,7 +72,7 @@ public class Paciente
     }
 
     public void setSexo(char sexo) {
-        this.sexo = sexo;
+        this.sexo = validadSexo(sexo);
     }
 
     public double getPeso() {
@@ -76,12 +83,23 @@ public class Paciente
         this.peso = peso;
     }
 
-    public double getAltura() {
+    public int getAltura() {
         return altura;
     }
 
-    public void setAltura(double altura) {
+    public void setAltura(int altura) {
         this.altura = altura;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Nombre: "+ nombre +
+                "\nEdad: "+ edad +
+                "\nDNI: "+ dni +
+                "\nSexo: "+ sexo +
+                "\nPeso: "+ peso +
+                "\nAltura: "+ altura;
     }
 
     private static String generarDNI()
@@ -111,8 +129,13 @@ public class Paciente
     //No está funcionando
     public int calcularMC()
     {
-        if(peso/Math.pow(altura, 2) < 20) return PESO_BAJO;
-        else if(peso / Math.pow(altura, 2) > 25) return PESO_ALTO;
+        if(peso/Math.pow((double) altura/100, 2) < 20) return PESO_BAJO;
+        else if(peso / Math.pow((double) altura/100, 2) > 25) return PESO_ALTO;
         else return PESO_IDEAL;
+    }
+
+    public boolean mayorEdad()
+    {
+        return edad >= MAYORIA_EDAD;
     }
 }
