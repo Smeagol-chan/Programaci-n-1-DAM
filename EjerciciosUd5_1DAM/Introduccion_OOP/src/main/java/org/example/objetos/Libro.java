@@ -14,8 +14,8 @@ public class Libro
 
     public Libro()
     {
-        setDisponible(DEF_DISPONIBLE);
         setId();
+        setDisponible(DEF_DISPONIBLE);
     }
 
     public Libro(String titulo, String autor)
@@ -45,8 +45,10 @@ public class Libro
         return id;
     }
 
-    private void setId() {
+    private void setId()
+    {
         calcularId();
+        cantidadLibrosDisponibles++;
     }
 
     public boolean getDisponible() {
@@ -55,7 +57,6 @@ public class Libro
 
     private void setDisponible(boolean disponible)
     {
-        cantidadLibrosDisponibles++;
         this.disponible = disponible;
     }
 
@@ -64,7 +65,6 @@ public class Libro
         id = DEF_ID + (++cantidadLibrosTotales);
     }
 
-    //UML   ->  no recibe parámetros
     public void prestar()
     {
         if(disponible)
@@ -76,7 +76,6 @@ public class Libro
         else System.out.println("El libro ya ha sido prestado con anterioridad.");
     }
 
-    //UML   ->  no recibe parámetros
     public void devolver()
     {
         if(!disponible)
@@ -88,9 +87,18 @@ public class Libro
         else System.out.println("El libro ya ha sido devuelto con anterioridad.");
     }
 
-    //UML   ->  no recibe parámetros
     public void estaDisponible()
     {
         System.out.println(disponible ? "Está disponible." : "No está disponible.");
+    }
+
+    public static int getCantidadLibrosTotales()
+    {
+        return cantidadLibrosTotales;
+    }
+
+    public static int getCantidadLibrosDisponibles()
+    {
+        return cantidadLibrosDisponibles;
     }
 }
