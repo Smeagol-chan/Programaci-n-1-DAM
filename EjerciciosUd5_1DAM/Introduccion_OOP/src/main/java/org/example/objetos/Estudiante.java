@@ -1,10 +1,9 @@
 package org.example.objetos;
-import org.example.FuncionesComunes;
 
 public class Estudiante
 {
+    private static final String CORREO_FORMAT = "^[A-Za-z0-9+_.-]+@alu.edu.gva.es$";
     private static int contadorEstudiantes = 0;
-    private static final int CANTIDAD_NUMEROS_NIA = 8;
 
     private String nombre;
     private String curso;
@@ -15,20 +14,13 @@ public class Estudiante
     {
         this.nombre = nombre;
         this.curso = curso;
-        nia = String.valueOf(++contadorEstudiantes);
+        setNia();
         this.email = email;
     }
 
     public Estudiante(String nombre)
     {
         this(nombre, null, null);
-    }
-
-    private String generarNia()
-    {
-        String nia = "";
-        for (int i = 0; i < CANTIDAD_NUMEROS_NIA; i++) nia += String.valueOf(FuncionesComunes.random.nextInt(10));
-        return nia;
     }
 
     @Override
@@ -39,6 +31,16 @@ public class Estudiante
                 ", nia='" + nia + '\'' +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    public static boolean validarCorreo(String email)
+    {
+        return email.matches(CORREO_FORMAT);
+    }
+
+    public static int obtenerTotalEstudiantes()
+    {
+        return contadorEstudiantes;
     }
 
     public String getNombre() {
@@ -63,5 +65,13 @@ public class Estudiante
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getNia() {
+        return nia;
+    }
+
+    private void setNia() {
+        nia = String.valueOf(++contadorEstudiantes);
     }
 }
