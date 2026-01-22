@@ -1,6 +1,7 @@
 package org.example.app;
 
 import org.example.objetos.Estudiante;
+import org.example.objetos.Libro;
 
 public class EstudianteApp
 {
@@ -18,5 +19,12 @@ public class EstudianteApp
 
         System.out.println("Email de "+ eric.getNombre() +" es "
                 + (Estudiante.validarCorreo(eric.getEmail()) ? "correcto" : "erróneo") +".");
+        System.out.println("\n");
+
+        Libro tf = new Libro("Trilogía Fundación", "Isaac Asimov");
+        tf.prestar(eric);
+        System.out.println(tf);
+        tf.devolver();
+        System.out.println(tf);
     }
 }

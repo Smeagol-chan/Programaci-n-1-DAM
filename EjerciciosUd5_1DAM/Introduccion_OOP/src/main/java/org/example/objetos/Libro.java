@@ -11,11 +11,13 @@ public class Libro
     private String autor;
     private String id;
     private boolean disponible;
+    private Estudiante estudiantePrestado;
 
     public Libro()
     {
         setId();
         setDisponible(DEF_DISPONIBLE);
+        estudiantePrestado = null;
     }
 
     public Libro(String titulo, String autor)
@@ -65,13 +67,15 @@ public class Libro
         id = DEF_ID + (++cantidadLibrosTotales);
     }
 
-    public void prestar()
+    public void prestar(Estudiante estudiante)
     {
         if(disponible)
         {
             System.out.println("El libro ha sido prestado con éxito.");
             setDisponible(false);
             cantidadLibrosDisponibles--;
+            estudiantePrestado = estudiante;
+            //estudiantePrestado.setLibro(this)
         }
         else System.out.println("El libro ya ha sido prestado con anterioridad.");
     }
@@ -83,6 +87,8 @@ public class Libro
             System.out.println("El libro ha sido devuelto con éxito.");
             setDisponible(true);
             cantidadLibrosDisponibles++;
+            //estudiantePrestado.setLibro(null)
+            estudiantePrestado = null;
         }
         else System.out.println("El libro ya ha sido devuelto con anterioridad.");
     }
@@ -100,5 +106,16 @@ public class Libro
     public static int getCantidadLibrosDisponibles()
     {
         return cantidadLibrosDisponibles;
+    }
+
+    @Override
+    public String toString() {
+        return "Libro{" +
+                "titulo='" + titulo + '\'' +
+                ", autor='" + autor + '\'' +
+                ", id='" + id + '\'' +
+                ", disponible=" + disponible + '\'' +
+                ", estidiantePrestado=" + estudiantePrestado +
+                '}';
     }
 }

@@ -5,5 +5,7 @@ public class LibroApp
 {
     static void main()
     {
+        Libro tf = new Libro("Trilogía Fundación", "Isaac Asimov");
+        System.out.println(tf);
     }
 }
