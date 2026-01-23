@@ -1,4 +1,4 @@
-package org.example.objetos;
+package org.example.biblioteca;
 
 public class Estudiante
 {
@@ -9,6 +9,11 @@ public class Estudiante
     private String curso;
     private String nia;
     private String email;
+    private Libro libro;
+
+    public Estudiante()
+    {
+    }
 
     public Estudiante(String nombre, String curso, String email)
     {
@@ -73,5 +78,13 @@ public class Estudiante
 
     private void setNia() {
         nia = String.valueOf(++contadorEstudiantes);
+    }
+
+    public Libro getLibro() {
+        return libro;
+    }
+
+    public void setLibro(Libro libro) {
+        this.libro = libro;
     }
 }

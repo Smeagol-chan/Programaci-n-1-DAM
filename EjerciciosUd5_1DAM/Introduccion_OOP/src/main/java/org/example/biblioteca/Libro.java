@@ -1,4 +1,4 @@
-package org.example.objetos;
+package org.example.biblioteca;
 
 public class Libro
 {
@@ -12,20 +12,24 @@ public class Libro
     private String id;
     private boolean disponible;
     private Estudiante estudiantePrestado;
+    private Editorial editorial;
+
+    public Libro(String titulo, String autor, Editorial editorial)
+    {
+        setId();
+        this.titulo = titulo;
+        this.autor = autor;
+        this.editorial = editorial;
+        setDisponible(DEF_DISPONIBLE);
+        estudiantePrestado = new Estudiante();
+    }
 
     public Libro()
     {
-        setId();
-        setDisponible(DEF_DISPONIBLE);
-        estudiantePrestado = null;
+        this(null, null, null);
     }
 
-    public Libro(String titulo, String autor)
-    {
-        this.titulo = titulo;
-        this.autor = autor;
-        this();
-    }
+
 
     public String getTitulo() {
         return titulo;
@@ -69,15 +73,22 @@ public class Libro
 
     public void prestar(Estudiante estudiante)
     {
-        if(disponible)
+        if(disponible && estudiante.getLibro() == null)
         {
             System.out.println("El libro ha sido prestado con éxito.");
             setDisponible(false);
             cantidadLibrosDisponibles--;
             estudiantePrestado = estudiante;
-            //estudiantePrestado.setLibro(this)
+            estudiantePrestado.setLibro(this);
         }
-        else System.out.println("El libro ya ha sido prestado con anterioridad.");
+        else if(disponible && estudiante.getLibro() != null)
+        {
+            System.out.println(estudiante.getNombre() +" ya tiene un libro en posesión. No puede recibir más.");
+        }
+        else
+        {
+            System.out.println("El libro ya ha sido prestado con anterioridad.");
+        }
     }
 
     public void devolver()
@@ -87,7 +98,7 @@ public class Libro
             System.out.println("El libro ha sido devuelto con éxito.");
             setDisponible(true);
             cantidadLibrosDisponibles++;
-            //estudiantePrestado.setLibro(null)
+            estudiantePrestado.setLibro(null);
             estudiantePrestado = null;
         }
         else System.out.println("El libro ya ha sido devuelto con anterioridad.");
@@ -115,7 +126,8 @@ public class Libro
                 ", autor='" + autor + '\'' +
                 ", id='" + id + '\'' +
                 ", disponible=" + disponible + '\'' +
-                ", estidiantePrestado=" + estudiantePrestado +
+                ", estidiantePrestado=" + estudiantePrestado + '\'' +
+                ", editorial=" + editorial + '\'' +
                 '}';
     }
 }

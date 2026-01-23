@@ -1,7 +1,6 @@
-package org.example.app;
+package org.example.biblioteca;
 
-import org.example.objetos.Estudiante;
-import org.example.objetos.Libro;
+import java.awt.desktop.SystemEventListener;
 
 public class EstudianteApp
 {
@@ -21,10 +20,13 @@ public class EstudianteApp
                 + (Estudiante.validarCorreo(eric.getEmail()) ? "correcto" : "erróneo") +".");
         System.out.println("\n");
 
-        Libro tf = new Libro("Trilogía Fundación", "Isaac Asimov");
+        Editorial nova = new Editorial("Nova", "España");
+        Libro tf = new Libro("Trilogía Fundación", "Isaac Asimov", nova);
         tf.prestar(eric);
         System.out.println(tf);
         tf.devolver();
         System.out.println(tf);
+
+        SystemEventListener.
     }
 }
