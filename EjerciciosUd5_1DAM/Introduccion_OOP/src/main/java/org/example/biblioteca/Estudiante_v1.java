@@ -1,6 +1,6 @@
 package org.example.biblioteca;
 
-public class Estudiante
+public class Estudiante_v1
 {
     private static final String CORREO_FORMAT = "^[A-Za-z0-9+_.-]+@alu.edu.gva.es$";
     private static int contadorEstudiantes = 0;
@@ -9,13 +9,13 @@ public class Estudiante
     private String curso;
     private String nia;
     private String email;
-    private Libro libro;
+    private Libro_v1 libroV1;
 
-    public Estudiante()
+    public Estudiante_v1()
     {
     }
 
-    public Estudiante(String nombre, String curso, String email)
+    public Estudiante_v1(String nombre, String curso, String email)
     {
         this.nombre = nombre;
         this.curso = curso;
@@ -23,7 +23,7 @@ public class Estudiante
         this.email = email;
     }
 
-    public Estudiante(String nombre)
+    public Estudiante_v1(String nombre)
     {
         this(nombre, null, null);
     }
@@ -80,11 +80,11 @@ public class Estudiante
         nia = String.valueOf(++contadorEstudiantes);
     }
 
-    public Libro getLibro() {
-        return libro;
+    public Libro_v1 getLibro() {
+        return libroV1;
     }
 
-    public void setLibro(Libro libro) {
-        this.libro = libro;
+    public void setLibro(Libro_v1 libroV1) {
+        this.libroV1 = libroV1;
     }
 }

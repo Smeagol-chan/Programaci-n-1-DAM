@@ -1,6 +1,6 @@
 package org.example.biblioteca;
 
-public class Libro
+public class Libro_v1
 {
     private static final boolean DEF_DISPONIBLE = true;
     private static final String DEF_ID = "LIB";
@@ -11,20 +11,20 @@ public class Libro
     private String autor;
     private String id;
     private boolean disponible;
-    private Estudiante estudiantePrestado;
-    private Editorial editorial;
+    private Estudiante_v1 estudianteV1Prestado;
+    private Editorial_v1 editorial;
 
-    public Libro(String titulo, String autor, Editorial editorial)
+    public Libro_v1(String titulo, String autor, Editorial_v1 editorial)
     {
         setId();
         this.titulo = titulo;
         this.autor = autor;
         this.editorial = editorial;
         setDisponible(DEF_DISPONIBLE);
-        estudiantePrestado = new Estudiante();
+        estudianteV1Prestado = new Estudiante_v1();
     }
 
-    public Libro()
+    public Libro_v1()
     {
         this(null, null, null);
     }
@@ -71,19 +71,19 @@ public class Libro
         id = DEF_ID + (++cantidadLibrosTotales);
     }
 
-    public void prestar(Estudiante estudiante)
+    public void prestar(Estudiante_v1 estudianteV1)
     {
-        if(disponible && estudiante.getLibro() == null)
+        if(disponible && estudianteV1.getLibro() == null)
         {
             System.out.println("El libro ha sido prestado con éxito.");
             setDisponible(false);
             cantidadLibrosDisponibles--;
-            estudiantePrestado = estudiante;
-            estudiantePrestado.setLibro(this);
+            estudianteV1Prestado = estudianteV1;
+            estudianteV1Prestado.setLibro(this);
         }
-        else if(disponible && estudiante.getLibro() != null)
+        else if(disponible && estudianteV1.getLibro() != null)
         {
-            System.out.println(estudiante.getNombre() +" ya tiene un libro en posesión. No puede recibir más.");
+            System.out.println(estudianteV1.getNombre() +" ya tiene un libro en posesión. No puede recibir más.");
         }
         else
         {
@@ -98,8 +98,8 @@ public class Libro
             System.out.println("El libro ha sido devuelto con éxito.");
             setDisponible(true);
             cantidadLibrosDisponibles++;
-            estudiantePrestado.setLibro(null);
-            estudiantePrestado = null;
+            estudianteV1Prestado.setLibro(null);
+            estudianteV1Prestado = null;
         }
         else System.out.println("El libro ya ha sido devuelto con anterioridad.");
     }
@@ -126,7 +126,7 @@ public class Libro
                 ", autor='" + autor + '\'' +
                 ", id='" + id + '\'' +
                 ", disponible=" + disponible + '\'' +
-                ", estidiantePrestado=" + estudiantePrestado + '\'' +
+                ", estidiantePrestado=" + estudianteV1Prestado + '\'' +
                 ", editorial=" + editorial + '\'' +
                 '}';
     }
