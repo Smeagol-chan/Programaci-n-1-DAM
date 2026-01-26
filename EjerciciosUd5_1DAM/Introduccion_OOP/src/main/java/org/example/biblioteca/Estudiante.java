@@ -1,4 +1,4 @@
-package org.example.prestamo_estudiante_libro;
+package org.example.biblioteca;
 
 public class Estudiante
 {
@@ -87,6 +87,8 @@ public class Estudiante
     {
         return String.valueOf(contadorEstudiantes+1).length() > DIGITOS_NIA;
     }
+
+
 
     public static boolean validarEmail(String email){
         return email.matches(CORREO_FORMAT);

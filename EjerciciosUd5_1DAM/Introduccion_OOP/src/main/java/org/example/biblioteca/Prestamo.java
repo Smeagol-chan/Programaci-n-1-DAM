@@ -1,4 +1,4 @@
-package org.example.prestamo_estudiante_libro;
+package org.example.biblioteca;
 
 public class Prestamo extends Estudiante
 {
@@ -27,7 +27,7 @@ public class Prestamo extends Estudiante
         this.libro = libro;
     }
 
-    public void prestar(Estudiante estudiante)
+    public void prestar()
     {
         if(libro.getDisponible() && estudiante.getLibro() == null)
         {
@@ -47,6 +47,12 @@ public class Prestamo extends Estudiante
 
     public void devolver()
     {
-
+        if(!libro.getDisponible())
+        {
+            System.out.println("El libro ha sido devuelto con éxito.");
+            libro.activarDisponobilidad();
+            estudiante.setLibro(null);
+        }
+        else System.out.println("El libro ya ha sido devuelto con anterioridad.");
     }
 }

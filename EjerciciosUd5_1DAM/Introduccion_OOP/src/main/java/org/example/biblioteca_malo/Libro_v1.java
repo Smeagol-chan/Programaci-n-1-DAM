@@ -1,4 +1,4 @@
-package org.example.biblioteca;
+package org.example.biblioteca_malo;
 
 public class Libro_v1
 {

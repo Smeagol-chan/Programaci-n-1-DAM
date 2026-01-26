@@ -1,4 +1,4 @@
-package org.example.prestamo_estudiante_libro;
+package org.example.biblioteca;
 
 public class Libro
 {
