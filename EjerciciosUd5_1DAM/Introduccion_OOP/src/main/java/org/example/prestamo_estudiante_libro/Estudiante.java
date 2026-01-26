@@ -58,10 +58,6 @@ public class Estudiante
         return email;
     }
 
-    protected void setLibro(Libro libro) {
-        this.libro = libro;
-    }
-
     public void setEmail(String email) {
         if(validarEmail(email)) this.email = email;
         else
@@ -70,6 +66,14 @@ public class Estudiante
             System.out.println("Email con formato incorrecto.\n" +
                     "Se ha generado un email por defecto.");
         }
+    }
+
+    public Libro getLibro() {
+        return libro;
+    }
+
+    protected void setLibro(Libro libro) {
+        this.libro = libro;
     }
 
     private static String generarNia()

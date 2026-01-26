@@ -64,7 +64,7 @@ public class Libro
         return disponible;
     }
 
-    protected void setDisponible(boolean disponible) {
+    private void setDisponible(boolean disponible) {
         this.disponible = disponible;
     }
 
@@ -88,6 +88,18 @@ public class Libro
         String id = String.valueOf(++cantidadLibrosTotales);
         while(id.length() < DIGITOS_ID) id = "0" + id;
         return DEF_ID + id;
+    }
+
+    public void activarDisponobilidad()
+    {
+        setDisponible(true);
+        cantidadLibrosDisponibles++;
+    }
+
+    public void deactivarDisponibilidad()
+    {
+        setDisponible(false);
+        cantidadLibrosDisponibles--;
     }
 
     @Override

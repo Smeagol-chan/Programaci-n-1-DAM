@@ -27,19 +27,17 @@ public class Prestamo extends Estudiante
         this.libro = libro;
     }
 
-    public void prestar()
+    public void prestar(Estudiante estudiante)
     {
-        if(disponible && estudianteV1.getLibro() == null)
+        if(libro.getDisponible() && estudiante.getLibro() == null)
         {
             System.out.println("El libro ha sido prestado con éxito.");
-            setDisponible(false);
-            cantidadLibrosDisponibles--;
-            estudianteV1Prestado = estudianteV1;
-            estudianteV1Prestado.setLibro(this);
+            libro.deactivarDisponibilidad();
+            estudiante.setLibro(libro);
         }
-        else if(disponible && estudianteV1.getLibro() != null)
+        else if(libro.getDisponible() && estudiante.getLibro() != null)
         {
-            System.out.println(estudianteV1.getNombre() +" ya tiene un libro en posesión. No puede recibir más.");
+            System.out.println(estudiante.getNombre() +" ya tiene un libro en posesión. No puede recibir más.");
         }
         else
         {
