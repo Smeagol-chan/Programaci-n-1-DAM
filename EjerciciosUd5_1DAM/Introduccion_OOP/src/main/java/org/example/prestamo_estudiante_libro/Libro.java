@@ -32,6 +32,10 @@ public class Libro
         return editorial;
     }
 
+    public void setEditorial(Editorial editorial) {
+        this.editorial = editorial;
+    }
+
     public String getId() {
         return id;
     }
@@ -60,6 +64,20 @@ public class Libro
         return disponible;
     }
 
+    protected void setDisponible(boolean disponible) {
+        this.disponible = disponible;
+    }
+
+    public static int getCantidadLibrosTotales()
+    {
+        return cantidadLibrosTotales;
+    }
+
+    public static int getCantidadLibrosDisponibles()
+    {
+        return cantidadLibrosDisponibles;
+    }
+
     private static boolean limiteSuperado()
     {
         return String.valueOf(cantidadLibrosTotales+1).length() > DIGITOS_ID;
@@ -70,5 +88,16 @@ public class Libro
         String id = String.valueOf(++cantidadLibrosTotales);
         while(id.length() < DIGITOS_ID) id = "0" + id;
         return DEF_ID + id;
+    }
+
+    @Override
+    public String toString() {
+        return "Libro{" +
+                "titulo='" + titulo + '\'' +
+                ", autor='" + autor + '\'' +
+                ", id='" + id + '\'' +
+                ", disponible=" + disponible +
+                ", editorial=" + editorial +
+                '}';
     }
 }

@@ -11,6 +11,7 @@ public class Estudiante
     private String curso;
     private String nia;
     private String email;
+    private Libro libro;
 
     public Estudiante(String nombre, String curso, String email)
     {
@@ -57,6 +58,10 @@ public class Estudiante
         return email;
     }
 
+    protected void setLibro(Libro libro) {
+        this.libro = libro;
+    }
+
     public void setEmail(String email) {
         if(validarEmail(email)) this.email = email;
         else
@@ -87,5 +92,16 @@ public class Estudiante
     {
         int numNia = Integer.parseInt(nia);
         return DEF_EMAIL.replace("X", String.valueOf(numNia));
+    }
+
+    @Override
+    public String toString() {
+        return "Estudiante{" +
+                "nombre='" + nombre + '\'' +
+                ", curso='" + curso + '\'' +
+                ", nia='" + nia + '\'' +
+                ", email='" + email + '\'' +
+                ", libro=" + libro +
+                '}';
     }
 }
