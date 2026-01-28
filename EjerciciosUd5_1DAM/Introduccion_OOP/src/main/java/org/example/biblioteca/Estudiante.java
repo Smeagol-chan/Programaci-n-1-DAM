@@ -11,7 +11,6 @@ public class Estudiante
     private String curso;
     private String nia;
     private String email;
-    private Libro libro;
 
     public Estudiante(String nombre, String curso, String email)
     {
@@ -68,14 +67,6 @@ public class Estudiante
         }
     }
 
-    public Libro getLibro() {
-        return libro;
-    }
-
-    protected void setLibro(Libro libro) {
-        this.libro = libro;
-    }
-
     private static String generarNia()
     {
         String nia = String.valueOf(++contadorEstudiantes);
@@ -87,8 +78,6 @@ public class Estudiante
     {
         return String.valueOf(contadorEstudiantes+1).length() > DIGITOS_NIA;
     }
-
-
 
     public static boolean validarEmail(String email){
         return email.matches(CORREO_FORMAT);
@@ -106,8 +95,7 @@ public class Estudiante
                 "nombre='" + nombre + '\'' +
                 ", curso='" + curso + '\'' +
                 ", nia='" + nia + '\'' +
-                ", email='" + email + '\'' +
-                ", libro=" + libro +
+                ", email='" + email +
                 '}';
     }
 }

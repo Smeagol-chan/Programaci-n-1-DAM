@@ -22,6 +22,7 @@ public class Libro
             this.autor = autor;
             setId();
             this.editorial = editorial;
+            editorial.publicarLibro(this);
             disponible = DEF_DISPONIBLE;
             cantidadLibrosDisponibles++;
         }

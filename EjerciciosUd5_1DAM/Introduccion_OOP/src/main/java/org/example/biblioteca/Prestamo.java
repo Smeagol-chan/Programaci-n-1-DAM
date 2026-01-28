@@ -1,41 +1,41 @@
 package org.example.biblioteca;
 
-public class Prestamo extends Estudiante
+import java.util.ArrayList;
+
+public class Prestamo
 {
     private Estudiante estudiante;
     private Libro libro;
+    private ArrayList<Libro> listaLibro;
 
-    public Prestamo (Estudiante estudiante, Libro libro)
+    public Prestamo (Estudiante estudiante)
     {
         this.estudiante = estudiante;
-        this.libro = libro;
+        listaLibro = new ArrayList<>();
     }
 
     public Estudiante getEstudiante() {
         return estudiante;
     }
 
-    public void setEstudiante(Estudiante estudiante) {
-        this.estudiante = estudiante;
+    public ArrayList<Libro> getListaLibro() {
+        return listaLibro;
     }
 
-    public Libro getLibro() {
-        return libro;
-    }
-
-    public void setLibro(Libro libro) {
-        this.libro = libro;
-    }
-
-    public void prestar()
+    private void agregarLibro(Libro libro)
     {
-        if(libro.getDisponible() && estudiante.getLibro() == null)
+        listaLibro.add(libro);
+    }
+
+    public void prestar(Estudiante estudiante, Libro libro)
+    {
+        if(libro.getDisponible() && !listaLibro.contains(libro))
         {
             System.out.println("El libro ha sido prestado con éxito.");
             libro.deactivarDisponibilidad();
-            estudiante.setLibro(libro);
+            agregarLibro(libro);
         }
-        else if(libro.getDisponible() && estudiante.getLibro() != null)
+        else if(libro.getDisponible() && listaLibro.contains(libro))
         {
             System.out.println(estudiante.getNombre() +" ya tiene un libro en posesión. No puede recibir más.");
         }
