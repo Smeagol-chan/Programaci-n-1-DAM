@@ -45,14 +45,14 @@ public class Prestamo
         }
     }
 
-    public void devolver()
-    {
-        if(!libro.getDisponible())
-        {
-            System.out.println("El libro ha sido devuelto con éxito.");
-            libro.activarDisponobilidad();
-            estudiante.setLibro(null);
-        }
-        else System.out.println("El libro ya ha sido devuelto con anterioridad.");
-    }
+//    public void devolver()
+//    {
+//        if(!libro.getDisponible())
+//        {
+//            System.out.println("El libro ha sido devuelto con éxito.");
+//            libro.activarDisponobilidad();
+//            estudiante.setLibro(null);
+//        }
+//        else System.out.println("El libro ya ha sido devuelto con anterioridad.");
+//    }
 }
