@@ -13,6 +13,7 @@ public class InmobiliaraApp
         System.out.println("Habitación mayor: "+ pisito.habitacionMasGrande().getNombre());
         System.out.println();
 
-
+        pisito.eliminarHabitacion("dormitorio");
+        pisito.mostrarHabitaciones();
     }
 }
