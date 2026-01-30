@@ -10,12 +10,7 @@ public class Jugador
     {
         this.nombre = nombre;
         this.ranking = ranking;
-        rival = new Jugador();
-    }
-
-    public Jugador()
-    {
-        this(null, 0);
+        rival = null;
     }
 
     public String getNombre() {

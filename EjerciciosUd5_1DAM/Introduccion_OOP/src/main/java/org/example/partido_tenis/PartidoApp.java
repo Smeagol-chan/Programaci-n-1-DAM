@@ -11,6 +11,6 @@ public class PartidoApp
         partido.crearSet();
         partido.crearSet();
 
-        System.out.println(partido);
+        partido.mostrarPartido();
     }
 }

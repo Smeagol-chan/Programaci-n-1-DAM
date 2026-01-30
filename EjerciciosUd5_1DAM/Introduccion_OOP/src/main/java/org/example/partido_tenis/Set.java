@@ -7,6 +7,7 @@ public class Set
     private static final int PUNTUACION_MINIMA = 0;
     private static final int PUNTUACION_MAXIMA = 7;
     private static final int PUNTUACION_VICTORIA = 6;
+    private static final int PUNTUACION_MAXIMA_DERROTA = 5;
 
     private int puntosJ1;
     private int puntosJ2;
@@ -19,13 +20,19 @@ public class Set
     private void anyadirPuntuacion()
     {
         int puntosJ1, puntosJ2;
+        boolean volverSolicitar;
+
         do
         {
             System.out.print("Introduce la puntuación del primer y segundo jugador: ");
+
             puntosJ1 = FuncionesComunes.filtroLimitesInt(PUNTUACION_MINIMA, PUNTUACION_MAXIMA);
             puntosJ2 = FuncionesComunes.filtroLimitesInt(PUNTUACION_MINIMA, PUNTUACION_MAXIMA);
 
-        }while(puntuacionInvalida(puntosJ1, puntosJ2));
+            volverSolicitar = puntuacionInvalida(puntosJ1, puntosJ2);
+            if(volverSolicitar) System.out.println("La puntuación introducida es incorrecta.");
+        }while(volverSolicitar);
+
         setPuntosJ1(puntosJ1);
         setPuntosJ2(puntosJ2);
     }
@@ -36,20 +43,16 @@ public class Set
         {
             switch(puntosJ1)
             {
-                case 1:
-                case 2:
-                case 3:
-                case 4:
-                    if(puntosJ2 == PUNTUACION_VICTORIA) return false;
-                    break;
-                case 5:
+                case PUNTUACION_VICTORIA:
+                    if(puntosJ2 < PUNTUACION_MAXIMA_DERROTA) return false;
+                case PUNTUACION_MAXIMA_DERROTA:
                     if(puntosJ2 == PUNTUACION_MAXIMA) return false;
                     break;
-                case 6:
-                    if(puntosJ2 == PUNTUACION_MAXIMA || puntosJ2 < PUNTUACION_VICTORIA-1) return false;
+                case PUNTUACION_MAXIMA:
+                    if(puntosJ2 == PUNTUACION_VICTORIA || puntosJ2 == PUNTUACION_MAXIMA_DERROTA) return false;
                     break;
-                case 7:
-                    if(puntosJ2 == PUNTUACION_VICTORIA || puntosJ2 == PUNTUACION_VICTORIA-1) return false;
+                default:
+                    if(puntosJ2 == PUNTUACION_VICTORIA) return false;
                     break;
             }
         }

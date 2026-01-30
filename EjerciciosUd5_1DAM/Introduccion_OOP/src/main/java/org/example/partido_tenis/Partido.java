@@ -14,6 +14,13 @@ public class Partido
         listaSet = new ArrayList<>();
     }
 
+    public void mostrarPartido()
+    {
+        System.out.println("Partido creado entre "+ jugador1.getNombre() +" y "+ jugador2.getNombre() +":");
+        for(int i = 0; i < listaSet.size(); i++)
+            System.out.println("Set "+ (i+1) +": "+ listaSet.get(i).getPuntosJ1() +" - "+ listaSet.get(i).getPuntosJ2());
+    }
+
     public void crearSet()
     {
         Set set = new Set();
