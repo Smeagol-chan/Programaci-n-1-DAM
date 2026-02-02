@@ -9,6 +9,14 @@ public class Invitado
     private LocalDate fecha_visita;
     private int temporada;
 
+    public Invitado(String nombre, String profesion, int temporada)
+    {
+        this.nombre = nombre;
+        this.profesion = profesion;
+        fecha_visita = LocalDate.now();
+        this.temporada = temporada;
+    }
+
     public String getNombre() {
         return nombre;
     }

@@ -14,14 +14,14 @@ public class Programa
     private ArrayList<Invitado> listaInvitados;
     private Empleado director;
 
-    public Programa(String nombre, Cadena cadena, Empleado director)
+    public Programa(String nombre, Cadena cadena)
     {
         this.nombre = nombre;
         this.cadena = cadena;
         temporadas = DEFAULT_TEMPORADAS;
-        setDirector();
         listaEmpleados = new ArrayList<>();
         listaInvitados = new ArrayList<>();
+        setDirector();
     }
 
     public void crearEmpelado()
@@ -41,9 +41,17 @@ public class Programa
         }
     }
 
-    public void anyadirTemporada()
+    public void crearInvitado()
     {
-        temporadas++;
+        System.out.print("Introduzca el nombre del invitado: ");
+        String nombre = FuncionesComunes.solicitarString();
+        System.out.print("Introduzca la profesion: ");
+        String profesion = FuncionesComunes.solicitarString();
+        System.out.print("Introduzca la temporada: ");
+        int temporada = FuncionesComunes.filtroLimitesInt(DEFAULT_TEMPORADAS, temporadas);
+
+        Invitado invitado = new Invitado(nombre, profesion, temporada);
+        listaInvitados.add(invitado);
     }
 
     public String getNombre() {
@@ -64,6 +72,10 @@ public class Programa
 
     public int getTemporadas() {
         return temporadas;
+    }
+
+    public void setTemporadas(int temporadas) {
+        this.temporadas = temporadas;
     }
 
     public ArrayList<Empleado> getListaEmpleados() {
