@@ -8,6 +8,7 @@
 5. [Entregas](#5-entregas)
 
 ### 1. Intro
+> La práctica consiste en...
 
 ### 2. Estructura de clases
 
