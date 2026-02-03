@@ -24,7 +24,7 @@ public class Programa
         setDirector();
     }
 
-    public void crearEmpelado()
+    public void crearEmpleado()
     {
         System.out.print("Introduzca el nombre del empleado: ");
         String nombre = FuncionesComunes.solicitarString();

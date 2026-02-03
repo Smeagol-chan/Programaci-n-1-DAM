@@ -17,8 +17,31 @@ package "org.example" {
         - ArrayList<Invitado> lsitaInvitados
         - Empleado director
 
-
+        + void crearEmpleado()
+        + void crearInvitado()
     }
+
+    Class Empleado {
+        - String nombre
+        - String id
+        - String cargo
+        - Empleado director
+
+        + String generarId(int numeroEmpleado)
+    }
+
+    Class Invitado {
+        - String nombre
+        - String profesion
+        - LocalDate fecha_visita
+        - int temporada
+    }
+
+    Cadena "1" -- "many" Programa
+    Programa "1" *-- "many" Empleado
+    Programa "1" *-- "1" Empleado
+    Empleado "many" o-- "1" Empleado
+    Programa "1" *-- "many" Invitado
 }
 
 @enduml
