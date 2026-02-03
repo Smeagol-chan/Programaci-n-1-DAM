@@ -74,7 +74,7 @@ public class Empleado
                 "nombre='" + nombre + '\'' +
                 ", id='" + id + '\'' +
                 ", cargo='" + cargo + '\'' +
-                ", director=" + director.getNombre() +
+                ", director=" + (director == null ? "null" : director.getNombre()) +
                 '}';
     }
 }

@@ -1,0 +1,24 @@
+@startuml
+
+package "org.example" {
+    Class Cadena {
+        - String nombre
+        - ArrayList<Programa> listaPrograma
+
+        + void anyadirPrograma(Programa programa)
+        + void eliminarPrograma(Programa programa)
+    }
+
+    Class Programa {
+        - String nombre
+        - Cadena cadena
+        - int temporadas
+        - ArrayList<Empleado> listaEmpleados
+        - ArrayList<Invitado> lsitaInvitados
+        - Empleado director
+
+
+    }
+}
+
+@enduml

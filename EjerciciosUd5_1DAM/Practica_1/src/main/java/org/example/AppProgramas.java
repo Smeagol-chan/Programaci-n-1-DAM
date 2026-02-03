@@ -10,6 +10,8 @@ public class AppProgramas
         Programa simpson = new Programa("Los Simpson", antena3);
         antena3.anyadirPrograma(simpson);
 
+        pasapalabra.crearEmpelado();
+
         System.out.println(antena3);
     }
 }
