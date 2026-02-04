@@ -37,11 +37,11 @@ package "org.example" {
         - int temporada
     }
 
-    Cadena "1" -- "many" Programa
-    Programa "1" *-- "many" Empleado
-    Programa "1" *-- "1" Empleado
-    Empleado "many" o-- "1" Empleado
-    Programa "1" *-- "many" Invitado
+    Cadena -- Programa
+    Programa *--> Empleado
+    Programa *--> Empleado
+    Empleado o--> Empleado
+    Programa *--> Invitado
 }
 
 @enduml
