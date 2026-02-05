@@ -17,6 +17,8 @@ public class Invitado
         this.temporada = temporada;
     }
 
+    //SOLICITAR FECHA
+
     public String getNombre() {
         return nombre;
     }
