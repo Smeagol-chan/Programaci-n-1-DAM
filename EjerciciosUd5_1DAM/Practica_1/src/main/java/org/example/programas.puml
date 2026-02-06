@@ -5,6 +5,9 @@ package "org.example" {
         - String nombre
         - ArrayList<Programa> listaPrograma
 
+        + boolean buscarInvitado(String nombre)
+        + void invitadoAntes(String nombre)
+        - boolean presenteEnLista(Programa programa)
         + void anyadirPrograma(Programa programa)
         + void eliminarPrograma(Programa programa)
     }
@@ -17,6 +20,16 @@ package "org.example" {
         - ArrayList<Invitado> lsitaInvitados
         - Empleado director
 
+        + void invitadosTemporada(int temporada)
+        + int vecesInvitado(String nombre)
+        + void rastrearInvitado(String nombre)
+        + void mostrarEmpleadosListados()
+        - Empleado seleccionarEmpleado()
+        - void cambiarDirectorEmpleados()
+        + void eliminarEmpleado()
+        + void mostrarInvitadosListados()
+        - Invitado seleccionarInvitado()
+        + void eliminarInvitado()
         + void crearEmpleado()
         + void crearInvitado()
     }
@@ -35,6 +48,9 @@ package "org.example" {
         - String profesion
         - LocalDate fecha_visita
         - int temporada
+
+        - LocalDate solicitarFecha()
+        - int diaMaximo(int mes, int any)
     }
 
     Cadena -- Programa

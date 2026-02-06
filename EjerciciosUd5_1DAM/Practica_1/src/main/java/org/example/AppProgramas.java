@@ -1,5 +1,10 @@
 package org.example;
 
+/**
+ * Clase con el main del programa.
+ * @author ericr
+ * @version 1.0 (06/02/2026)
+ */
 public class AppProgramas
 {
     static void main()
@@ -13,5 +18,7 @@ public class AppProgramas
         pasapalabra.crearEmpleado();
 
         System.out.println(antena3);
+
+        pasapalabra.getListaEmpleados().get(1);
     }
 }

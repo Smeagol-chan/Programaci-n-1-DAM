@@ -1,7 +1,11 @@
 package org.example;
-
 import java.util.Arrays;
 
+/**
+ * Clase dependiente de Programa.
+ * @author ericr
+ * @version 1.0 (06/02/2026)
+ */
 public class Empleado
 {
     private static final String CABECERA_ID = "EP";
@@ -14,6 +18,15 @@ public class Empleado
     private String cargo;
     private Empleado director;
 
+    /**
+     * Constructor de Empleado.
+     * Valida que no hayan más de MAXIMO_EMPLEADOS.
+     * Los parámetros id y cargo se inicializan invocando a setId y setCargo respectivamente.
+     * @param nombre
+     * @param cargo
+     * @param director
+     * @param numeroEmpleado
+     */
     public Empleado(String nombre, String cargo, Empleado director, int numeroEmpleado)
     {
         if(numeroEmpleado <= MAXIMO_EMPLEADOS)
@@ -29,6 +42,12 @@ public class Empleado
         }
     }
 
+    /**
+     * Función invocada por el constructor para generar un id al empleado utilizando su posición en la lista de empleados del programa donde trabaja y la cabecera de CABECERA_ID.
+     * Se convierten los enteros a String para ver la cantidad de cifras con .length().
+     * @param numeroEmpleado - Entero con su posición en el ArrayList +1.
+     * @return String con el id generado.
+     */
     private String generarId(int numeroEmpleado)
     {
         String id = String.valueOf(numeroEmpleado);
@@ -60,12 +79,20 @@ public class Empleado
         return cargo;
     }
 
+    /**
+     * Modificación de setCargo. Se valida que el cargo sea válido, volcando DEFAULT_CARGO de no serlo.
+     * @param cargo - String con el cargo del empleado.
+     */
     private void setCargo(String cargo) {
         this.cargo = Arrays.asList(CARGOS_VALIDOS).contains(cargo) ? cargo : DEFAULT_CARGO;
     }
 
     public Empleado getDirector() {
         return director;
+    }
+
+    public void setDirector(Empleado director) {
+        this.director = director;
     }
 
     @Override
