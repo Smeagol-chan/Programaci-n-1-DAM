@@ -100,5 +100,5 @@ package "org.example" {
 @enduml
 </code>
 ## 3. Programa principal
-
+Para una explicación detallada de cada método en el programa, puede acceder al Javadoc pinchando [aquí](javadoc/index.html).
 ## 4. Pruebas
