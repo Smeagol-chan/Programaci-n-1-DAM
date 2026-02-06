@@ -8,7 +8,26 @@
 5. [Entregas](#5-entregas)
 
 ### 1. Intro
-> La práctica consiste en...
+<p>
+    El mundo de la televisión últimamente parece estar en guerra. Algunos “se rebelan” contra otros, en
+    directo, los otros desmienten las informaciones… Y los telespectadores, lejos de analizarlo de forma
+    crítica, se hacen palomitas para ver según qué programa en función de su ideología.
+</p>
+<p>
+    Jordi está harto de la división entre “las dos Españas”, y decide intentar poner un poco de paz creando
+    una aplicación que recoja datos diarios sobre estos programas para dar objetividad a las distintas
+    informaciones que van apareciendo. 
+</p>
+
+#### 1.1. Problema a resolver
+
+Se pide que se creen cuatro clases para almacenar la información de los programas que cada cadena de televisión pueda contener, junto con el diagrama UML correspondiente. Las clases son:
+- Cadena
+- Programa
+- Empleado
+- Invitado
+
+Además, he introducido la clase _FuncionesComunes_ para ayudar en la resolución del problema.
 
 ### 2. Estructura de clases
 ![](../Introduccion_OOP/src/main/java/org/example/inmobiliaria/media/inmobiliaria.png)
