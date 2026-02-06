@@ -10,15 +10,22 @@ public class AppProgramas
     static void main()
     {
         Cadena antena3 = new Cadena("Antena 3");
-        Programa pasapalabra = new Programa("Pasapalabra", antena3);
-        antena3.anyadirPrograma(pasapalabra);
-        Programa simpson = new Programa("Los Simpson", antena3);
-        antena3.anyadirPrograma(simpson);
-
-        pasapalabra.crearEmpleado();
-
         System.out.println(antena3);
 
-        pasapalabra.getListaEmpleados().get(1);
+        //director = Director1
+        Programa el_hormiguero = new Programa("El Hormiguero", antena3);
+        System.out.println(el_hormiguero);
+        System.out.println(antena3);
+
+        //nombre = Pablo Motos | cargo = presentador
+        el_hormiguero.crearEmpleado();
+        System.out.println(el_hormiguero);
+
+        System.out.println(el_hormiguero.getListaEmpleados());
+
+        //nombre = Aitana | profesion = cantante | temporada = 1
+        el_hormiguero.crearInvitado();
+
+        System.out.println(el_hormiguero.getListaInvitados());
     }
 }

@@ -187,26 +187,19 @@ public class Programa
     }
 
     /**
-     * Procedimiento para crear un invitado para el programa. No se permite añadir si no hay temporadas en el programa.
+     * Procedimiento para crear un invitado para el programa.
      */
     public void crearInvitado()
     {
-        if(temporadas == DEFAULT_TEMPORADAS)
-        {
-            System.out.println("Primero debes haber creado una temporada por lo menos.");
-        }
-        else
-        {
-            System.out.print("Introduzca el nombre del invitado: ");
-            String nombre = FuncionesComunes.solicitarString();
-            System.out.print("Introduzca la profesion: ");
-            String profesion = FuncionesComunes.solicitarString();
-            System.out.print("Introduzca la temporada: ");
-            int temporada = FuncionesComunes.filtroLimitesInt(DEFAULT_TEMPORADAS+1, temporadas);
+        System.out.print("Introduzca el nombre del invitado: ");
+        String nombre = FuncionesComunes.solicitarString();
+        System.out.print("Introduzca la profesion: ");
+        String profesion = FuncionesComunes.solicitarString();
+        System.out.print("Introduzca la temporada: ");
+        int temporada = FuncionesComunes.solicitudPositivosInt();
 
-            Invitado invitado = new Invitado(nombre, profesion, temporada);
-            listaInvitados.add(invitado);
-        }
+        Invitado invitado = new Invitado(nombre, profesion, temporada);
+        listaInvitados.add(invitado);
     }
 
     public String getNombre() {
