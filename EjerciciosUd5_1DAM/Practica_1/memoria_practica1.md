@@ -100,5 +100,27 @@ package "org.example" {
 @enduml
 </code>
 ## 3. Programa principal
-Para una explicación detallada de cada método en el programa, puede acceder al Javadoc pinchando [aquí](javadoc/index.html).
+Para una explicación detallada de cada método en el programa, puede acceder al Javadoc pinchando [aquí](javadoc/Javadoc_AppPrograma.zip).
+
+### 3.1 AppPrograma - [link](src/main/java/org/example/AppProgramas.java)
+![](media/app_programas.png)
+
+### 3.2 Cadena - [link](src/main/java/org/example/Cadena.java)
+![](media/cadena.png)
+
+### 3.3 Programa - [link](src/main/java/org/example/Programa.java)
+![](media/programa.png)
+
+### 3.4 Empleado - [link](src/main/java/org/example/Empleado.java)
+![](media/empleado.png)
+
+### 3.5 Invitado - [link](src/main/java/org/example/Invitado.java)
+![](media/invitado.png)
+
+### 3.6 FuncionesComunes - [link](src/main/java/org/example/FuncionesComunes.java)
+![](media/funcionescomunes.png)
+
 ## 4. Pruebas
+- Prueba de mi programa con el main proporcionado por Patri:
+![](media/main_patri1.png)
+![](media/main_patri2.png)
