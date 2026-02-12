@@ -1,0 +1,30 @@
+@startuml
+package "ejercicio1"
+{
+    Class Usuario
+    {
+        - nombre: String
+        - edad: int
+        - nombreUsuario: String
+        - seguidores: int
+
+        + mostrarInfo(): void
+    }
+
+    Class Basico extends Usuario
+
+    Class Streamer extends Usuario
+    {
+        - numero_retransmisiones: int
+        - horas_directo: int
+    }
+
+    Class Influencer extends Usuario
+    {
+        - colaboraciones: ArrayList<String>
+
+        + anyadirColaboracion(colaboraciones: String): void
+        + eliminarColaboracion(colaboraciones: String): void
+    }
+}
+@enduml

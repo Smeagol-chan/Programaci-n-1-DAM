@@ -1,0 +1,20 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "plataforma_streaming"
+{
+    Abstract Class Suscripcion
+    {
+        - nombrePlan: String
+        - precio: double
+
+        + mostrarInfo(): void
+        + {abstract} obtenerBeneficios(): void
+        + {abstract} periodoPrueba(): void
+    }
+    Class PlanGratis extends Suscripcion
+    Class PlanBasico extends Suscripcion
+    Class PlanPremium extends Suscripcion
+    Class PlanFamiliar extends Suscripcion
+}
+@enduml
