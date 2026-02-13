@@ -5,8 +5,7 @@ import java.util.Arrays;
 @Getter
 public class TarjetaCredito extends MetodoPago
 {
-    private static final int TAMANYO_TARJETA = 16;
-    private static final String FORMATO_TARJETA = "^[0-9]+$";
+    private static final String FORMATO_TARJETA = "^[0-9]{16}$";
     private static final String[] TIPOS_VALIDOS = {"VISA", "MASTERCARD", "MAESTRO"};
 
     private String nro_tarjeta;
@@ -23,31 +22,29 @@ public class TarjetaCredito extends MetodoPago
 
     private static boolean validarTarjeta(String nro_tarjeta, String tipo)
     {
-        if(validarNumero(nro_tarjeta))
+        if(!validarNumero(nro_tarjeta))
         {
-            System.out.println("ERROR\nEl número de la tarjeta no es válido. Ha de ser una cadena de "+ TAMANYO_TARJETA +" números.\n");
+            System.out.println("ERROR\nEl número de la tarjeta no es válido.\n");
             return false;
         }
-        else if(validarTipo(tipo))
+        else if(!validarTipo(tipo))
         {
             System.out.print("ERROR\nEl tipo de la tarjeta no es válido.\nLos tipos válidos son:");
             for(String tipoValido : TIPOS_VALIDOS) System.out.print(" "+ tipoValido);
             System.out.println("\n");
             return false;
         }
-        return true;
+        else return true;
     }
 
     private static boolean validarNumero(String nro_tarjeta)
     {
-        if(nro_tarjeta.length() != TAMANYO_TARJETA || !nro_tarjeta.matches(FORMATO_TARJETA)) return false;
-        else return true;
+        return nro_tarjeta.matches(FORMATO_TARJETA);
     }
 
     private static boolean validarTipo(String tipo)
     {
-        if(!Arrays.asList(TIPOS_VALIDOS).contains(tipo)) return false;
-        else return true;
+        return Arrays.asList(TIPOS_VALIDOS).contains(tipo);
     }
 
     private void setNro_tarjeta(String nro_tarjeta) {

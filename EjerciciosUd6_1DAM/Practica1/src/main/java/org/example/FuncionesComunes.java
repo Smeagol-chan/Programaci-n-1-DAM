@@ -44,6 +44,11 @@ public class FuncionesComunes
         return n < 0;
     }
 
+    public static boolean negativoDouble(double n)
+    {
+        return n < 0;
+    }
+
     /**
      * Método para comprobar si un número es superior a un límite inferior.
      * @param n - entero a comprobar
@@ -101,6 +106,28 @@ public class FuncionesComunes
             try
             {
                 n = key.nextInt();
+            }
+            catch(InputMismatchException e)
+            {
+                System.out.println("ERROR\nSolo se pueden introducir números.\n");
+                fallo = true;
+                key.nextLine();
+            }
+        }while(fallo);
+        return n;
+    }
+
+    public static double solicitudDouble()
+    {
+        double n = 0;
+        boolean fallo;
+
+        do
+        {
+            fallo = false;
+            try
+            {
+                n = key.nextDouble();
             }
             catch(InputMismatchException e)
             {

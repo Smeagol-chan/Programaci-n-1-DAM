@@ -1,0 +1,57 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "ecommerce"
+{
+    package "pasarela_pago"
+    {
+        Abstract Class MetodoPago
+        {
+            + {abstract} procesarPago(importe: double): void
+        }
+
+        Class TarjetaCredito extends MetodoPago
+        {
+            - nro_tarjeta: String
+            - tipo: String
+
+            - {static} validarTarjeta(nro_tarjeta: String, tipo: String): boolean
+            - {static} validarNumero(nro_tarjeta: String): boolean
+            - {static} validarTipo(tipo: String): boolean
+        }
+
+        Class PayPal extends MetodoPago
+        {
+            - cuenta: String
+            - saldo: double
+
+            - {static} validarTransaccion(saldo: double, importe: double): boolean
+            - {static} validarCuenta(cuenta: String): boolean
+            - realizarPago(importe: double): void
+        }
+
+        Class Bizum extends MetodoPago
+        {
+            - pin: String
+            - telefono: String
+
+            - {static} generarPin(): String
+            - {static} validarTelefono(telefono: String): boolean
+            - validarBizum(): boolean
+        }
+    }
+    package "comercios"
+    {
+        Class Tienda
+        {
+            + {static} realizarPago(metodo: MetodoPago): void
+            + {static} iniciarPago(): void
+            + {static} anyadirTarjeta(): MetodoPago
+            + {static} anyadirPaypal(): MetodoPago
+            + {static} anyadirBizum(): MetodoPago
+        }
+    }
+
+    Tienda *-- MetodoPago
+}
+@enduml
