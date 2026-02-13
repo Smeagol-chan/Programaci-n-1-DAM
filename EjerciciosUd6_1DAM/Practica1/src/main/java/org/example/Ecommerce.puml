@@ -7,6 +7,7 @@ package "ecommerce"
     {
         Abstract Class MetodoPago
         {
+            + {abstract} validarMetodo(): boolean
             + {abstract} procesarPago(importe: double): void
         }
 
@@ -15,9 +16,8 @@ package "ecommerce"
             - nro_tarjeta: String
             - tipo: String
 
-            - {static} validarTarjeta(nro_tarjeta: String, tipo: String): boolean
-            - {static} validarNumero(nro_tarjeta: String): boolean
-            - {static} validarTipo(tipo: String): boolean
+            - validarNumero(): boolean
+            - validarTipo(): boolean
         }
 
         Class PayPal extends MetodoPago
@@ -25,9 +25,7 @@ package "ecommerce"
             - cuenta: String
             - saldo: double
 
-            - {static} validarTransaccion(saldo: double, importe: double): boolean
-            - {static} validarCuenta(cuenta: String): boolean
-            - realizarPago(importe: double): void
+            - validarTransaccion(importe: double): boolean
         }
 
         Class Bizum extends MetodoPago
@@ -36,8 +34,8 @@ package "ecommerce"
             - telefono: String
 
             - {static} generarPin(): String
-            - {static} validarTelefono(telefono: String): boolean
-            - validarBizum(): boolean
+            - validarTelefono(): boolean
+            - validarPin(): boolean
         }
     }
     package "comercios"

@@ -5,14 +5,28 @@ import org.example.pasarela_pago.MetodoPago;
 import org.example.pasarela_pago.PayPal;
 import org.example.pasarela_pago.TarjetaCredito;
 
+/**
+ * Clase que gestiona la creación y validación del método de pago.
+ * @author ericr
+ * @version 1.0
+ */
 public class Tienda
 {
+    /**
+     * Procedimiento que, recibiendo el método de pago creado por el usuario, inicia el pago.
+     * Solicita el importe.
+     * @param metodo - MetodoPago creado por el usuario previamente.
+     */
     private static void realizarPago(MetodoPago metodo)
     {
         System.out.print("Introduzca un importe: ");
-        metodo.procesarPago(FuncionesComunes.solicitudDouble());
+        metodo.procesarPago(FuncionesComunes.solicitudNumero());
     }
 
+    /**
+     * Procedimiento que, a través de un switch, crea un método de pago del tipo seleccionado por el usuario.
+     * Tras crear el método valida los datos, invocando  realizarPago de ser correcto.
+     */
     public static void iniciarPago()
     {
         MetodoPago metodo;
@@ -40,9 +54,14 @@ public class Tienda
                 return;
         }
 
-        if(metodo == null) realizarPago(metodo);
+        if(metodo.validarMetodo()) realizarPago(metodo);
+        else System.out.println("Datos del método inválidos.");
     }
 
+    /**
+     * Función que solicita al usuario los datos para crear un objeto de tipo TarjetaCredito.
+     * @return TarjetaCredito con los datos introducidos.
+     */
     private static MetodoPago anyadirTarjeta()
     {
         System.out.print("Número de la tarjeta: ");
@@ -53,22 +72,22 @@ public class Tienda
         return new TarjetaCredito(nro_tarjeta, tipo);
     }
 
+    /**
+     * Función que solicita al usuario los datos para crear un objeto de tipo Paypal.
+     * @return Paypal con los datos introducidos.
+     */
     private static MetodoPago anyadirPaypal()
     {
         System.out.print("Email: ");
         String cuenta = FuncionesComunes.solicitarString();
-        System.out.print("¿Quiere añadir saldo manualmente? (s/n): ");
-        double saldo;
-        if(FuncionesComunes.solicitarSNChar())
-        {
-            System.out.print("Saldo: ");
-            saldo = FuncionesComunes.solicitudDouble();
-        }
-        else saldo = -1;
 
-        return new PayPal(cuenta, saldo);
+        return new PayPal(cuenta);
     }
 
+    /**
+     * Función que solicita al usuario los datos para crear un objeto de tipo Bizum.
+     * @return Bizum con los datos introducidos.
+     */
     private static MetodoPago anyadirBizum()
     {
         System.out.print("Teléfono: ");
