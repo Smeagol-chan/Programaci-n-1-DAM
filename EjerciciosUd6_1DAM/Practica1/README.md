@@ -90,21 +90,21 @@ Pinche [aquí](src/main/java/org/example/parasela_pago/MetodoPago.java) para ver
 Subclase de MetodoPago.  
 Sus atributos son el número de la tarjeta (nro__tarjeta) y el tipo y valida que el número cuente con 16 cifras y el tipo sea Visa, Mastercard o Maestro.  
 
-Pinche [aquí](src/main/java/org/example/parasela_pago/TarjetaCredito.java) para ver el código de TarjetaCredito.
+Pinche [aquí](src/main/java/org/example/pasarela_pago/TarjetaCredito.java) para ver el código de TarjetaCredito.
 
 ### 3.5. PayPal
 
 Subclase de MetodoPago.  
 Sus atributos son el email de la cuenta (cuenta) y el saldo, quien es inicializado con un valor por defecto. Además, valida que email respete el formato.  
 
-Pinche [aquí](src/main/java/org/example/parasela_pago/PayPal.java) para ver el código de PayPal.
+Pinche [aquí](src/main/java/org/example/pasarela_pago/PayPal.java) para ver el código de PayPal.
 
 ### 3.6. Bizum
 
 Subclase de MetodoPago.  
 Sus atributos son el pin, un número de 6 cifras del 0 al 9 generado automáticamente, y el teléfono, que más tarde se valida si se trata de una cadena de números de 9 cifras.  
 
-Pinche [aquí](src/main/java/org/example/parasela_pago/Bizum.java) para ver el código de Bizum
+Pinche [aquí](src/main/java/org/example/pasarela_pago/Bizum.java) para ver el código de Bizum
 
 ### 3.7. FuncionesComunes
 
