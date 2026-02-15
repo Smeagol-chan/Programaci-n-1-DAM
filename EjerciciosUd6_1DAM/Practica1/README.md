@@ -38,8 +38,8 @@ El diagrama de clases que estructora el programa se ha realizado en PlantUML.
 
 ### 2.1. UML
 
-A continuación se muestra el diagrama UML. Para ver el código en PlantUML pinche [aquí](src\main\java\org\example\Ecommerce.puml).  
-![](media\Ecommerce.png)
+A continuación se muestra el diagrama UML. Para ver el código en PlantUML pinche [aquí](src/main/java/org/example/Ecommerce.puml).  
+![](media/Ecommerce.png)
 
 ## 3. Programa
 
@@ -56,7 +56,7 @@ Para ver una descripción en detalle de cada método presente en el programa, ac
 ### 3.1. AppEcommerce
 
 Es la clase que inicia el programa. Únicamente contiene el método main, el cual invoca a iniciarPago() en Tienda.  
-Pinche [aquí](src\main\java\org\example\AppEcommerce.java) para ver el código de AppEcommerce.
+Pinche [aquí](src/main/java/org/example/AppEcommerce.java) para ver el código de AppEcommerce.
 
 ### 3.2. Tienda
 
@@ -68,7 +68,7 @@ dependiendo de si los datos son válidos.
 
 Para no repetir código se emplea polimorfismo en los objetos. Se ve con más claridad dentro de la clase madre: MetodoPago.
 
-Pinche [aquí](src\main\java\org\example\comercios\Tienda.java) para ver el código de Tienda.
+Pinche [aquí](src/main/java/org/example/comercios/Tienda.java) para ver el código de Tienda.
 
 ### 3.3. MetodoPago
 
@@ -83,35 +83,35 @@ el proceso será diferente dependiendo del objeto llamado.
 Esta es la característica principal del polimorfismo. Declarando un objeto de tipo MetodoPago pero llamando al constructor de una de sus clases hijas (ejempo: MetodoPago x = new Bizum()) 
 se puede acceder a todo lo que la madre es capaz de hacer. Puesto que los métodos abstractos han sido alterados por sus hijas, el resultado es personalizado a cada subclase.  
 
-Pinche [aquí](src\main\java\org\example\parasela_pago\MetodoPago.java) para ver el código de Tienda.
+Pinche [aquí](src/main/java/org/example/parasela_pago/MetodoPago.java) para ver el código de Tienda.
 
 ### 3.4. TarjetaCredito
 
 Subclase de MetodoPago.  
 Sus atributos son el número de la tarjeta (nro__tarjeta) y el tipo y valida que el número cuente con 16 cifras y el tipo sea Visa, Mastercard o Maestro.  
 
-Pinche [aquí](src\main\java\org\example\parasela_pago\TarjetaCredito.java) para ver el código de TarjetaCredito.
+Pinche [aquí](src/main/java/org/example/parasela_pago/TarjetaCredito.java) para ver el código de TarjetaCredito.
 
 ### 3.5. PayPal
 
 Subclase de MetodoPago.  
 Sus atributos son el email de la cuenta (cuenta) y el saldo, quien es inicializado con un valor por defecto. Además, valida que email respete el formato.  
 
-Pinche [aquí](src\main\java\org\example\parasela_pago\PayPal.java) para ver el código de PayPal.
+Pinche [aquí](src/main/java/org/example/parasela_pago/PayPal.java) para ver el código de PayPal.
 
 ### 3.6. Bizum
 
 Subclase de MetodoPago.  
 Sus atributos son el pin, un número de 6 cifras del 0 al 9 generado automáticamente, y el teléfono, que más tarde se valida si se trata de una cadena de números de 9 cifras.  
 
-Pinche [aquí](src\main\java\org\example\parasela_pago\Bizum.java) para ver el código de Bizum
+Pinche [aquí](src/main/java/org/example/parasela_pago/Bizum.java) para ver el código de Bizum
 
 ### 3.7. FuncionesComunes
 
 Clase que contiene métodos de uso común en las prácticas y ejercicios que se han ido realizando desde inicio de curso. Para esta práctica se ha empleado para solicitar números y cadenas 
 de caracteres al usuario, generar números aleatorios y comparar valores numéricos.  
 
-Pinche [aquí](src\main\java\org\example\FuncionesComunes.java) para ver el código de FuncionesComunes.
+Pinche [aquí](src/main/java/org/example/FuncionesComunes.java) para ver el código de FuncionesComunes.
 
 ## 4. Prueba de errores
 
@@ -120,40 +120,40 @@ Se ha probado cada entrada de datos y comprobado que el programa solo permite el
 ### 4.1. Pruebas sobre Tienda
 
 - Método de pago inválido:
-![](media\metodo_mal.png)  
+![](media/metodo_mal.png)  
 
 - Importe inválido:
-![](media\importe_mal.png)  
+![](media/importe_mal.png)  
 
 ### 4.2. Pruebas sobre TarjetaCredito
 
 - Datos válidos:
-![](media\tarjeta_bien.png)  
+![](media/tarjeta_bien.png)  
 
 - Número de la tarjeta inválido:
-![](media\tarjeta_num_mal.png)  
+![](media/tarjeta_num_mal.png)  
 
 - Tipo de la tarjeta inválido:
-![](media\tarjeta_tipo_mal.png)  
+![](media/tarjeta_tipo_mal.png)  
 
 ### 4.3. Pruebas sobre Paypal
 
 - Datos válidos:
-![](media\paypal_bien.png)  
+![](media/paypal_bien.png)  
 
 - Email inválido:
-![](media\paypal_cuenta_mal.png)  
+![](media/paypal_cuenta_mal.png)  
 
 - Saldo insuficiente:
-![](media\paypal_saldo_mal.png)  
+![](media/paypal_saldo_mal.png)  
 
 ### 4.4. Pruebas sobre Bizum
 
 - Datos válidos:
-![](media\bizum_bien.png)  
+![](media/bizum_bien.png)  
 
 - Teléfono inválido:
-![](media\bizum_telefono_mal.png)  
+![](media/bizum_telefono_mal.png)  
 
 - Pin incorrecto:
-![](media\bizum_pin_mal.png)  
+![](media/bizum_pin_mal.png)  
