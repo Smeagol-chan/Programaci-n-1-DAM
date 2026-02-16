@@ -17,7 +17,7 @@ public class Tienda
      * Solicita el importe.
      * @param metodo - MetodoPago creado por el usuario previamente.
      */
-    private static void realizarPago(MetodoPago metodo)
+    public static void realizarPago(MetodoPago metodo)
     {
         System.out.print("Introduzca un importe: ");
         metodo.procesarPago(FuncionesComunes.solicitudNumero());
@@ -62,7 +62,7 @@ public class Tienda
      * Función que solicita al usuario los datos para crear un objeto de tipo TarjetaCredito.
      * @return TarjetaCredito con los datos introducidos.
      */
-    private static MetodoPago anyadirTarjeta()
+    public static MetodoPago anyadirTarjeta()
     {
         System.out.print("Número de la tarjeta: ");
         String nro_tarjeta = FuncionesComunes.solicitarString();
@@ -76,7 +76,7 @@ public class Tienda
      * Función que solicita al usuario los datos para crear un objeto de tipo Paypal.
      * @return Paypal con los datos introducidos.
      */
-    private static MetodoPago anyadirPaypal()
+    public static MetodoPago anyadirPaypal()
     {
         System.out.print("Email: ");
         String cuenta = FuncionesComunes.solicitarString();
@@ -88,7 +88,7 @@ public class Tienda
      * Función que solicita al usuario los datos para crear un objeto de tipo Bizum.
      * @return Bizum con los datos introducidos.
      */
-    private static MetodoPago anyadirBizum()
+    public static MetodoPago anyadirBizum()
     {
         System.out.print("Teléfono: ");
         String telefono = FuncionesComunes.solicitarString();
