@@ -1,0 +1,28 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "dispositivos_inteligentes"
+{
+    Abstract Class Dispositivo
+    {
+        # nombre: String
+        # estado: boolean
+
+        + {abstract} encender(): void
+        + apagar(): void
+        + mostrarEstado(): void
+    }
+
+    Interface ControlRemoto
+    {
+        + {abstract} sincronizar(): void
+    }
+
+    Class Televisor extends Dispositivo implements ControlRemoto{}
+
+    Class ParlanteInteligente extends Dispositivo{}
+
+    Class AireAcondicionado extends Dispositivo implements ControlRemoto{}
+}
+
+@enduml
