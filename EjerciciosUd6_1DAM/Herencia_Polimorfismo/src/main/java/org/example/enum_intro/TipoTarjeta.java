@@ -6,7 +6,7 @@ public enum TipoTarjeta
     MAESTRO(1.5),
     MASTERCARD(5);
 
-    private final double comision;
+    private double comision;
 
     //No hace falta decir que es público
     TipoTarjeta(double comision)

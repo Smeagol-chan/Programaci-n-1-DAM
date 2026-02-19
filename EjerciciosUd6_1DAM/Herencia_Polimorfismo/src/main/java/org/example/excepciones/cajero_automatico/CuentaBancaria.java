@@ -55,6 +55,7 @@ public class CuentaBancaria
 
     public void consultarSaldo()
     {
-        System.out.println("Saldo disponible: "+ saldo);
+        System.out.println("Saldo disponible: "+ saldo +"€");
+        System.out.println("Saldo retirado hoy: "+ retiradaDiaria +"€");
     }
 }
