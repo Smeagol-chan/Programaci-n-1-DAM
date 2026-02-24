@@ -2,10 +2,7 @@ package org.example.muxtamel_fc.miembros;
 import org.example.muxtamel_fc.MutxamelFC;
 import org.example.muxtamel_fc.enums.Equipos;
 import org.example.muxtamel_fc.enums.Posiciones;
-import org.example.muxtamel_fc.excepciones.DorsalDuplicadoExcepcion;
-import org.example.muxtamel_fc.excepciones.IllegalFormacionExpeccion;
 import org.example.muxtamel_fc.interfaces.AccionesDeportivas;
-import java.util.ArrayList;
 
 public class Jugador extends MutxamelFC implements AccionesDeportivas
 {
@@ -17,7 +14,7 @@ public class Jugador extends MutxamelFC implements AccionesDeportivas
     {
         super(nombre, edad);
         this.categoria = categoria;
-        setDorsal(dorsal);
+        this.dorsal = dorsal;
         this.posicion = posicion;
     }
 
@@ -33,22 +30,8 @@ public class Jugador extends MutxamelFC implements AccionesDeportivas
         return dorsal;
     }
 
-    public void setDorsal(int dorsal)
-    {
-//        try
-//        {
-//            if(listaDorsales.contains(dorsal))
-//                throw new DorsalDuplicadoExcepcion();
-//            else
-//            {
-//                listaDorsales.add(dorsal);
-//                this.dorsal = dorsal;
-//            }
-//        }
-//        catch(IllegalFormacionExpeccion e)
-//        {
-//            System.out.println("ERROR\nFormato de formación preferida inválido.\n");
-//        }
+    public void setDorsal(int dorsal) {
+        this.dorsal = dorsal;
     }
 
     public Posiciones getPosicion() {

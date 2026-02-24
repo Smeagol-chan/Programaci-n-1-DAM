@@ -1,5 +1,4 @@
 package org.example;
-
 import org.example.muxtamel_fc.MutxamelFC;
 import org.example.muxtamel_fc.enums.Equipos;
 import org.example.muxtamel_fc.enums.Posiciones;
@@ -104,5 +103,6 @@ public class AppMutxamel
         for(MutxamelFC miembro : listaMiembros)
             if(miembro instanceof Jugador)
                 ((Jugador) miembro).descansar();
+
     }
 }
