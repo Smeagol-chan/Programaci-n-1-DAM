@@ -30,7 +30,8 @@ public class DificultadApp
 
     static void main()
     {
-        Dificultad dificultad = validarDificultad();
+        //Dificultad dificultad = validarDificultad();
+        Dificultad dificultad = Dificultad.valueOf(FuncionesComunes.solicitarString().toUpperCase());
         int puntuacion = FuncionesComunes.random.nextInt(10000);
 
         System.out.println("Puntuación obtenida = "+ puntuacion +"\n" +

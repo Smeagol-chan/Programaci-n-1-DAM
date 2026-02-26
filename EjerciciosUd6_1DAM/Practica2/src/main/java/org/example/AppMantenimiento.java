@@ -1,10 +1,20 @@
 package org.example;
 import org.example.muxtamel_fc.MutxamelFC;
+import org.example.muxtamel_fc.enums.Equipos;
+import org.example.muxtamel_fc.enums.Posiciones;
+import org.example.muxtamel_fc.excepciones.*;
+import org.example.muxtamel_fc.miembros.Acompanante;
+import org.example.muxtamel_fc.miembros.Entrenador;
+import org.example.muxtamel_fc.miembros.Jugador;
+import org.example.muxtamel_fc.miembros.Masajista;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class AppMantenimiento
 {
+    public static ArrayList<MutxamelFC> miembrosClub = new ArrayList<>();
+
     private static void menuPrincipal()
     {
         System.out.println("=== App de mantenimiento del MUTXAMEL FC ===\n");
@@ -33,26 +43,480 @@ public class AppMantenimiento
         System.out.print("\nSeleciona una opción --> ");
     }
 
-    private static void menuModiicar(String tipoMiembro)
+    private static Jugador anyadirJugador()
+    {
+        System.out.println("=== Mantenimiento de jugador. Añadir jugador nuevo ===\n");
+        System.out.print("Nombre: ");
+        String nombre = FuncionesComunes.solicitarString();
+        System.out.print("Edad: ");
+        int edad = (int) FuncionesComunes.solicitudNumero();
+        System.out.print("Categoría: ");
+        Equipos categoria = Equipos.valueOf(FuncionesComunes.solicitarString());
+        System.out.print("Dorsal: ");
+        int dorsal = (int) FuncionesComunes.solicitudNumero();
+        System.out.print("Posicion: ");
+        Posiciones posicion = Posiciones.valueOf(FuncionesComunes.solicitarString());
+
+        return new Jugador(nombre, edad, categoria, dorsal, posicion);
+    }
+
+    private static Entrenador anyadirEntrenador()
+    {
+        System.out.println("=== Mantenimiento de entrenador. Añadir entrenador nuevo ===\n");
+        System.out.print("Nombre: ");
+        String nombre = FuncionesComunes.solicitarString();
+        System.out.print("Edad: ");
+        int edad = (int) FuncionesComunes.solicitudNumero();
+        System.out.print("Equipo: ");
+        Equipos equipo = Equipos.valueOf(FuncionesComunes.solicitarString());
+        System.out.print("Formación preferida: ");
+        String formacionPreferida = FuncionesComunes.solicitarString();
+
+        return new Entrenador(nombre, edad, equipo, formacionPreferida);
+    }
+
+    private static Masajista anyadirMasajista()
+    {
+        System.out.println("=== Mantenimiento de masajista. Añadir masajista nuevo ===\n");
+        System.out.print("Nombre: ");
+        String nombre = FuncionesComunes.solicitarString();
+        System.out.print("Edad: ");
+        int edad = (int) FuncionesComunes.solicitudNumero();
+        System.out.print("Titulación: ");
+        String titulacion = FuncionesComunes.solicitarString();
+        System.out.print("Años de experiencia: ");
+        int experiencia = (int) FuncionesComunes.solicitudNumero();
+
+        Masajista masajista = new Masajista(nombre, edad, titulacion, experiencia);
+
+        if(miembrosClub.contains(masajista)) throw new MasajistaDuplicadoException();
+
+        return masajista;
+    }
+
+    private static void opcionesMenuAcciones(String tipoMiembro)
+    {
+        boolean vuelta = true;
+        do
+        {
+            menuAcciones(tipoMiembro);
+            switch(FuncionesComunes.solicitudChar())
+            {
+                case '1':
+                    switch (tipoMiembro)
+                    {
+                        case "jugador":
+                            try
+                            {
+                                miembrosClub.add(anyadirJugador());
+                            }
+                            catch(DorsalDuplicadoExcepcion e)
+                            {
+                                System.out.println("No se pudo añadir al jugador. El dorsal está duplicado.");
+                            }
+                            catch(IllegalArgumentException e)
+                            {
+                                System.out.println("No se pudo añadir al jugador. El equipo no es válido.");
+                            }
+                            break;
+
+                        case "entrenador":
+                            try
+                            {
+                                miembrosClub.add(anyadirEntrenador());
+                            }
+                            catch(IllegalFormacionException e)
+                            {
+                                System.out.println("No se pudo añadir al entrenador. La formación no cumple el formato.");
+                            }
+                            catch(EntrenadorDuplicadoException e)
+                            {
+                                System.out.println("No se pudo añadir al entrenador. Ya existe un entrenador para este equipo.");
+                            }
+                            catch(IllegalArgumentException e)
+                            {
+                                System.out.println("No se pudo añadir al entrenador. El equipo no es válido.");
+                            }
+                            break;
+
+                        case "masajista":
+                            try
+                            {
+                                miembrosClub.add(anyadirMasajista());
+                            }
+                            catch(MasajistaDuplicadoException e)
+                            {
+                                System.out.println("No se pude añadir al masajista");
+                            }
+                            break;
+                    }
+                    break;
+
+                case '2':
+                    menuModificar(tipoMiembro);
+                    switch (tipoMiembro)
+                    {
+                        case "jugador":
+                            try
+                            {
+                                ArrayList<Jugador> listaJugadores = mostrarJugador(false);
+                                System.out.println("\n=====================================================\n");
+                                System.out.print("Selecciona una opción --> ");
+                                modificarJugador(listaJugadores.get((int) FuncionesComunes.solicitudPositivosNumero()));
+                            }
+                            catch(DorsalDuplicadoExcepcion e)
+                            {
+                                System.out.println("No se pudo modificar al jugador. El dorsal está duplicado.");
+                            }
+                            catch(IllegalArgumentException e)
+                            {
+                                System.out.println("No se pudo modificar al jugador. El equipo no es válido.");
+                            }
+                            catch(IndexOutOfBoundsException e)
+                            {
+                                System.out.println("Opción inválida.");
+                            }
+                            break;
+
+                        case "entrenador":
+                            try
+                            {
+                                ArrayList<Entrenador> listaEntrendor = mostrarEntrenador();
+                                System.out.println("\n=====================================================\n");
+                                System.out.print("Selecciona una opción --> ");
+                                modificarEntrenador(listaEntrendor.get((int) FuncionesComunes.solicitudPositivosNumero()));
+                            }
+                            catch(IllegalFormacionException e)
+                            {
+                                System.out.println("No se pudo modificar al entrenador. La formación no cumple el formato.");
+                            }
+                            catch(EntrenadorDuplicadoException e)
+                            {
+                                System.out.println("No se pudo modificar al entrenador. Ya existe un entrenador para este equipo.");
+                            }
+                            catch(IllegalArgumentException e)
+                            {
+                                System.out.println("No se pudo modificar al entrenador. El equipo no es válido.");
+                            }
+                            catch(IndexOutOfBoundsException e)
+                            {
+                                System.out.println("Opción inválida.");
+                            }
+                            break;
+
+                        case "masajista":
+                            try
+                            {
+                                ArrayList<Masajista> listaMasajistas = mostrarMasajista();
+                                System.out.println("\n=====================================================\n");
+                                System.out.print("Selecciona una opción --> ");
+                                modificarMasajista(listaMasajistas.get((int) FuncionesComunes.solicitudPositivosNumero()));
+                            }
+                            catch(MasajistaDuplicadoException e)
+                            {
+                                System.out.println("No se pude modificar al masajista");
+                            }
+                            catch(IndexOutOfBoundsException e)
+                            {
+                                System.out.println("Opción inválida.");
+                            }
+                            break;
+                    }
+                    break;
+
+                case 'X':
+                    System.out.println("Volviendo al menú principal.");
+                    vuelta = false;
+                    break;
+
+                case '3':
+                    if(tipoMiembro.equals("jugador"))
+                    {
+                        System.out.println("=== Mantenimiento de jugadores. Agregar acompañante ===\n");
+                        System.out.println("¿A qué jugador le quieres añadir un acompañante?\n");
+                        ArrayList<Jugador> listaSeniors = mostrarJugador(true);
+                        System.out.println("\n=====================================================\n");
+                        System.out.print("Selecciona una opción --> ");
+                        try
+                        {
+                            miembrosClub.add(agregarAcompanante(listaSeniors.get((int) FuncionesComunes.solicitudPositivosNumero())));
+                        }
+                        catch(IndexOutOfBoundsException e)
+                        {
+                            System.out.println("Opción inválida.");
+                        }
+                        catch(AcompanteDuplicadoException e)
+                        {
+                            System.out.println("No se pudo añadir al acompañante. Ya está presente en la lista.");
+                        }
+                        break;
+                    }
+
+                default:
+                    System.out.println("ERROR\nOpción inválida.");
+                    break;
+            }
+        }while(vuelta);
+    }
+
+    private static Acompanante agregarAcompanante(Jugador jugador)
+    {
+        System.out.println("=== Mantenimiento de jugadores. Agregar acompañante ===\n");
+        System.out.print("Nombre: ");
+        String nombre = FuncionesComunes.solicitarString();
+        System.out.print("Edad: ");
+        int edad = (int) FuncionesComunes.solicitudNumero();
+        System.out.print("Parentesco: ");
+        String parentesco = FuncionesComunes.solicitarString();
+
+        Acompanante acompanante = new Acompanante(nombre, edad, jugador, parentesco);
+
+        if(miembrosClub.contains(acompanante)) throw new AcompanteDuplicadoException();
+
+        return acompanante;
+    }
+
+    private static void modificarJugador(Jugador jugador)
+    {
+        System.out.println("=== Mantenimiento de jugadores. Modificar datos de jugadores existentes ===\n");
+        System.out.println("Modificando jugador: ["+ jugador +"]\n");
+        System.out.println("¿Qué quieres modificar? [nombre, edad, categoría, dorsal, posición]:\n");
+        System.out.println("=================================================\n");
+        System.out.print("Selecciona una opción --> ");
+        switch(FuncionesComunes.solicitarString().toLowerCase())
+        {
+            case "nombre":
+                System.out.print("Nuevo nombre --> ");
+                jugador.setNombre(FuncionesComunes.solicitarString());
+                break;
+
+            case "edad":
+                System.out.print("Nueva edad --> ");
+                jugador.setEdad((int) FuncionesComunes.solicitudPositivosNumero());
+                break;
+
+            case "categoría":
+            case "categoria":
+                System.out.print("Nueva categoría --> ");
+                jugador.setCategoria(Equipos.valueOf(FuncionesComunes.solicitarString()));
+                break;
+
+            case "dorsal":
+                System.out.print("Nuevo dorsal --> ");
+                jugador.setEdad((int) FuncionesComunes.solicitudPositivosNumero());
+                break;
+
+            case "posición":
+            case "posicion":
+                System.out.print("Nueva posición --> ");
+                jugador.setPosicion(Posiciones.valueOf(FuncionesComunes.solicitarString()));
+                break;
+        }
+        miembrosClub.remove(jugador);
+        miembrosClub.add(jugador);
+    }
+
+    private static void modificarEntrenador(Entrenador entrenador)
+    {
+        System.out.println("=== Mantenimiento de entrenadores. Modificar datos de entrenadores existentes ===\n");
+        System.out.println("Modificando entrenador: ["+ entrenador +"]\n");
+        System.out.println("¿Qué quieres modificar? [nombre, edad, equipo, formación]:\n");
+        System.out.println("=================================================\n");
+        System.out.print("Selecciona una opción --> ");
+        switch(FuncionesComunes.solicitarString().toLowerCase())
+        {
+            case "nombre":
+                System.out.print("Nuevo nombre --> ");
+                entrenador.setNombre(FuncionesComunes.solicitarString());
+                break;
+
+            case "edad":
+                System.out.print("Nueva edad --> ");
+                entrenador.setEdad((int) FuncionesComunes.solicitudPositivosNumero());
+                break;
+
+            case "equipo":
+                System.out.print("Nuevo equipo --> ");
+                entrenador.setEquipo(Equipos.valueOf(FuncionesComunes.solicitarString()));
+                break;
+
+            case "formación":
+            case "formacion":
+                System.out.print("Nueva formación --> ");
+                entrenador.setFormacionPreferida(FuncionesComunes.solicitarString());
+                break;
+        }
+        miembrosClub.remove(entrenador);
+        miembrosClub.add(entrenador);
+
+    }
+
+    private static void modificarMasajista(Masajista masajista)
+    {
+        System.out.println("=== Mantenimiento de masajistas. Modificar datos de masajistas existentes ===\n");
+        System.out.println("Modificando masajista: ["+ masajista +"]\n");
+        System.out.println("¿Qué quieres modificar? [nombre, edad, titulación, experiencia]:\n");
+        System.out.println("=================================================\n");
+        System.out.print("Selecciona una opción --> ");
+        switch(FuncionesComunes.solicitarString().toLowerCase())
+        {
+            case "nombre":
+                System.out.print("Nuevo nombre --> ");
+                masajista.setNombre(FuncionesComunes.solicitarString());
+                break;
+
+            case "edad":
+                System.out.print("Nueva edad --> ");
+                masajista.setEdad((int) FuncionesComunes.solicitudPositivosNumero());
+                break;
+
+            case "titulación":
+            case "titulacion":
+                System.out.print("Nueva titulación --> ");
+                masajista.setTitulacion(FuncionesComunes.solicitarString());
+                break;
+
+            case "experiencia":
+                System.out.print("Nueva experiencia --> ");
+                masajista.setEdad((int) FuncionesComunes.solicitudPositivosNumero());
+                break;
+        }
+        if(miembrosClub.contains(masajista)) throw new MasajistaDuplicadoException();
+
+        miembrosClub.remove(masajista);
+        miembrosClub.add(masajista);
+    }
+
+    private static void menuModificar(String tipoMiembro)
     {
         System.out.println("=== Mantenimiento de "+ tipoMiembro +". " +
                 "Modificar datos de "+ tipoMiembro +" existente ===\n");
-        System.out.println("¿De qué "+ tipoMiembro +" quieres hacer cambios?");
-        System.out.print("[");
+        System.out.println("¿De qué "+ tipoMiembro +" quieres hacer cambios?\n");
+    }
+
+    private static ArrayList<Masajista> mostrarMasajista()
+    {
+        ArrayList<Masajista> listaMiembros = new ArrayList<>();
+        int contador = 0;
+        for(MutxamelFC miembro : miembrosClub)
+        {
+            if(miembro instanceof Masajista)
+            {
+                System.out.println("["+ contador++ +", "+ miembro +"]");
+                listaMiembros.add((Masajista) miembro);
+            }
+        }
+        return listaMiembros;
+    }
+
+    private static ArrayList<Entrenador> mostrarEntrenador()
+    {
+        ArrayList<Entrenador> listaMiembros = new ArrayList<>();
+        int contador = 0;
+        for(MutxamelFC miembro : miembrosClub)
+        {
+            if(miembro instanceof Entrenador)
+            {
+                System.out.println("["+ contador++ +", "+ miembro +"]");
+                listaMiembros.add((Entrenador) miembro);
+            }
+        }
+        return listaMiembros;
+    }
+
+    private static ArrayList<Jugador> mostrarJugador(boolean mostrarSeniors)
+    {
+        ArrayList<Jugador> listaMiembros = new ArrayList<>();
+        int contador = 0;
+        for(MutxamelFC miembro : miembrosClub)
+        {
+            if(miembro instanceof Jugador)
+            {
+                if(mostrarSeniors ? ((Jugador) miembro).getCategoria() == Equipos.SENIOR : true)
+                {
+                    System.out.println("[" + contador++ + ", " + miembro + "]");
+                    listaMiembros.add((Jugador) miembro);
+                }
+            }
+        }
+        return listaMiembros;
+    }
+
+    private static void equiposMutxamel()
+    {
+        System.out.println("=== Consultar equipos ===\n");
+        System.out.println("¿Qué equipo quieres ver en detalle?\n");
+        for(Equipos equipo : Equipos.values()) System.out.println("\t--> "+ equipo);
+        System.out.println("\n===============================\n");
+        System.out.print("Seleciona una opción --> ");
+    }
+
+    private static void mostrarEquipos(Equipos equipo)
+    {
+        System.out.println("=== Consultar equipos. Equipo "+ equipo +" ===\n");
+        System.out.println("Jugadores:");
+        for(MutxamelFC miembro : miembrosClub)
+        {
+            if(miembro instanceof Jugador && ((Jugador) miembro).getCategoria() == equipo)
+            {
+                System.out.println("\t["+ miembro +"]");
+            }
+        }
+        System.out.println("\nEntrenador:");
+        for(MutxamelFC miembro : miembrosClub)
+        {
+            if(miembro instanceof Entrenador && ((Entrenador) miembro).getEquipo() == equipo)
+            {
+                System.out.println("\t["+ miembro +"]");
+            }
+        }
+    }
+
+    private static void opcionMenuPrincipal()
+    {
+        boolean vuelta = true;
+        do
+        {
+            menuPrincipal();
+            switch (FuncionesComunes.solicitudChar())
+            {
+                case '1':
+                    opcionesMenuAcciones("jugador");
+                    break;
+
+                case '2':
+                    opcionesMenuAcciones("entrenador");
+                    break;
+
+                case '3':
+                    opcionesMenuAcciones("masajista");
+                    break;
+
+                case '4':
+                    equiposMutxamel();
+                    try
+                    {
+                        mostrarEquipos(Equipos.valueOf(FuncionesComunes.solicitarString().toUpperCase()));
+                    }
+                    catch(IllegalArgumentException e)
+                    {
+                        System.out.println("Opción inválida.");
+                    }
+                    break;
+
+                case 'X':
+                    vuelta = false;
+                    break;
+
+                default:
+                    System.out.println("ERROR\nOpción inválida.");
+                    break;
+            }
+        }while(vuelta);
     }
 
     static void main()
     {
-        ArrayList<MutxamelFC> miembrosClub = new ArrayList<>();
-
-        ArrayList<MutxamelFC> equipoBenjamin = new ArrayList<>();
-        ArrayList<MutxamelFC> equipoAlevin = new ArrayList<>();
-        ArrayList<MutxamelFC> equipoInfantil = new ArrayList<>();
-        ArrayList<MutxamelFC> equipoCadete = new ArrayList<>();
-        ArrayList<MutxamelFC> equipoJuvenil = new ArrayList<>();
-        ArrayList<MutxamelFC> equipoSenior = new ArrayList<>();
-
-        menuPrincipal();
-        menuAcciones("entrenador");
+        opcionMenuPrincipal();
     }
 }

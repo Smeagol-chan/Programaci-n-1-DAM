@@ -1,7 +1,9 @@
 package org.example.muxtamel_fc.miembros;
+import org.example.AppMantenimiento;
 import org.example.muxtamel_fc.MutxamelFC;
 import org.example.muxtamel_fc.enums.Equipos;
-import org.example.muxtamel_fc.excepciones.IllegalFormacionExpeccion;
+import org.example.muxtamel_fc.excepciones.EntrenadorDuplicadoException;
+import org.example.muxtamel_fc.excepciones.IllegalFormacionException;
 import org.example.muxtamel_fc.interfaces.AccionesDeportivas;
 
 public class Entrenador extends MutxamelFC implements AccionesDeportivas
@@ -14,7 +16,7 @@ public class Entrenador extends MutxamelFC implements AccionesDeportivas
     public Entrenador(String nombre, int edad, Equipos equipo, String formacionPreferida)
     {
         super(nombre, edad);
-        this.equipo = equipo;
+        setEquipo(equipo);
         setFormacionPreferida(formacionPreferida);
     }
 
@@ -22,7 +24,16 @@ public class Entrenador extends MutxamelFC implements AccionesDeportivas
         return equipo;
     }
 
-    public void setEquipo(Equipos equipo) {
+    public void setEquipo(Equipos equipo)
+    {
+        for(MutxamelFC miembro : AppMantenimiento.miembrosClub)
+        {
+            if(miembro instanceof Entrenador)
+            {
+                if(((Entrenador) miembro).equipo == equipo)
+                    throw new EntrenadorDuplicadoException();
+            }
+        }
         this.equipo = equipo;
     }
 
@@ -32,16 +43,8 @@ public class Entrenador extends MutxamelFC implements AccionesDeportivas
 
     public void setFormacionPreferida(String formacionPreferida)
     {
-        try
-        {
-            if(formacionPreferida.matches(FORMAT_FORMACIONPREFERIDA))
-                this.formacionPreferida = formacionPreferida;
-            else throw new IllegalFormacionExpeccion();
-        }
-        catch(IllegalFormacionExpeccion e)
-        {
-            System.out.println("ERROR\nFormato de formación preferida inválido.\n");
-        }
+        if(formacionPreferida.matches(FORMAT_FORMACIONPREFERIDA)) this.formacionPreferida = formacionPreferida;
+        else throw new IllegalFormacionException();
     }
 
     public void planificarEntrenamiento()
@@ -62,14 +65,6 @@ public class Entrenador extends MutxamelFC implements AccionesDeportivas
     }
 
     @Override
-    public void mostrarInfo()
-    {
-        super.mostrarInfo();
-        System.out.println("Equipo: "+ equipo);
-        System.out.println("Formación preferida: "+ formacionPreferida);
-    }
-
-    @Override
     public void entrenar()
     {
         System.out.println(nombre +" entrena las estrategias para el partido.");
@@ -79,5 +74,12 @@ public class Entrenador extends MutxamelFC implements AccionesDeportivas
     public void jugarPartido(String rival)
     {
         System.out.println(nombre +" está supervidando a su equipo mientras juega contra "+ rival +".");
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                ", Equipo: "+ equipo +
+                ", Formación preferida: "+ formacionPreferida;
     }
 }

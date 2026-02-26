@@ -1,7 +1,9 @@
 package org.example.muxtamel_fc.miembros;
+import org.example.AppMantenimiento;
 import org.example.muxtamel_fc.MutxamelFC;
 import org.example.muxtamel_fc.enums.Equipos;
 import org.example.muxtamel_fc.enums.Posiciones;
+import org.example.muxtamel_fc.excepciones.DorsalDuplicadoExcepcion;
 import org.example.muxtamel_fc.interfaces.AccionesDeportivas;
 
 public class Jugador extends MutxamelFC implements AccionesDeportivas
@@ -14,7 +16,7 @@ public class Jugador extends MutxamelFC implements AccionesDeportivas
     {
         super(nombre, edad);
         this.categoria = categoria;
-        this.dorsal = dorsal;
+        setDorsal(dorsal);
         this.posicion = posicion;
     }
 
@@ -30,7 +32,16 @@ public class Jugador extends MutxamelFC implements AccionesDeportivas
         return dorsal;
     }
 
-    public void setDorsal(int dorsal) {
+    public void setDorsal(int dorsal)
+    {
+        for(MutxamelFC miembro : AppMantenimiento.miembrosClub)
+        {
+            if(miembro instanceof Jugador)
+            {
+               if(dorsal == ((Jugador) miembro).getDorsal() && categoria == ((Jugador) miembro).getCategoria())
+                   throw new DorsalDuplicadoExcepcion();
+            }
+        }
         this.dorsal = dorsal;
     }
 
@@ -74,5 +85,13 @@ public class Jugador extends MutxamelFC implements AccionesDeportivas
     public void jugarPartido(String rival)
     {
         System.out.println(nombre +" está jugando contra "+ rival +".");
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                ", Categoría: "+ categoria +
+                ", Dorsal: "+ dorsal +
+                ", Posición: "+ posicion;
     }
 }

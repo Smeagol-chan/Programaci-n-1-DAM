@@ -42,10 +42,9 @@ public class Acompanante extends MutxamelFC
     }
 
     @Override
-    public void mostrarInfo()
-    {
-        super.mostrarInfo();
-        System.out.println("Integrante: "+ integrante.getNombre());
-        System.out.println("Parentesco: "+ parentesco);
+    public String toString() {
+        return super.toString() +
+                ", Acompañante: "+ integrante +
+                ", Parentesco: "+ parentesco;
     }
 }

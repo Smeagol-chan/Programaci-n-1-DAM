@@ -46,9 +46,9 @@ public abstract class MutxamelFC implements FuncionesIntegradas
         System.out.println("GOOOOOOOOOOOOOOOOOOOOOOOOOOOL");
     }
 
-    public void mostrarInfo()
-    {
-        System.out.println("Nombre: "+ nombre);
-        System.out.println("Edad: "+ edad);
+    @Override
+    public String toString() {
+        return "Nombre: " + nombre +
+                ", Edad: " + edad;
     }
 }
