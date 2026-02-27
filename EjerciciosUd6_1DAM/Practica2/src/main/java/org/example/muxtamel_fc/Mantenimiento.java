@@ -672,6 +672,8 @@ public class Mantenimiento
                 "\t\tDentro podremos añadir masajistas y modiicar sus datos.");
         System.out.println("\t[4]. Consultar equipos\n" +
                 "\t\tDentro se deben listar los tipos de equipos y elegir uno.");
+        System.out.println("\t[5]. Jugar partido\n" +
+                "\t\tSe ejecutan todas las acciones de los miembros del club.");
         System.out.println("\t[X]. Salir\n");
         System.out.println("===========================================================================");
         System.out.print("\nSeleciona una opción --> ");
@@ -714,6 +716,10 @@ public class Mantenimiento
                     {
                         System.out.println("Opción inválida.");
                     }
+                    break;
+
+                case '5':
+                    AccionesMiembros.accionesMiembros();
                     break;
 
                 case 'X':
