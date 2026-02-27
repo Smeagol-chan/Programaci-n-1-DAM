@@ -9,18 +9,12 @@
   3.1. [AppMutxamel](#31-appmutxamel)
   3.2. [Mantenimiento](#32-mantenimiento)
   3.3. [Miembros](#33-miembros)
-    3.3.1. [MutxamelFC](#331-mutxamelfc)
-    3.3.2. [Jugador](#332-jugador)
-    3.3.3. [Entrenador](#333-entrenador)
-    3.3.4. [Masajista](#334-masajista)
-    3.3.5. [Acompanante](#335-acomapanante)
   3.4. [Enums](#34-enums)
   3.5. [Excepciones](#35-excepciones)
   3.6. [Acciones](#36-acciones)
-    3.6.1. [FuncionesIntegradas](#361-funcionesintegradas)
-    3.6.2. [AccionesDeportivas](#362-accionesdeportivas)
-  3.7. [FuncionesComunes](#37-funcionescomunes)
-4. [Prueba de errores](#4-prueba-de-errores)
+  3.7. [AccionesMiembros](#37-accionesmiembros)
+  3.8. [FuncionesComunes](#38-funcionescomunes)
+5. [Prueba de errores](#4-prueba-de-errores)
 
 ## 1. Intro
 
@@ -53,9 +47,46 @@ Para ver una descripción en detalle de cada método presente en el programa, ac
 Clase que alberga el método main().  
 Invoca al procedimiento para inicializar la lista de miembros del club y al menú principal del programa.
 
+### 3.2. Mantenimiento - [código](src/main/java/org/example/muxtamel_fc/Mantenimiento.java)
 
+Clase encargada de la funcionalidad del programa. Almacena todos los menús, solicita los datos al usuario e invoca a las funciones pertinentes.  
+Le añadí una opción al menú principal para poder ejecutar todas las acciones que el primer main() del pdf muestra.
 
-### 3.7. FuncionesComunes - [código](src/main/java/org/example/FuncionesComunes.java)
+### 3.3. Miembros - [paquete](src/main/java/org/example/muxtamel_fc/miembros/)
+
+Paquete con las clases de los objetos del programa:
+- **MutxamelFC**: Superclase abstracta de la que se extienden el resto.
+- **Entrenador**: Clase hija. Ha de controlar que el formato de formación sea corracto.
+- **Jugador**: Clase hija. Ha de controlar que no se repitan dorsales para el mismo equipo.
+- **Masajista**: Clase hija. No tiene ninguna peculiaridad.
+- **Acompanante**: Clase hija. Contrae una relación de agregación con Jugador.
+
+### 3.4. Enums - [paquete](src/main/java/org/example/muxtamel_fc/enums/)
+
+Paquete que contiene los dos enums empleados para la práctica:
+- **Equipos**: Lista las divisiones del club.
+- **Posiciones**: Lista las posiciones de los jugadores.
+
+### 3.5. Acciones - [paquete](src/main/java/org/example/muxtamel_fc/acciones/)
+
+Paquete que almacena las dos interfaces del proyecto:
+- **FuncionesIntegradas**: Implementada por MutxamelFC, permitiendo viajar, concentrarse y celebrar un gol tanto a ella como a sus hijas.
+- **AccionesDeportivas**: Implementada por Jugador y Entrenador, permitiendo descansar y jugar un partido.
+
+### 3.6. Excepciones - [paquete](src/main/java/org/example/muxtamel_fc/excepciones/)
+
+Paquete que guarda las excepciones personalizadas:
+- **AcompananteDuplicadoException**: En caso de tratar de añadir a un acompañante ya existente.
+- **DorsalDuplicadoException**: En caso de haber dorsales duplicados dentro del mismo equipo.
+- **IllegalFormateException**: En caso de introducir un formato de formación inválido.
+- **MasajistaDuplicadoException**: En caso de tratar de añadir a un masajista ya existente.
+- **EntrenadorDuplicadoException**: En caso de añadir un entrenado a un equipo con otro ya asignado.
+
+### 3.7. AccionesMiembros - [código](src/main/java/org/example/muxtamel_fc/AccionesMiembros.java)
+
+Clase con las acciones a realizar ordenadas presentes en el primer main de ejemplo del pdf de la Práctica 2. El que está lleno de comentarios describiendo el proceso.
+
+### 3.8. FuncionesComunes - [código](src/main/java/org/example/FuncionesComunes.java)
 
 Clase que contiene métodos de uso común en las prácticas y ejercicios que se han ido realizando desde inicio de curso. Para esta práctica se ha empleado para solicitar números, chars y Strings al usuario.
 
