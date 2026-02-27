@@ -1,11 +1,15 @@
 package org.example.muxtamel_fc.miembros;
-import org.example.AppMantenimiento;
-import org.example.muxtamel_fc.MutxamelFC;
+import org.example.muxtamel_fc.Mantenimiento;
 import org.example.muxtamel_fc.enums.Equipos;
 import org.example.muxtamel_fc.enums.Posiciones;
 import org.example.muxtamel_fc.excepciones.DorsalDuplicadoExcepcion;
-import org.example.muxtamel_fc.interfaces.AccionesDeportivas;
+import org.example.muxtamel_fc.acciones.AccionesDeportivas;
 
+/**
+ * Clase hija de MutxamelFC.
+ * Implementa las funciones de AccionesDeportivas.
+ * Sus atributos adicionales son categoría, dorsal y posición.
+ */
 public class Jugador extends MutxamelFC implements AccionesDeportivas
 {
     private Equipos categoria;
@@ -32,9 +36,15 @@ public class Jugador extends MutxamelFC implements AccionesDeportivas
         return dorsal;
     }
 
+    /**
+     * Setter de dorsal modificado.
+     * Comprueba si ya existe un Jugador con el mismo dorsal y equipo, lanzando un error de ser el caso.
+     * Si no hay coincidencias, se modifica el valor del atributo dorsal.
+     * @param dorsal Entero que se quiere almacenar dentro del atributo homónimo.
+     */
     public void setDorsal(int dorsal)
     {
-        for(MutxamelFC miembro : AppMantenimiento.miembrosClub)
+        for(MutxamelFC miembro : Mantenimiento.miembrosClub)
         {
             if(miembro instanceof Jugador)
             {

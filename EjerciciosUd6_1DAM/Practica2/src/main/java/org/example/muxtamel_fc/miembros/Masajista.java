@@ -1,6 +1,9 @@
 package org.example.muxtamel_fc.miembros;
-import org.example.muxtamel_fc.MutxamelFC;
 
+/**
+ * Clase hija de MutxamelFC.
+ * Sus atributos adicionales con titulación y años de experiencia.
+ */
 public class Masajista extends MutxamelFC
 {
     private String titulacion;

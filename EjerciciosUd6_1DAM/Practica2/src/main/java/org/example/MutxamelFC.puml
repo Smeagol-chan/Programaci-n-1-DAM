@@ -1,0 +1,75 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "mutxamel_fc"
+{
+    Abstract Class MutxamelFC
+    {
+        # nombre: String
+        # edad: int
+    }
+    package "miembros"
+    {
+        Class Entrenador
+        {
+            - equipo: Equipos
+            - formacionPreferida: String
+
+            + planificarEntrenamiento(): void
+            + hacerCambior(): void
+        }
+
+        Class Jugador
+        {
+            - categoria: Equipos
+            - dorsal: int
+            - posicion: Posicion
+
+            + calentar(): void
+            + descansar(): void
+            + marcarGol(): void
+        }
+
+        Class Masajista
+        {
+            - titulacion: String
+            - anosExperiencia: int
+
+            + darMasaje(jugador: Jugador): void
+        }
+
+        Class Acompanante
+        {
+            - integrante: Jugador
+            - parentesco: String
+
+            + animarEquipo(): void
+        }
+    }
+
+    package "acciones"
+    {
+        Interface FuncionesIntegradas
+        {
+            centrarse(): void
+            viajar(ciudad: String):void
+            celebrarGol(): void
+        }
+
+        Interface AccionesDeportivas
+        {
+            entrenar(): void
+            jugarPartido(rival: String): void
+        }
+    }
+
+    MutxamelFC ..|> FuncionesIntegradas : implements
+    Entrenador --|> MutxamelFC : extends
+    Jugador --|> MutxamelFC : extends
+    Masajista --|> MutxamelFC : extends
+    Acompanante --|> MutxamelFC : extends
+    Acompanante o-- Jugador
+    Entrenador ..|> AccionesDeportivas : implements
+    Jugador ..|> AccionesDeportivas : implements
+}
+@enduml

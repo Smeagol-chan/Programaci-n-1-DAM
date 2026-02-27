@@ -1,11 +1,15 @@
 package org.example.muxtamel_fc.miembros;
-import org.example.AppMantenimiento;
-import org.example.muxtamel_fc.MutxamelFC;
+import org.example.muxtamel_fc.Mantenimiento;
 import org.example.muxtamel_fc.enums.Equipos;
 import org.example.muxtamel_fc.excepciones.EntrenadorDuplicadoException;
 import org.example.muxtamel_fc.excepciones.IllegalFormacionException;
-import org.example.muxtamel_fc.interfaces.AccionesDeportivas;
+import org.example.muxtamel_fc.acciones.AccionesDeportivas;
 
+/**
+ * Clase hija de MutxamelFC.
+ * Implementa las funciones de AccionesDeportivas.
+ * Sus atributos adicionales son equipo y formación, el cual debe respetar el formato establecido.
+ */
 public class Entrenador extends MutxamelFC implements AccionesDeportivas
 {
     private static final String FORMAT_FORMACIONPREFERIDA = "^[0-9]-[0-9]-[0-9]$";
@@ -24,9 +28,15 @@ public class Entrenador extends MutxamelFC implements AccionesDeportivas
         return equipo;
     }
 
+    /**
+     * Setter de equipo modificado.
+     * Antes de volcar el nuevo valor en el atributo, se comprueba que no exista previamente un Entrenador ya asignado al mismo equipo.
+     * En caso de encontrar una coincidencia, se lanza el error correspondiente.
+     * @param equipo Equipo que se desea almacenar en el atributo homónimo.
+     */
     public void setEquipo(Equipos equipo)
     {
-        for(MutxamelFC miembro : AppMantenimiento.miembrosClub)
+        for(MutxamelFC miembro : Mantenimiento.miembrosClub)
         {
             if(miembro instanceof Entrenador)
             {
@@ -41,6 +51,12 @@ public class Entrenador extends MutxamelFC implements AccionesDeportivas
         return formacionPreferida;
     }
 
+    /**
+     * Setter de foramcionPreferida modificado.
+     * Se comprueba si la formación facilitada cumple el formato.
+     * Si no lo cumple, se lanza la excepción correspondiente.
+     * @param formacionPreferida String para almacenar en el atributo formacionPreferida.
+     */
     public void setFormacionPreferida(String formacionPreferida)
     {
         if(formacionPreferida.matches(FORMAT_FORMACIONPREFERIDA)) this.formacionPreferida = formacionPreferida;

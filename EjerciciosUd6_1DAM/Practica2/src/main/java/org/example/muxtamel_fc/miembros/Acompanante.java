@@ -1,6 +1,9 @@
 package org.example.muxtamel_fc.miembros;
-import org.example.muxtamel_fc.MutxamelFC;
 
+/**
+ * Clase hija de MutxamelFC.
+ * Sus atributos adicionales son integrante, que almacena el Jugador al que acompaña, y parentesco.
+ */
 public class Acompanante extends MutxamelFC
 {
     private Jugador integrante;

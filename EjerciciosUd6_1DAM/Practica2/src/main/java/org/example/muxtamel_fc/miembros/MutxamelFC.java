@@ -1,0 +1,60 @@
+package org.example.muxtamel_fc.miembros;
+import org.example.muxtamel_fc.acciones.FuncionesIntegradas;
+
+/**
+ * Superclase abstracta a la que pertenecen Jugador, Entrenador, Masajista y Acompanante.
+ * Implementa las funciones de FuncionesIntegradas.
+ * Sus atributos son nombre y edad.
+ */
+public abstract class MutxamelFC implements FuncionesIntegradas
+{
+    protected String nombre;
+    protected int edad;
+
+
+    public MutxamelFC(String nombre, int edad)
+    {
+        this.nombre = nombre;
+        this.edad = edad;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    @Override
+    public void centrarse()
+    {
+        System.out.print(nombre +" está centrándose... ");
+    }
+
+    @Override
+    public void viajar(String ciudad)
+    {
+        System.out.println(nombre +" está viajando a "+ ciudad);
+    }
+
+    @Override
+    public void celebrarGol()
+    {
+        System.out.println("GOOOOOOOOOOOOOOOOOOOOOOOOOOOL");
+    }
+
+    @Override
+    public String toString() {
+        return "Nombre: " + nombre +
+                ", Edad: " + edad;
+    }
+}
