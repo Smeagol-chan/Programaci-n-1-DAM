@@ -1,4 +1,4 @@
-package org.example.ejercicios_ejemplo;
+package org.example.ejercicios_stack;
 
 import java.util.Stack;
 

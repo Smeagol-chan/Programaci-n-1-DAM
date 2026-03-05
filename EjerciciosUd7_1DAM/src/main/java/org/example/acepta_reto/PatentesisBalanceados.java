@@ -18,11 +18,11 @@ public class PatentesisBalanceados
             if(Arrays.asList(ABIERTOS).contains(texto.charAt(i))) pila.push(texto.charAt(i));
             else if(Arrays.asList(CERRADOS).contains(texto.charAt(i)))
             {
-                if(pila.isEmpty()) pila.push(texto.charAt(i));
+                if(pila.isEmpty()) return false;
                 else
                 {
                     if(pila.peek() == ABIERTOS[Arrays.asList(CERRADOS).indexOf(texto.charAt(i))]) pila.pop();
-                    else pila.push(texto.charAt(i));
+                    else return false;
                 }
             }
         }
