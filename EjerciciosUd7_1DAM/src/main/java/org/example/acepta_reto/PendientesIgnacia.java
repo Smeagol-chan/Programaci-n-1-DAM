@@ -11,15 +11,24 @@ public class PendientesIgnacia
     public static int contarPares(int casos)
     {
         Set<Integer> desparejados = new HashSet<>();
-        ArrayList<Integer> pendientes = new ArrayList<>();
+        ArrayList<Integer> joyero = new ArrayList<>();
         int pares = 0;
-        for (int i = 0; i < casos; i++)
-            pendientes.add(key.nextInt());
 
-        for(Integer pendiente : pendientes)
+        for (int i = 0; i < casos; i++)
+            joyero.add(key.nextInt());
+
+        for(Integer pendiente : joyero)
         {
-            if(pendientes.isEmpty()) desparejados.add(pendiente);
+            int tamannoAntes = desparejados.size();
+            desparejados.add(pendiente);
+
+            if(tamannoAntes == desparejados.size())
+            {
+                desparejados.remove(pendiente);
+                pares++;
+            }
         }
+        return pares;
     }
 
     public static boolean casoDePrueba() {
@@ -33,7 +42,6 @@ public class PendientesIgnacia
     }
 
     public static void main(String[] args) {
-        in = new java.util.Scanner(System.in);
         while (casoDePrueba()) {
         }
     }
