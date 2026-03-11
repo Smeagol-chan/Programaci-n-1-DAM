@@ -22,5 +22,7 @@ public class Ejercicio2
 
         for(Map.Entry<Character, Integer> dato : mapa.entrySet())
             System.out.println(dato.getKey() + ": " + dato.getValue() + " veces");
+
+        System.out.println(mapa.size());
     }
 }

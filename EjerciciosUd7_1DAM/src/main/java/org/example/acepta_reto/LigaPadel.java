@@ -1,6 +1,7 @@
 package org.example.acepta_reto;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class LigaPadel
@@ -9,20 +10,43 @@ public class LigaPadel
 
     static String liga()
     {
+        String ganador = "";
+        int mayorPuntuacion = 0, partidosJugados = 0;
         String[] partido;
         HashMap<String, Integer> mapa = new HashMap<>();
         do
         {
-            partido = key.nextLine().split("");
+            partido = key.nextLine().split(" ");
             if(partido[0].equals("FIN")) break;
-            for(int i = 0; i < 4; i = i+2)
-            {
-                if(mapa.containsKey(partido[i])) mapa.put
-            }
 
+            if(!mapa.containsKey(partido[0])) mapa.put(partido[0], 0);
+            if(!mapa.containsKey(partido[2])) mapa.put(partido[2], 0);
+
+            if(Integer.parseInt(partido[1]) > Integer.parseInt(partido[3]))
+            {
+                mapa.put(partido[0], mapa.get(partido[0])+2);
+                mapa.put(partido[2], mapa.get(partido[2])+1);
+            }
+            else
+            {
+                mapa.put(partido[0], mapa.get(partido[0])+1);
+                mapa.put(partido[2], mapa.get(partido[2])+2);
+            }
+            partidosJugados++;
         }while(true);
 
-        return "resultado";
+        for(Map.Entry<String, Integer> equipo : mapa.entrySet())
+        {
+            if(mayorPuntuacion < equipo.getValue())
+            {
+                ganador = equipo.getKey();
+                mayorPuntuacion = equipo.getValue();
+            }
+            else if(mayorPuntuacion == equipo.getValue())
+                ganador = "EMPATE";
+        }
+
+        return ganador + " " + (mapa.size() * (mapa.size() - 1) - partidosJugados);
     }
 
     public static boolean casoDePrueba()
@@ -44,17 +68,3 @@ public class LigaPadel
         }
     }
 }
-
-//  A 3 B 0
-//  A 3 D 0
-//  A 2 C 1
-//
-//  B 0 A 3
-//  B 0 C 3
-//
-//  C 1 A 2
-//  C 3 B 0
-//  C 2 D 1
-//
-//  D 0 A 3
-//  D 1 C 2
