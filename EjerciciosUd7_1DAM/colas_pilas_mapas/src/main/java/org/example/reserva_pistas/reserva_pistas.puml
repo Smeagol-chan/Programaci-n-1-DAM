@@ -1,0 +1,42 @@
+@startuml
+skinparam classAttributeIconSize 0
+package "reserva_pistas"
+{
+    class Reserva
+    {
+        - usuario: Usuario
+        - pista: Pista
+        - fechaPartido: LocalDateTime
+    }
+    package "pistas"
+    {
+        abstract class Pista
+        {
+            - tipo: TipoTechado
+            - id: int
+        }
+
+        class Tenis
+        {
+            - superficie: TipoSuperficie
+        }
+
+        class Padel
+        {
+            - paredes: TipoParedes
+        }
+    }
+    package "usuarios"
+    {
+        class Usuario
+        {
+            - nombre: String
+            - id: int
+        }
+    }
+        Tenis --|> Pista
+        Padel --|> Pista
+        Reserva o-- Usuario
+        Reserva o-- Pista
+}
+@enduml
