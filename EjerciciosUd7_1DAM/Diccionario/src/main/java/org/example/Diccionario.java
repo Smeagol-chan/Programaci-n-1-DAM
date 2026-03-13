@@ -1,8 +1,6 @@
 package org.example;
 
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class Diccionario
 {
@@ -28,7 +26,13 @@ public class Diccionario
     public String palabraAleatoria()
     {
         Random random = new Random();
-        Set<String> palabrasEspannol = diccionario.keySet();
-        return palabrasEspannol.
+        LinkedList<String> palabrasEspannol = new LinkedList<>(diccionario.keySet());
+        return palabrasEspannol.get(random.nextInt(diccionario.size()));
+    }
+
+    public char primeraLetraTraduccion(String palabraEspannol)
+    {
+        if(!diccionario.containsKey(palabraEspannol)) throw new KeyNotExistException();
+        else return diccionario.get(palabraEspannol).charAt(0);
     }
 }
