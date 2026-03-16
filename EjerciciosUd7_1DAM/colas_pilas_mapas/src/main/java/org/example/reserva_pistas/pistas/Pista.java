@@ -2,6 +2,8 @@ package org.example.reserva_pistas.pistas;
 
 import org.example.reserva_pistas.enums.TipoTechado;
 
+import java.util.Objects;
+
 public abstract class Pista
 {
     private static int totalPistas = 0;

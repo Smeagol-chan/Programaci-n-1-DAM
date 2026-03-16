@@ -1,5 +1,7 @@
 package org.example.reserva_pistas.usuarios;
 
+import java.util.Objects;
+
 public class Usuario
 {
     private static int totalUsuarios = 0;
@@ -31,7 +33,7 @@ public class Usuario
 
     @Override
     public String toString() {
-        return "Nombre: "+ getNombre() +
-                ", Id: "+ getId();
+        return "Nombre: "+ nombre +
+                ", Id: "+ id;
     }
 }

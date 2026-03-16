@@ -25,8 +25,8 @@ public class Padel extends Pista
     public String toString()
     {
         return "Pista: Pádel"+
-                ", Id: "+ getId() +
-                ", Tipo de techado: "+ getTechado() +
-                ", Tipo de paredes: "+ getParedes();
+                ", Id: "+ id +
+                ", Tipo de techado: "+ techado +
+                ", Tipo de paredes: "+ paredes;
     }
 }

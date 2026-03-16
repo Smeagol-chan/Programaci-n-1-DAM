@@ -25,8 +25,8 @@ public class Tenis extends Pista
     public String toString()
     {
         return "Pista: Tenis"+
-                ", Id: "+ getId() +
-                ", Tipo de techado: "+ getTechado() +
-                ", Tipo de superficie: "+ getSuperficie();
+                ", Id: "+ id +
+                ", Tipo de techado: "+ techado +
+                ", Tipo de superficie: "+ superficie;
     }
 }
