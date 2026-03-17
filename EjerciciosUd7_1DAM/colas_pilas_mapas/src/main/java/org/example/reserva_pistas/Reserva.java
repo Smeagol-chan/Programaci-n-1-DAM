@@ -1,9 +1,7 @@
 package org.example.reserva_pistas;
-import org.example.reserva_pistas.excepciones.UsuarioOrPistaDuplicatedException;
 import org.example.reserva_pistas.pistas.Pista;
 import org.example.reserva_pistas.usuarios.Usuario;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Objects;
 
 public class Reserva
@@ -12,18 +10,16 @@ public class Reserva
     private Pista pista;
     private LocalDateTime fechaPartido;
 
-    public Reserva(Usuario usuario, Pista pista, LocalDateTime fechaPartido, HashSet<Reserva> listaReservas)
+    public Reserva(Usuario usuario, Pista pista, LocalDateTime fechaPartido)
     {
         this.usuario = usuario;
         this.pista = pista;
         this.fechaPartido = fechaPartido;
-        validarReserva(listaReservas);
     }
 
-    private void validarReserva(HashSet<Reserva> listaReservas)
+    public Reserva(Usuario usuario, Pista pista)
     {
-        for(Reserva reserva : listaReservas)
-            if(equals(reserva)) throw new UsuarioOrPistaDuplicatedException();
+        this(usuario, pista, LocalDateTime.now());
     }
 
     public Usuario getUsuario() {
