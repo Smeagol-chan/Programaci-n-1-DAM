@@ -2,7 +2,7 @@ package org.example.ejercicios_comparadores.ordenar_mapas;
 
 import java.time.LocalTime;
 
-public class Invitado3
+public class Invitado3 implements Comparable<Invitado3>
 {
     private LocalTime hora;
     private Integer edad;
@@ -25,6 +25,18 @@ public class Invitado3
 
     public String getNombre() {
         return nombre;
+    }
+
+    @Override
+    public int compareTo(Invitado3 invitado)
+    {
+        int comparable = edad.compareTo(invitado.getEdad());
+        if(comparable != 0) return comparable;
+
+        comparable = nombre.compareTo(invitado.getNombre());
+        if(comparable != 0) return comparable;
+
+        return hora.compareTo(invitado.getHora());
     }
 
     @Override
