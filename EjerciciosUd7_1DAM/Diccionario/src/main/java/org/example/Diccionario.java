@@ -1,4 +1,6 @@
 package org.example;
+
+
 import java.util.*;
 
 public class Diccionario
@@ -18,20 +20,26 @@ public class Diccionario
 
     public String traduce(String palabra)
     {
-        if(!diccionario.containsKey(palabra)) throw new KeyNotExistException();
+        if(diccionario.isEmpty()) throw new EmptyDiccionaryException();
+        else if(!diccionario.containsKey(palabra)) throw new KeyNotExistException();
         else return diccionario.get(palabra);
     }
 
     public String palabraAleatoria()
     {
-        Random random = new Random();
-        LinkedList<String> palabrasEspannol = new LinkedList<>(diccionario.keySet());
-        return palabrasEspannol.get(random.nextInt(diccionario.size()));
+        if(diccionario.isEmpty()) throw new EmptyDiccionaryException();
+        else
+        {
+            Random random = new Random();
+            List<String> palabrasEspannol = new LinkedList<>(diccionario.keySet());
+            return palabrasEspannol.get(random.nextInt(diccionario.size()));
+        }
     }
 
     public char primeraLetraTraduccion(String palabraEspannol)
     {
-        if(!diccionario.containsKey(palabraEspannol)) throw new KeyNotExistException();
+        if(diccionario.isEmpty()) throw new EmptyDiccionaryException();
+        else if(!diccionario.containsKey(palabraEspannol)) throw new KeyNotExistException();
         else return diccionario.get(palabraEspannol).charAt(0);
     }
 }
