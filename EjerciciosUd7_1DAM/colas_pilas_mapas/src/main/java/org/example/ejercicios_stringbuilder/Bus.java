@@ -35,7 +35,7 @@ public class Bus
             Thread.sleep(10);
 
         }
-        System.out.println("\033[32m" + "¡¡HA GANADO IES "+ (mutxamel >= TAM ? "MUTXAMEL" : mareNostrum >= TAM ? "MARE NOSTRUM" : "BALMIS") +"!!" + "\033[0m");
+        System.out.println("\033[32m" + "¡¡HA GANADO IES "+ (mutxamel == TAM ? "MUTXAMEL" : mareNostrum == TAM ? "MARE NOSTRUM" : "BALMIS") +"!!" + "\033[0m");
     }
 
     public static String dibujarBusMutxamel(int avanceMutxamel, int avanceMareNostrum, int avanceBalmis)
