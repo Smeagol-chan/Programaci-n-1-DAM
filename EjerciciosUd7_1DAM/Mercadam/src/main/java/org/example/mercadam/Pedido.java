@@ -19,7 +19,10 @@ public class Pedido
 
     public void actualizarPedido(Producto producto)
     {
+        if(pedido.containsKey(producto)) pedido.put(producto, pedido.get(producto)+1);
+        else pedido.put(producto, 1);
 
+        actualizarImporteTotal(producto.getPrecio());
     }
 
     public void aplicarPromo3x2()
@@ -30,11 +33,9 @@ public class Pedido
             if(producto.getValue() >= 3)
             {
                 cantidadReducir = producto.getValue()/3;
-                for(int i = 0; i < cantidadReducir; i++)
-                {
-                    producto.setValue(producto.getValue()-1);
-                    actualizarImporteTotal(-1*producto.getKey().getPrecio());
-                }
+
+                producto.setValue(producto.getValue()-cantidadReducir);
+                actualizarImporteTotal(-cantidadReducir*producto.getKey().getPrecio());
             }
         }
     }
@@ -55,11 +56,11 @@ public class Pedido
     @Override
     public String toString()
     {
-        String carrito = "";
+        StringBuilder carrito = new StringBuilder();
         for(Map.Entry<Producto, Integer> producto : pedido.entrySet())
-            carrito += producto.getKey() +", Unidades: "+ producto.getValue();
+            carrito.append(producto.getKey() +", Unidades: "+ producto.getValue());
 
-        return "Carrito: ["+ carrito +
-                "], Importe total: "+ importeTotal;
+        return "Carrito: "+ carrito +
+                "\nImporte total: "+ importeTotal;
     }
 }
