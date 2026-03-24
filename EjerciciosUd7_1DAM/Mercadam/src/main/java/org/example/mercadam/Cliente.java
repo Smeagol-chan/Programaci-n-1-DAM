@@ -1,4 +1,6 @@
 package org.example.mercadam;
+import java.util.HashSet;
+import java.util.Objects;
 
 public class Cliente
 {
@@ -27,6 +29,25 @@ public class Cliente
     public void crearPedido()
     {
         pedido = new Pedido();
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if(this == obj) return true;
+        if(obj == null || getClass() != obj.getClass()) return false;
+        Cliente cliente = (Cliente) obj;
+        return Objects.equals(usuario, cliente.usuario) && Objects.equals(contrasenya, cliente.contrasenya);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(usuario, contrasenya);
     }
 
     @Override
