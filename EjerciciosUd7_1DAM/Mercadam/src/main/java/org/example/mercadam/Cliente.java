@@ -1,5 +1,4 @@
 package org.example.mercadam;
-import java.util.HashSet;
 import java.util.Objects;
 
 public class Cliente
@@ -18,12 +17,17 @@ public class Cliente
         this.contrasenya = contrasenya;
         pedido = null;
         direccion = DEFAULT_DIRECCION;
-        promociones = false;
+        setPromociones(false);
     }
 
-    public void insertarProducto(Producto producto)
+    public void anyadirAlCarrito(Producto producto)
     {
-        pedido.actualizarPedido(producto);
+        pedido.agregarProducto(producto);
+    }
+
+    public void quitarDelCarrito(Producto producto)
+    {
+        pedido.eliminarProducto(producto);
     }
 
     public void crearPedido()
@@ -31,8 +35,37 @@ public class Cliente
         pedido = new Pedido();
     }
 
+    public void aplicarPromociones()
+    {
+        if(!promociones)
+        {
+            pedido.aplicarPromo3x2();
+            pedido.aplicarPromo10();
+            setPromociones(true);
+            System.out.println(" ======================================");
+            System.out.println(" PROMO 3x2 y 10% DESC. APLICADAS");
+            System.out.println(" ======================================");
+        }
+    }
+
     public String getUsuario() {
         return usuario;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public boolean getPromociones() {
+        return promociones;
+    }
+
+    private void setPromociones(boolean promociones) {
+        this.promociones = promociones;
     }
 
     @Override
@@ -56,8 +89,8 @@ public class Cliente
         return "\nUsuario: "+ usuario +
                 "\nContraseña: "+ contrasenya +
                 "\nDirección: "+ direccion +
-                (pedido == null ? "" : pedido) +
-                "\nPromociones: "+ (promociones ? "Disponibles" : "Canjeados") +
+                (pedido == null ? "" : "\n"+ pedido) +
+                "\nPromociones: "+ (promociones ? "Canjeadas" : "Disponibles") +
                 "\n";
     }
 }

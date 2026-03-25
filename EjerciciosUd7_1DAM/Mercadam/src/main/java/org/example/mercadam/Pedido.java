@@ -17,12 +17,29 @@ public class Pedido
         importeTotal += importe;
     }
 
-    public void actualizarPedido(Producto producto)
+    public void agregarProducto(Producto producto)
     {
         if(pedido.containsKey(producto)) pedido.put(producto, pedido.get(producto)+1);
         else pedido.put(producto, 1);
 
         actualizarImporteTotal(producto.getPrecio());
+    }
+
+    public void eliminarProducto(Producto producto)
+    {
+        if(!pedido.containsKey(producto)) throw new ProductoNoEnCarritoException();
+
+        pedido.put(producto, pedido.get(producto)-1);
+        actualizarImporteTotal(-producto.getPrecio());
+
+        if(pedido.get(producto) == 0)
+        {
+            Iterator<Map.Entry<Producto, Integer>> iterator = pedido.entrySet().iterator();
+            while(iterator.hasNext())
+            {
+                if(iterator.next().getValue() == 0) iterator.remove();
+            }
+        }
     }
 
     public void aplicarPromo3x2()
@@ -33,8 +50,6 @@ public class Pedido
             if(producto.getValue() >= 3)
             {
                 cantidadReducir = producto.getValue()/3;
-
-                producto.setValue(producto.getValue()-cantidadReducir);
                 actualizarImporteTotal(-cantidadReducir*producto.getKey().getPrecio());
             }
         }
