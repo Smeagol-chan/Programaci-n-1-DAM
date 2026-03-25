@@ -13,12 +13,12 @@ public class CapturaDrMuerte
         {
             int numArmas = key.nextInt();
             Arma armaQueUsar;
-            ArrayList<Arma> listaArmas = new ArrayList<>();
+            LinkedList<Arma> listaArmas = new LinkedList<>();
             Queue<Integer> ordenUso = new LinkedList<>();
 
             for(int i = 1; i <= numArmas; i++)
             {
-                listaArmas.addLast(new Arma(i, key.nextInt(), key.nextInt()));
+                listaArmas.add(new Arma(i, key.nextInt(), key.nextInt()));
             }
 
             while(!listaArmas.isEmpty())
