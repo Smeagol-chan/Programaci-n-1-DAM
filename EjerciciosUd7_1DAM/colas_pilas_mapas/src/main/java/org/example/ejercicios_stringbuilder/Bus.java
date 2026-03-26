@@ -14,6 +14,7 @@ public class Bus
         System.out.println("\n<<<<<<<<<< CARRERA DE AUTOBUSES >>>>>>>>>>");
         Thread.sleep(3000);
 
+
         while (mutxamel < TAM && mareNostrum < TAM && balmis < TAM)
         {
             limpiarPantalla();
