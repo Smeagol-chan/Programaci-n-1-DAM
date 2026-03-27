@@ -24,13 +24,4 @@ public class Producto
     public String getCategoria() {
         return categoria;
     }
-
-    @Override
-    public String toString() {
-        return "Producto{" +
-                "nombre='" + nombre + '\'' +
-                ", precio=" + precio +
-                ", categoria='" + categoria + '\'' +
-                '}';
-    }
 }
