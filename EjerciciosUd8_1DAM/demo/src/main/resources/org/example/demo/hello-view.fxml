@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo.HelloController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <Label fx:id="welcomeText" />
+    <Label fx:id="contadorLabel" text="Clicks: " />
+    <Button onAction="#onHelloButtonClick" text="Hello!" />
+   <Button fx:id="pruebaIdButton" mnemonicParsing="false" text="Pulsa" />
+   <Button fx:id="clickerButton" mnemonicParsing="false" text="Clicker" />
+   <Button mnemonicParsing="false" onAction="#siguienteClickButton" text="Siguiente" />
+</VBox>
