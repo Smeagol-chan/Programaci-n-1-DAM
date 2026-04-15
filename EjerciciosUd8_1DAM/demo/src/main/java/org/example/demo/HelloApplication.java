@@ -18,7 +18,7 @@ public class HelloApplication extends Application
         return fxmlLoader.load();
     }
 
-    private void setRoot(String fxml) throws IOException
+    public static void setRoot(String fxml) throws IOException
     {
         scene.setRoot(loadFXML(fxml));
     }
@@ -26,9 +26,11 @@ public class HelloApplication extends Application
     @Override
     public void start(Stage stage) throws IOException
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        scene = new Scene(loadFXML(fxmlLoader.load()), 320, 240);
-        stage.setTitle("Hello!");
+        final String VENTANA_INICIAL = "hello-view";
+        final String NOMBRE_VENTANA = "Hello!";
+
+        scene = new Scene(loadFXML(VENTANA_INICIAL), 320, 500);
+        stage.setTitle(NOMBRE_VENTANA);
         stage.setScene(scene);
         stage.show();
     }

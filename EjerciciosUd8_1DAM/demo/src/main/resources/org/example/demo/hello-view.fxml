@@ -11,9 +11,10 @@
     </padding>
 
     <Label fx:id="welcomeText" />
-    <Label fx:id="contadorLabel" text="Clicks: " />
+    <Label fx:id="contadorLabel" text="Clicks: 0" />
     <Button onAction="#onHelloButtonClick" text="Hello!" />
    <Button fx:id="pruebaIdButton" mnemonicParsing="false" text="Pulsa" />
    <Button fx:id="clickerButton" mnemonicParsing="false" text="Clicker" />
+    <Button onAction="#reiniciarContadorClickButton" text="Reset" />
    <Button mnemonicParsing="false" onAction="#siguienteClickButton" text="Siguiente" />
 </VBox>

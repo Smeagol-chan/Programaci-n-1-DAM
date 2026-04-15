@@ -5,8 +5,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+import java.io.IOException;
+
 public class HelloController
 {
+    Contador contador = new Contador();
+
     @FXML
     private Label welcomeText;
 
@@ -28,15 +32,27 @@ public class HelloController
     @FXML
     public void initialize()
     {
-        Contador contador = new Contador();
         pruebaIdButton.setOnAction(action -> welcomeText.setText("Esto es una pueba."));
         clickerButton.setOnAction(action -> {
             contador.contar();
-            contadorLabel.setText("Clicks: "+ (contador.getNumero()));
+            actualizarContador();
         });
     }
 
-    public void siguienteClickButton()
+    @FXML
+    public void reiniciarContadorClickButton()
     {
+        contador.setNumero(0);
+        actualizarContador();
+    }
+
+    public void siguienteClickButton() throws IOException
+    {
+        HelloApplication.setRoot("pantalla-nueva");
+    }
+
+    private void actualizarContador()
+    {
+        contadorLabel.setText("Clicks: "+ (contador.getNumero()));
     }
 }
