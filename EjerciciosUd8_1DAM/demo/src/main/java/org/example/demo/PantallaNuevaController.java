@@ -13,10 +13,8 @@ import java.io.IOException;
 
 public class PantallaNuevaController
 {
-    private static ObservableList<Object> listaPersonal = FXCollections.observableArrayList();
-
     @FXML
-    private TableView<Object> personasTableView;
+    private TableView<Persona> personasTableView;
 
     @FXML
     private TableColumn<Persona, String> nombreTableColumn;
@@ -35,7 +33,7 @@ public class PantallaNuevaController
     {
         nombreTableColumn.setCellValueFactory(datos -> new SimpleStringProperty(datos.getValue().getNombre()));
         edadTableColumn.setCellValueFactory(datos -> new SimpleIntegerProperty(datos.getValue().getEdad()).asObject());
-        personasTableView.setItems(listaPersonal);
+        personasTableView.setItems(DatosPersonas.getListaPersonas());
     }
 
     public void volverClickButton() throws IOException
@@ -45,21 +43,7 @@ public class PantallaNuevaController
 
     public void onGuardarDatos()
     {
-        String nombre = nombreTextField.getText();
-        Integer edad;
-        Persona persona;
-
-        try
-        {
-            edad = Integer.parseInt(edadTextField.getText());
-        }
-        catch(NumberFormatException e)
-        {
-            return;
-        }
-
-        persona = new Persona(nombre, edad);
-        listaPersonal.add(persona);
+        DatosPersonas.insertarPersona(new Persona(nombreTextField.getText(), Integer.parseInt(edadTextField.getText())));
         limpiarCampos();
     }
 
