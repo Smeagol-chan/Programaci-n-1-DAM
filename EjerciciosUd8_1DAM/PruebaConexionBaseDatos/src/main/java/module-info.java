@@ -10,6 +10,7 @@ module org.example.pruebaconexionbasedatos {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.sql;
 
     opens org.example.pruebaconexionbasedatos to javafx.fxml;
     exports org.example.pruebaconexionbasedatos;
