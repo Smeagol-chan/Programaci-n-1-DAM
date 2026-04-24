@@ -44,6 +44,12 @@ public class EstudiantesController
     private Button guardarButton;
 
     @FXML
+    private Button cancelarButton;
+
+    @FXML
+    private Button eliminarButton;
+
+    @FXML
     private void initialize()
     {
         connection = Datos.conexion();
@@ -73,7 +79,8 @@ public class EstudiantesController
         else
         {
             notificacionLabel.setText("Estudiante insertado");
-            tablaTableView.setItems(Datos.insertar(connection, new Estudiante(nia, nombre, fechaNacimiento)));
+            Datos.insertar(connection, new Estudiante(nia, nombre, fechaNacimiento));
+            tablaTableView.setItems(Datos.consulta(connection));
             limpiarCampos();
         }
     }
@@ -86,6 +93,10 @@ public class EstudiantesController
         {
             insertarButton.setDisable(true);
             guardarButton.setDisable(false);
+            niaTextField.setDisable(true);
+            cancelarButton.setDisable(false);
+            eliminarButton.setDisable(true);
+
             niaTextField.setText(estudiante.getNia());
             nombreTextField.setText(estudiante.getNombre());
             fechaNacimientoDatePicker.setValue(estudiante.getFechaNacimiento());
@@ -99,7 +110,8 @@ public class EstudiantesController
 
         if(estudiante != null)
         {
-            tablaTableView.setItems(Datos.eliminar(connection, estudiante.getNia()));
+            Datos.eliminar(connection, estudiante.getNia());
+            tablaTableView.setItems(Datos.consulta(connection));
             notificacionLabel.setText("Estudiante eliminado");
         }
         else notificacionLabel.setText("No hay estudiante seleccionado");
@@ -111,22 +123,23 @@ public class EstudiantesController
         String nombre = nombreTextField.getText();
         LocalDate fechaNacimiento = fechaNacimientoDatePicker.getValue();
 
-        if(nia == null || nombre == null || fechaNacimiento == null)
+        if(nombre.equals(null) || fechaNacimiento == null)
         {
             notificacionLabel.setText("Rellene todos los campos");
         }
-        else if(!nia.matches("^[0-9]{8}$"))
-        {
-            notificacionLabel.setText("NIA inválido: Ha de ser una cadena de 8 dígitos (12345678)");
-            niaTextField.clear();
-        }
         else
         {
-            tablaTableView.setItems(Datos.modificar(connection, new Estudiante(nia, nombre, fechaNacimiento)));
+            Datos.modificar(connection, new Estudiante(nia, nombre, fechaNacimiento));
             notificacionLabel.setText("Estudiante modificado");
+
             guardarButton.setDisable(true);
+            cancelarButton.setDisable(true);
             insertarButton.setDisable(false);
+            niaTextField.setDisable(false);
+            eliminarButton.setDisable(false);
             limpiarCampos();
+
+            tablaTableView.setItems(Datos.consulta(connection));
         }
     }
 
@@ -134,6 +147,16 @@ public class EstudiantesController
     {
         niaTextField.clear();
         nombreTextField.clear();
-        fechaNacimientoDatePicker.getEditor().clear();
+        fechaNacimientoDatePicker.setValue(null);
+    }
+
+    public void onCancelarButtonClick()
+    {
+        guardarButton.setDisable(true);
+        cancelarButton.setDisable(true);
+        insertarButton.setDisable(false);
+        niaTextField.setDisable(false);
+        eliminarButton.setDisable(false);
+        limpiarCampos();
     }
 }

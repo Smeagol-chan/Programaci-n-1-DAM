@@ -7,8 +7,6 @@ import java.time.LocalDate;
 
 public class Datos
 {
-    private static ObservableList<Estudiante> listadoEstudiantes = FXCollections.observableArrayList();
-
     public static Connection conexion()
     {
         Connection conexion;
@@ -32,6 +30,8 @@ public class Datos
 
     public static ObservableList<Estudiante> consulta(Connection conexion)
     {
+        ObservableList<Estudiante> listadoEstudiantes = FXCollections.observableArrayList();
+
         String query = "SELECT * FROM estudiante;";
 
         Statement stmt;
@@ -59,7 +59,7 @@ public class Datos
         return listadoEstudiantes;
     }
 
-    public static ObservableList<Estudiante> insertar(Connection connection, Estudiante estudiante)
+    public static void insertar(Connection connection, Estudiante estudiante)
     {
         String query = "INSERT INTO estudiante VALUES ('"+ estudiante.getNia() +"', '"
                 + estudiante.getNombre() +"', '"+ estudiante.getFechaNacimiento() +"');";
@@ -75,10 +75,9 @@ public class Datos
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
         }
-        return listadoEstudiantes;
     }
 
-    public static ObservableList<Estudiante> eliminar(Connection connection, String nia)
+    public static void eliminar(Connection connection, String nia)
     {
         String query = "DELETE FROM estudiante WHERE NIA='"+ nia +"';";
         Statement stmt;
@@ -93,10 +92,9 @@ public class Datos
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
         }
-        return listadoEstudiantes;
     }
 
-    public static ObservableList<Estudiante> modificar(Connection connection, Estudiante estudiante)
+    public static void modificar(Connection connection, Estudiante estudiante)
     {
         String query = "UPDATE estudiante " +
                 "SET Nombre = '"+ estudiante.getNombre() +"', "+
@@ -114,6 +112,5 @@ public class Datos
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
         }
-        return listadoEstudiantes;
     }
 }
