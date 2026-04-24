@@ -76,6 +76,11 @@ public class EstudiantesController
             notificacionLabel.setText("NIA inválido: Ha de ser una cadena de 8 dígitos (12345678)");
             niaTextField.clear();
         }
+        else if(Datos.repetido(new Estudiante(nia, nombre, fechaNacimiento)))
+        {
+            notificacionLabel.setText("El estudiante ya está insertado. El NIA no se puede repetir.");
+            limpiarCampos();
+        }
         else
         {
             notificacionLabel.setText("Estudiante insertado");

@@ -7,6 +7,8 @@ import java.time.LocalDate;
 
 public class Datos
 {
+    private static ObservableList<Estudiante> listadoEstudiantes;
+
     public static Connection conexion()
     {
         Connection conexion;
@@ -28,9 +30,14 @@ public class Datos
         return conexion;
     }
 
+    public static boolean repetido(Estudiante estudiante)
+    {
+        return listadoEstudiantes.contains(estudiante);
+    }
+
     public static ObservableList<Estudiante> consulta(Connection conexion)
     {
-        ObservableList<Estudiante> listadoEstudiantes = FXCollections.observableArrayList();
+        listadoEstudiantes = FXCollections.observableArrayList();
 
         String query = "SELECT * FROM estudiante;";
 
