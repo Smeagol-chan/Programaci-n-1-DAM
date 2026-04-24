@@ -32,7 +32,7 @@ public class Datos
 
     public static ObservableList<Estudiante> consulta(Connection conexion)
     {
-        String query = "SELECT * FROM estudiante";
+        String query = "SELECT * FROM estudiante;";
 
         Statement stmt;
         ResultSet respuesta;
@@ -62,7 +62,7 @@ public class Datos
     public static ObservableList<Estudiante> insertar(Connection connection, Estudiante estudiante)
     {
         String query = "INSERT INTO estudiante VALUES ('"+ estudiante.getNia() +"', '"
-                + estudiante.getNombre() +"', '"+ estudiante.getFechaNacimiento() +"'";
+                + estudiante.getNombre() +"', '"+ estudiante.getFechaNacimiento() +"');";
         Statement stmt;
 
         try
@@ -80,7 +80,28 @@ public class Datos
 
     public static ObservableList<Estudiante> eliminar(Connection connection, String nia)
     {
-        String query = "DELETE FROM estudiante WHERE NIA='"+ nia +"'";
+        String query = "DELETE FROM estudiante WHERE NIA='"+ nia +"';";
+        Statement stmt;
+
+        try
+        {
+            stmt = connection.createStatement();
+            stmt.executeUpdate(query);
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+        return listadoEstudiantes;
+    }
+
+    public static ObservableList<Estudiante> modificar(Connection connection, Estudiante estudiante)
+    {
+        String query = "UPDATE estudiante " +
+                "SET Nombre = '"+ estudiante.getNombre() +"', "+
+                "FechaNacimiento = '"+ estudiante.getFechaNacimiento() +"'"+
+                " WHERE NIA='"+ estudiante.getNia() +"';";
         Statement stmt;
 
         try

@@ -8,7 +8,7 @@ CREATE TABLE estudiante (
 NIA CHAR(8) PRIMARY KEY
 , Nombre VARCHAR(30) NOT NULL
 , FechaNacimiento DATE NOT NULL
-, CONSTRAINT CK_NIA CHECK (NIA REGEXP '^[0-9]$')
+, CONSTRAINT CK_NIA CHECK (NIA REGEXP '^[0-9]{8}$')
 );
 
 INSERT INTO estudiante (NIA, Nombre, FechaNacimiento)
