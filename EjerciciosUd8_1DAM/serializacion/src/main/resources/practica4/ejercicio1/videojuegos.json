@@ -1,0 +1,86 @@
+[
+  {
+    "nombre": "Balatro",
+    "plataforma": "PC",
+    "precio": 14.99,
+    "disponible": true,
+    "listaGeneros": [
+      "Rogue-like",
+      "Construcción de mazos"
+    ]
+  },
+  {
+    "nombre": "Children of the sun",
+    "plataforma": "PC",
+    "precio": 14.79,
+    "disponible": true,
+    "listaGeneros": [
+      "Puzzle",
+      "Disparos"
+    ]
+  },
+  {
+    "nombre": "Outer Wilds",
+    "plataforma": "PC",
+    "precio": 22.99,
+    "disponible": true,
+    "listaGeneros": [
+      "Aventura",
+      "Puzzle"
+    ]
+  },
+  {
+    "nombre": "Splatoon 3",
+    "plataforma": "SWITCH",
+    "precio": 59.99,
+    "disponible": true,
+    "listaGeneros": [
+      "Multijugador competitivo",
+      "Shooter"
+    ]
+  },
+  {
+    "nombre": "Pokémon Leyendas Arceus",
+    "plataforma": "SWITCH",
+    "precio": 59.99,
+    "disponible": true,
+    "listaGeneros": [
+      "RPG",
+      "Aventura",
+      "Combate por turnos"
+    ]
+  },
+  {
+    "nombre": "Super Mario Odyssey",
+    "plataforma": "SWITCH",
+    "precio": 59.99,
+    "disponible": true,
+    "listaGeneros": [
+      "Aventura",
+      "Plataforma"
+    ]
+  },
+  {
+    "nombre": "Bloodborne",
+    "plataforma": "PS4",
+    "precio": 19.99,
+    "disponible": true,
+    "listaGeneros": [
+      "RPG",
+      "Acción"
+    ]
+  },
+  {
+    "nombre": "The Last of Us Remastered",
+    "plataforma": "PS4",
+    "precio": 19.99,
+    "disponible": true,
+    "listaGeneros": [
+      "Disparos",
+      "Acción-Aventura"
+    ]
+  },
+  {
+    "nombre": "God of War",
+    "plataforma": "PS4",
+    "precio"
