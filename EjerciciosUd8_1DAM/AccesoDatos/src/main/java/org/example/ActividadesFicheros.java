@@ -249,27 +249,70 @@ public class ActividadesFicheros
     {
         try
         {
-            boolean archivo1_tieneContenido, archivo2_tieneContenido;
-            String directorio = "src/main/resources/act10/", lineaArchivo1, lineaArchivo2;
-            File archivoCombinado = new File(directorio +"archivoCombinado.txt");
+            String path = "src/main/resources/act10/";
+            BufferedReader archivo1 = new BufferedReader(new FileReader(path +"archivo1.txt"));
+            BufferedReader archivo2 = new BufferedReader(new FileReader(path +"archivo2.txt"));
+            BufferedWriter archivo_combinado = new BufferedWriter(new FileWriter(path +"archivo_combinado.txt"));
 
-            if(!archivoCombinado.createNewFile()) throw new IOException("El archivo ya existe.");
+            String lineaA1, lineaA2;
 
-            BufferedReader archivo1 = new BufferedReader(new FileReader(directorio +"archivo1.txt"));
-            BufferedReader archivo2 = new BufferedReader(new FileReader(directorio +"archivo2.txt"));
-            PrintWriter writer = new PrintWriter(new FileWriter(archivoCombinado));
-
-            do
+            while((lineaA1 = archivo1.readLine()) != null && (lineaA2 = archivo2.readLine()) != null)
             {
-                lineaArchivo1 = archivo1.readLine();
-                lineaArchivo2 = archivo2.readLine();
+                String[] palabrasA1 = lineaA1.split(" ");
+                String[] palabrasA2 = lineaA2.split(" ");
+                int arrayMayor, vueltasBucle;
 
-                archivo1_tieneContenido = lineaArchivo1 != null;
-                archivo2_tieneContenido = lineaArchivo2 != null;
+                if(palabrasA1.length > palabrasA2.length)
+                {
+                    arrayMayor = 1;
+                    vueltasBucle = palabrasA2.length;
+                }
+                else if(palabrasA1.length < palabrasA2.length)
+                {
+                    arrayMayor = 2;
+                    vueltasBucle = palabrasA1.length;
+                }
+                else
+                {
+                    arrayMayor = 0;
+                    vueltasBucle = palabrasA2.length;
+                }
 
-                if(archivo1_tieneContenido && archivo2_tieneContenido)
+                for(int i = 0; i < vueltasBucle; i++)
+                    archivo_combinado.write(palabrasA1[i] +" "+ palabrasA2[i] +" ");
 
-            } while(archivo1_tieneContenido || archivo2_tieneContenido);
+                switch(arrayMayor)
+                {
+                    case 1:
+                        for(int i = vueltasBucle; i < palabrasA1.length; i++)
+                            archivo_combinado.write(" "+ palabrasA1[i]);
+                        break;
+
+                    case 2:
+                        for(int i = vueltasBucle; i < palabrasA2.length; i++)
+                            archivo_combinado.write(" "+ palabrasA2[i]);
+                        break;
+                }
+                archivo_combinado.newLine();
+                archivo_combinado.flush();
+            }
+
+            while((lineaA1 = archivo1.readLine()) != null)
+            {
+                archivo_combinado.write(lineaA1);
+                archivo_combinado.newLine();
+                archivo_combinado.flush();
+            }
+            while((lineaA2 = archivo1.readLine()) != null)
+            {
+                archivo_combinado.write(lineaA2);
+                archivo_combinado.newLine();
+                archivo_combinado.flush();
+            }
+
+            archivo1.close();
+            archivo2.close();
+            archivo_combinado.close();
         }
         catch(IOException e)
         {
