@@ -324,33 +324,33 @@ public class ActividadesFicheros
 
     static void main()
     {
-//        System.out.println("Actividad 1");
-//        actividad1();
-//
-//        System.out.println("\nActividad 2");
-//        actividad2();
-//
-//        System.out.println("\nActividad 3");
-//        actividad3();
-//
-//        System.out.println("\nActividad 4");
-//        actividad4();
-//
-//        System.out.println("\nActividad 5");
-//        actividad5();
-//
-//        System.out.println("\nActividad 6");
-//        System.out.print("Introduzca una palabra a buscar: ");
-//        actividad6(key.nextLine());
-//
-//        System.out.println("\nActividad 7");
-//        actividad7();
-//
-//        System.out.println("\nActividad 8");
-//        actividad8();
-//
-//        System.out.println("\nActividad 9");
-//        actividad9();
+        System.out.println("Actividad 1");
+        actividad1();
+
+        System.out.println("\nActividad 2");
+        actividad2();
+
+        System.out.println("\nActividad 3");
+        actividad3();
+
+        System.out.println("\nActividad 4");
+        actividad4();
+
+        System.out.println("\nActividad 5");
+        actividad5();
+
+        System.out.println("\nActividad 6");
+        System.out.print("Introduzca una palabra a buscar: ");
+        actividad6(key.nextLine());
+
+        System.out.println("\nActividad 7");
+        actividad7();
+
+        System.out.println("\nActividad 8");
+        actividad8();
+
+        System.out.println("\nActividad 9");
+        actividad9();
 
         System.out.println("\nActividad 10");
         actividad10();
